@@ -1,0 +1,11 @@
+enum Role {
+  USER
+  HOST
+  ADMIN
+}
+
+enum PaymentStatus{
+    PAID 
+    UNPAID 
+}
+

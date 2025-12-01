@@ -1,0 +1,20 @@
+model User {
+  id          String   @id @default(uuid())
+  name        String
+  email       String   @unique
+  password    String
+  bio         String?
+  image       String?
+  interests   String[]
+  hobbies   String[]
+  location    String?
+  role        Role     @default(USER)
+
+  payments         Payment[]
+  eventsJoined     EventParticipant[]
+  eventsHosted     Event[]           @relation("hostedEvents")
+  reviewsGiven     Review[]          @relation("reviewsByUser")
+  reviewsReceived  Review[]          @relation("reviewsForHost")
+
+  createdAt   DateTime @default(now())
+}

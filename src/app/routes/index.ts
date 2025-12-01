@@ -22,6 +22,7 @@ moduleRoutes.forEach((route)=>{
     router.use(route.path, route.route)
 })
 
+export default router;
 // router.use("/user", userRoute)
 // router.use("/tour", tourRoute)
 // router.use("/division", divisionRoute)

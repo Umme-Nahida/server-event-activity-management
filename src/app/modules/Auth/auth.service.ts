@@ -5,6 +5,6 @@ const createUsre = async({ payload }: { payload: any })=>{
     
 }
 
-export const userServices = {
+export const authServices = {
     createUsre
 }

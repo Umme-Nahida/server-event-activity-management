@@ -3,9 +3,10 @@
     "rootDir": ".",
     "outDir": "./dist",
 
-    "module": "commonjs",
+    "module": "esnext",
+    "moduleResolution": "node",
     // "moduleResolution": "bundler",
-    "target": "es2016",
+    "target": "es2020",
 
     "types": ["node"],
 

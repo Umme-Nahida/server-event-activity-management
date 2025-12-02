@@ -1,27 +1,81 @@
 import { NextFunction, Request, Response } from "express"
-import httpStatus from "http-status-codes"
+import httpStatus from "http-status"
 import { catchAsync } from "../../utils/catchAsync"
 import { sendResponse } from "../../utils/sendResponse"
-import { userServices } from "./user.service"
-
-const createUser = catchAsync(async(req:Request,res:Response, next:NextFunction)=>{
-    console.log(req.body)
-     const result = await userServices.createUsre(req.body)
-        
-        // res.status(httpStatus.CREATED).json({
-        //     message: "user created successfully",
-        //     result
-        // })
-
-        sendResponse(res,{
-            success: true,
-            statusCode: httpStatus.CREATED,
-            message: "user created successfully",
-            data: result
-        })
-})
+import { UserService } from "./user.service";
 
 
-export const userController = {
-    createUser
+    interface IPayloadUser {
+      user?: {
+        id: string;
+        role: string;
+        email: string;
+      };
+    }
+
+const getMyProfile =  catchAsync(async (req: Request & IPayloadUser, res: Response, next:NextFunction) => {
+    console.log("req:", req.user)
+    const userId = req.user!.id;
+    const role = req.user!.role;
+
+    const data = await UserService.getMyProfile(userId, role);
+
+    sendResponse(res, {
+      statusCode: 200,
+      success: true,
+      message: "Profile fetched successfully",
+      data: data
+    });
+  })
+
+const updateMyProfile =  catchAsync(async (req: Request & IPayloadUser, res: Response, next:NextFunction) => {
+    
+    const userId = req.user!.id;
+    const updateInfo = req.body;
+
+    const data = await UserService.updateMyProfile(userId, updateInfo);
+
+    sendResponse(res, {
+      statusCode: 200,
+      success: true,
+      message: "Profile fetched successfully",
+      data: data
+    });
+  })
+
+const deleteMyAccount =  catchAsync(async (req: Request & IPayloadUser, res: Response, next:NextFunction) => {
+    
+    const userId = req.user!.id;
+
+    const data = await UserService.deleteMyAccount(userId);
+
+    sendResponse(res, {
+      statusCode: 200,
+      success: true,
+      message: "Profile have been deleted successfully",
+      data: data
+    });
+  })
+
+
+const getAllUsers =  catchAsync(async (req: Request & IPayloadUser, res: Response, next:NextFunction) => {
+    
+    // const userId = req.user!.id;
+
+    const data = await UserService.getAllUsers();
+
+    sendResponse(res, {
+      statusCode: 200,
+      success: true,
+      message: "All users retrieved successfully",
+      data: data
+    });
+  })
+
+
+export const UserController = {
+   getMyProfile,
+   updateMyProfile,
+   deleteMyAccount,
+   getAllUsers
 }

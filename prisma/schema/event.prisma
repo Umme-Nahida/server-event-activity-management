@@ -7,9 +7,11 @@ model Event {
   location        String
   image           String?
   date            DateTime
+  time            String?
+  minParticipants Int
   maxParticipants Int
   fee             Float    @default(0)
-  status          String   @default("OPEN") 
+  status          EventStatus  @default(OPEN) 
   createdAt       DateTime @default(now())
 
   host     User   @relation("hostedEvents", fields: [hostId], references: [id])
@@ -19,7 +21,6 @@ model Event {
   participants  EventParticipant[]
   reviews       Review[]
 }
-
 
 
 

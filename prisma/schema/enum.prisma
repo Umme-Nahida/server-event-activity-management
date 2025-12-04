@@ -4,8 +4,23 @@ enum Role {
   ADMIN
 }
 
-enum PaymentStatus{
-    PAID 
-    UNPAID 
+enum PaymentStatus {
+  PAID 
+  UNPAID
 }
+
+enum EventStatus {
+  OPEN
+  FULL
+  Cancelled
+  COMPLETED
+}
+
+enum ReviewStatus {
+    PENDING 
+    APPROVED 
+    REJECTED  
+}
+
+
 

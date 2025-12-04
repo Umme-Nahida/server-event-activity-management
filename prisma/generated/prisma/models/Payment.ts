@@ -38,27 +38,34 @@ export type PaymentMinAggregateOutputType = {
   id: string | null
   amount: number | null
   status: $Enums.PaymentStatus | null
-  createdAt: Date | null
   userId: string | null
   eventId: string | null
+  transactionId: string | null
+  createAt: Date | null
+  updateAt: Date | null
 }
 
 export type PaymentMaxAggregateOutputType = {
   id: string | null
   amount: number | null
   status: $Enums.PaymentStatus | null
-  createdAt: Date | null
   userId: string | null
   eventId: string | null
+  transactionId: string | null
+  createAt: Date | null
+  updateAt: Date | null
 }
 
 export type PaymentCountAggregateOutputType = {
   id: number
   amount: number
   status: number
-  createdAt: number
   userId: number
   eventId: number
+  transactionId: number
+  paymentGatewayData: number
+  createAt: number
+  updateAt: number
   _all: number
 }
 
@@ -75,27 +82,34 @@ export type PaymentMinAggregateInputType = {
   id?: true
   amount?: true
   status?: true
-  createdAt?: true
   userId?: true
   eventId?: true
+  transactionId?: true
+  createAt?: true
+  updateAt?: true
 }
 
 export type PaymentMaxAggregateInputType = {
   id?: true
   amount?: true
   status?: true
-  createdAt?: true
   userId?: true
   eventId?: true
+  transactionId?: true
+  createAt?: true
+  updateAt?: true
 }
 
 export type PaymentCountAggregateInputType = {
   id?: true
   amount?: true
   status?: true
-  createdAt?: true
   userId?: true
   eventId?: true
+  transactionId?: true
+  paymentGatewayData?: true
+  createAt?: true
+  updateAt?: true
   _all?: true
 }
 
@@ -189,9 +203,12 @@ export type PaymentGroupByOutputType = {
   id: string
   amount: number
   status: $Enums.PaymentStatus
-  createdAt: Date
   userId: string
   eventId: string
+  transactionId: string
+  paymentGatewayData: runtime.JsonValue | null
+  createAt: Date
+  updateAt: Date
   _count: PaymentCountAggregateOutputType | null
   _avg: PaymentAvgAggregateOutputType | null
   _sum: PaymentSumAggregateOutputType | null
@@ -221,9 +238,12 @@ export type PaymentWhereInput = {
   id?: Prisma.StringFilter<"Payment"> | string
   amount?: Prisma.FloatFilter<"Payment"> | number
   status?: Prisma.EnumPaymentStatusFilter<"Payment"> | $Enums.PaymentStatus
-  createdAt?: Prisma.DateTimeFilter<"Payment"> | Date | string
   userId?: Prisma.StringFilter<"Payment"> | string
   eventId?: Prisma.StringFilter<"Payment"> | string
+  transactionId?: Prisma.StringFilter<"Payment"> | string
+  paymentGatewayData?: Prisma.JsonNullableFilter<"Payment">
+  createAt?: Prisma.DateTimeFilter<"Payment"> | Date | string
+  updateAt?: Prisma.DateTimeFilter<"Payment"> | Date | string
   user?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
   event?: Prisma.XOR<Prisma.EventScalarRelationFilter, Prisma.EventWhereInput>
 }
@@ -232,35 +252,44 @@ export type PaymentOrderByWithRelationInput = {
   id?: Prisma.SortOrder
   amount?: Prisma.SortOrder
   status?: Prisma.SortOrder
-  createdAt?: Prisma.SortOrder
   userId?: Prisma.SortOrder
   eventId?: Prisma.SortOrder
+  transactionId?: Prisma.SortOrder
+  paymentGatewayData?: Prisma.SortOrderInput | Prisma.SortOrder
+  createAt?: Prisma.SortOrder
+  updateAt?: Prisma.SortOrder
   user?: Prisma.UserOrderByWithRelationInput
   event?: Prisma.EventOrderByWithRelationInput
 }
 
 export type PaymentWhereUniqueInput = Prisma.AtLeast<{
   id?: string
+  transactionId?: string
   userId_eventId?: Prisma.PaymentUserIdEventIdCompoundUniqueInput
   AND?: Prisma.PaymentWhereInput | Prisma.PaymentWhereInput[]
   OR?: Prisma.PaymentWhereInput[]
   NOT?: Prisma.PaymentWhereInput | Prisma.PaymentWhereInput[]
   amount?: Prisma.FloatFilter<"Payment"> | number
   status?: Prisma.EnumPaymentStatusFilter<"Payment"> | $Enums.PaymentStatus
-  createdAt?: Prisma.DateTimeFilter<"Payment"> | Date | string
   userId?: Prisma.StringFilter<"Payment"> | string
   eventId?: Prisma.StringFilter<"Payment"> | string
+  paymentGatewayData?: Prisma.JsonNullableFilter<"Payment">
+  createAt?: Prisma.DateTimeFilter<"Payment"> | Date | string
+  updateAt?: Prisma.DateTimeFilter<"Payment"> | Date | string
   user?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
   event?: Prisma.XOR<Prisma.EventScalarRelationFilter, Prisma.EventWhereInput>
-}, "id" | "userId_eventId">
+}, "id" | "transactionId" | "userId_eventId">
 
 export type PaymentOrderByWithAggregationInput = {
   id?: Prisma.SortOrder
   amount?: Prisma.SortOrder
   status?: Prisma.SortOrder
-  createdAt?: Prisma.SortOrder
   userId?: Prisma.SortOrder
   eventId?: Prisma.SortOrder
+  transactionId?: Prisma.SortOrder
+  paymentGatewayData?: Prisma.SortOrderInput | Prisma.SortOrder
+  createAt?: Prisma.SortOrder
+  updateAt?: Prisma.SortOrder
   _count?: Prisma.PaymentCountOrderByAggregateInput
   _avg?: Prisma.PaymentAvgOrderByAggregateInput
   _max?: Prisma.PaymentMaxOrderByAggregateInput
@@ -275,16 +304,22 @@ export type PaymentScalarWhereWithAggregatesInput = {
   id?: Prisma.StringWithAggregatesFilter<"Payment"> | string
   amount?: Prisma.FloatWithAggregatesFilter<"Payment"> | number
   status?: Prisma.EnumPaymentStatusWithAggregatesFilter<"Payment"> | $Enums.PaymentStatus
-  createdAt?: Prisma.DateTimeWithAggregatesFilter<"Payment"> | Date | string
   userId?: Prisma.StringWithAggregatesFilter<"Payment"> | string
   eventId?: Prisma.StringWithAggregatesFilter<"Payment"> | string
+  transactionId?: Prisma.StringWithAggregatesFilter<"Payment"> | string
+  paymentGatewayData?: Prisma.JsonNullableWithAggregatesFilter<"Payment">
+  createAt?: Prisma.DateTimeWithAggregatesFilter<"Payment"> | Date | string
+  updateAt?: Prisma.DateTimeWithAggregatesFilter<"Payment"> | Date | string
 }
 
 export type PaymentCreateInput = {
   id?: string
   amount: number
   status?: $Enums.PaymentStatus
-  createdAt?: Date | string
+  transactionId: string
+  paymentGatewayData?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  createAt?: Date | string
+  updateAt?: Date | string
   user: Prisma.UserCreateNestedOneWithoutPaymentsInput
   event: Prisma.EventCreateNestedOneWithoutPaymentsInput
 }
@@ -293,16 +328,22 @@ export type PaymentUncheckedCreateInput = {
   id?: string
   amount: number
   status?: $Enums.PaymentStatus
-  createdAt?: Date | string
   userId: string
   eventId: string
+  transactionId: string
+  paymentGatewayData?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  createAt?: Date | string
+  updateAt?: Date | string
 }
 
 export type PaymentUpdateInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   amount?: Prisma.FloatFieldUpdateOperationsInput | number
   status?: Prisma.EnumPaymentStatusFieldUpdateOperationsInput | $Enums.PaymentStatus
-  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  transactionId?: Prisma.StringFieldUpdateOperationsInput | string
+  paymentGatewayData?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  createAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updateAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   user?: Prisma.UserUpdateOneRequiredWithoutPaymentsNestedInput
   event?: Prisma.EventUpdateOneRequiredWithoutPaymentsNestedInput
 }
@@ -311,34 +352,46 @@ export type PaymentUncheckedUpdateInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   amount?: Prisma.FloatFieldUpdateOperationsInput | number
   status?: Prisma.EnumPaymentStatusFieldUpdateOperationsInput | $Enums.PaymentStatus
-  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   userId?: Prisma.StringFieldUpdateOperationsInput | string
   eventId?: Prisma.StringFieldUpdateOperationsInput | string
+  transactionId?: Prisma.StringFieldUpdateOperationsInput | string
+  paymentGatewayData?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  createAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updateAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
 export type PaymentCreateManyInput = {
   id?: string
   amount: number
   status?: $Enums.PaymentStatus
-  createdAt?: Date | string
   userId: string
   eventId: string
+  transactionId: string
+  paymentGatewayData?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  createAt?: Date | string
+  updateAt?: Date | string
 }
 
 export type PaymentUpdateManyMutationInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   amount?: Prisma.FloatFieldUpdateOperationsInput | number
   status?: Prisma.EnumPaymentStatusFieldUpdateOperationsInput | $Enums.PaymentStatus
-  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  transactionId?: Prisma.StringFieldUpdateOperationsInput | string
+  paymentGatewayData?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  createAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updateAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
 export type PaymentUncheckedUpdateManyInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   amount?: Prisma.FloatFieldUpdateOperationsInput | number
   status?: Prisma.EnumPaymentStatusFieldUpdateOperationsInput | $Enums.PaymentStatus
-  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   userId?: Prisma.StringFieldUpdateOperationsInput | string
   eventId?: Prisma.StringFieldUpdateOperationsInput | string
+  transactionId?: Prisma.StringFieldUpdateOperationsInput | string
+  paymentGatewayData?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  createAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updateAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
 export type PaymentListRelationFilter = {
@@ -360,9 +413,12 @@ export type PaymentCountOrderByAggregateInput = {
   id?: Prisma.SortOrder
   amount?: Prisma.SortOrder
   status?: Prisma.SortOrder
-  createdAt?: Prisma.SortOrder
   userId?: Prisma.SortOrder
   eventId?: Prisma.SortOrder
+  transactionId?: Prisma.SortOrder
+  paymentGatewayData?: Prisma.SortOrder
+  createAt?: Prisma.SortOrder
+  updateAt?: Prisma.SortOrder
 }
 
 export type PaymentAvgOrderByAggregateInput = {
@@ -373,18 +429,22 @@ export type PaymentMaxOrderByAggregateInput = {
   id?: Prisma.SortOrder
   amount?: Prisma.SortOrder
   status?: Prisma.SortOrder
-  createdAt?: Prisma.SortOrder
   userId?: Prisma.SortOrder
   eventId?: Prisma.SortOrder
+  transactionId?: Prisma.SortOrder
+  createAt?: Prisma.SortOrder
+  updateAt?: Prisma.SortOrder
 }
 
 export type PaymentMinOrderByAggregateInput = {
   id?: Prisma.SortOrder
   amount?: Prisma.SortOrder
   status?: Prisma.SortOrder
-  createdAt?: Prisma.SortOrder
   userId?: Prisma.SortOrder
   eventId?: Prisma.SortOrder
+  transactionId?: Prisma.SortOrder
+  createAt?: Prisma.SortOrder
+  updateAt?: Prisma.SortOrder
 }
 
 export type PaymentSumOrderByAggregateInput = {
@@ -483,7 +543,10 @@ export type PaymentCreateWithoutEventInput = {
   id?: string
   amount: number
   status?: $Enums.PaymentStatus
-  createdAt?: Date | string
+  transactionId: string
+  paymentGatewayData?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  createAt?: Date | string
+  updateAt?: Date | string
   user: Prisma.UserCreateNestedOneWithoutPaymentsInput
 }
 
@@ -491,8 +554,11 @@ export type PaymentUncheckedCreateWithoutEventInput = {
   id?: string
   amount: number
   status?: $Enums.PaymentStatus
-  createdAt?: Date | string
   userId: string
+  transactionId: string
+  paymentGatewayData?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  createAt?: Date | string
+  updateAt?: Date | string
 }
 
 export type PaymentCreateOrConnectWithoutEventInput = {
@@ -528,16 +594,22 @@ export type PaymentScalarWhereInput = {
   id?: Prisma.StringFilter<"Payment"> | string
   amount?: Prisma.FloatFilter<"Payment"> | number
   status?: Prisma.EnumPaymentStatusFilter<"Payment"> | $Enums.PaymentStatus
-  createdAt?: Prisma.DateTimeFilter<"Payment"> | Date | string
   userId?: Prisma.StringFilter<"Payment"> | string
   eventId?: Prisma.StringFilter<"Payment"> | string
+  transactionId?: Prisma.StringFilter<"Payment"> | string
+  paymentGatewayData?: Prisma.JsonNullableFilter<"Payment">
+  createAt?: Prisma.DateTimeFilter<"Payment"> | Date | string
+  updateAt?: Prisma.DateTimeFilter<"Payment"> | Date | string
 }
 
 export type PaymentCreateWithoutUserInput = {
   id?: string
   amount: number
   status?: $Enums.PaymentStatus
-  createdAt?: Date | string
+  transactionId: string
+  paymentGatewayData?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  createAt?: Date | string
+  updateAt?: Date | string
   event: Prisma.EventCreateNestedOneWithoutPaymentsInput
 }
 
@@ -545,8 +617,11 @@ export type PaymentUncheckedCreateWithoutUserInput = {
   id?: string
   amount: number
   status?: $Enums.PaymentStatus
-  createdAt?: Date | string
   eventId: string
+  transactionId: string
+  paymentGatewayData?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  createAt?: Date | string
+  updateAt?: Date | string
 }
 
 export type PaymentCreateOrConnectWithoutUserInput = {
@@ -579,15 +654,21 @@ export type PaymentCreateManyEventInput = {
   id?: string
   amount: number
   status?: $Enums.PaymentStatus
-  createdAt?: Date | string
   userId: string
+  transactionId: string
+  paymentGatewayData?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  createAt?: Date | string
+  updateAt?: Date | string
 }
 
 export type PaymentUpdateWithoutEventInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   amount?: Prisma.FloatFieldUpdateOperationsInput | number
   status?: Prisma.EnumPaymentStatusFieldUpdateOperationsInput | $Enums.PaymentStatus
-  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  transactionId?: Prisma.StringFieldUpdateOperationsInput | string
+  paymentGatewayData?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  createAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updateAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   user?: Prisma.UserUpdateOneRequiredWithoutPaymentsNestedInput
 }
 
@@ -595,31 +676,43 @@ export type PaymentUncheckedUpdateWithoutEventInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   amount?: Prisma.FloatFieldUpdateOperationsInput | number
   status?: Prisma.EnumPaymentStatusFieldUpdateOperationsInput | $Enums.PaymentStatus
-  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   userId?: Prisma.StringFieldUpdateOperationsInput | string
+  transactionId?: Prisma.StringFieldUpdateOperationsInput | string
+  paymentGatewayData?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  createAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updateAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
 export type PaymentUncheckedUpdateManyWithoutEventInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   amount?: Prisma.FloatFieldUpdateOperationsInput | number
   status?: Prisma.EnumPaymentStatusFieldUpdateOperationsInput | $Enums.PaymentStatus
-  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   userId?: Prisma.StringFieldUpdateOperationsInput | string
+  transactionId?: Prisma.StringFieldUpdateOperationsInput | string
+  paymentGatewayData?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  createAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updateAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
 export type PaymentCreateManyUserInput = {
   id?: string
   amount: number
   status?: $Enums.PaymentStatus
-  createdAt?: Date | string
   eventId: string
+  transactionId: string
+  paymentGatewayData?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  createAt?: Date | string
+  updateAt?: Date | string
 }
 
 export type PaymentUpdateWithoutUserInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   amount?: Prisma.FloatFieldUpdateOperationsInput | number
   status?: Prisma.EnumPaymentStatusFieldUpdateOperationsInput | $Enums.PaymentStatus
-  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  transactionId?: Prisma.StringFieldUpdateOperationsInput | string
+  paymentGatewayData?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  createAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updateAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   event?: Prisma.EventUpdateOneRequiredWithoutPaymentsNestedInput
 }
 
@@ -627,16 +720,22 @@ export type PaymentUncheckedUpdateWithoutUserInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   amount?: Prisma.FloatFieldUpdateOperationsInput | number
   status?: Prisma.EnumPaymentStatusFieldUpdateOperationsInput | $Enums.PaymentStatus
-  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   eventId?: Prisma.StringFieldUpdateOperationsInput | string
+  transactionId?: Prisma.StringFieldUpdateOperationsInput | string
+  paymentGatewayData?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  createAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updateAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
 export type PaymentUncheckedUpdateManyWithoutUserInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   amount?: Prisma.FloatFieldUpdateOperationsInput | number
   status?: Prisma.EnumPaymentStatusFieldUpdateOperationsInput | $Enums.PaymentStatus
-  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   eventId?: Prisma.StringFieldUpdateOperationsInput | string
+  transactionId?: Prisma.StringFieldUpdateOperationsInput | string
+  paymentGatewayData?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  createAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updateAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
 
@@ -645,9 +744,12 @@ export type PaymentSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs 
   id?: boolean
   amount?: boolean
   status?: boolean
-  createdAt?: boolean
   userId?: boolean
   eventId?: boolean
+  transactionId?: boolean
+  paymentGatewayData?: boolean
+  createAt?: boolean
+  updateAt?: boolean
   user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
   event?: boolean | Prisma.EventDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["payment"]>
@@ -656,9 +758,12 @@ export type PaymentSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Exten
   id?: boolean
   amount?: boolean
   status?: boolean
-  createdAt?: boolean
   userId?: boolean
   eventId?: boolean
+  transactionId?: boolean
+  paymentGatewayData?: boolean
+  createAt?: boolean
+  updateAt?: boolean
   user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
   event?: boolean | Prisma.EventDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["payment"]>
@@ -667,9 +772,12 @@ export type PaymentSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Exten
   id?: boolean
   amount?: boolean
   status?: boolean
-  createdAt?: boolean
   userId?: boolean
   eventId?: boolean
+  transactionId?: boolean
+  paymentGatewayData?: boolean
+  createAt?: boolean
+  updateAt?: boolean
   user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
   event?: boolean | Prisma.EventDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["payment"]>
@@ -678,12 +786,15 @@ export type PaymentSelectScalar = {
   id?: boolean
   amount?: boolean
   status?: boolean
-  createdAt?: boolean
   userId?: boolean
   eventId?: boolean
+  transactionId?: boolean
+  paymentGatewayData?: boolean
+  createAt?: boolean
+  updateAt?: boolean
 }
 
-export type PaymentOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "amount" | "status" | "createdAt" | "userId" | "eventId", ExtArgs["result"]["payment"]>
+export type PaymentOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "amount" | "status" | "userId" | "eventId" | "transactionId" | "paymentGatewayData" | "createAt" | "updateAt", ExtArgs["result"]["payment"]>
 export type PaymentInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
   event?: boolean | Prisma.EventDefaultArgs<ExtArgs>
@@ -707,9 +818,12 @@ export type $PaymentPayload<ExtArgs extends runtime.Types.Extensions.InternalArg
     id: string
     amount: number
     status: $Enums.PaymentStatus
-    createdAt: Date
     userId: string
     eventId: string
+    transactionId: string
+    paymentGatewayData: runtime.JsonValue | null
+    createAt: Date
+    updateAt: Date
   }, ExtArgs["result"]["payment"]>
   composites: {}
 }
@@ -1138,9 +1252,12 @@ export interface PaymentFieldRefs {
   readonly id: Prisma.FieldRef<"Payment", 'String'>
   readonly amount: Prisma.FieldRef<"Payment", 'Float'>
   readonly status: Prisma.FieldRef<"Payment", 'PaymentStatus'>
-  readonly createdAt: Prisma.FieldRef<"Payment", 'DateTime'>
   readonly userId: Prisma.FieldRef<"Payment", 'String'>
   readonly eventId: Prisma.FieldRef<"Payment", 'String'>
+  readonly transactionId: Prisma.FieldRef<"Payment", 'String'>
+  readonly paymentGatewayData: Prisma.FieldRef<"Payment", 'Json'>
+  readonly createAt: Prisma.FieldRef<"Payment", 'DateTime'>
+  readonly updateAt: Prisma.FieldRef<"Payment", 'DateTime'>
 }
     
 

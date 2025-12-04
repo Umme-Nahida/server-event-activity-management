@@ -13,11 +13,16 @@ interface IEnvVars {
     RESET_PASS_TOKEN: string,
     RESET_PASS_TOKEN_EXPIRES_IN: string,
     SALT_ROUND: string,
+    STRIPE_PUBLISHABLE_KEY: string,
+    STRIPE_PUBLISHABLE_SECRET_KEY: string,
+    Stripe_Webhook_Scret: string,
 
 }
 
 const loadEnvVars = (): IEnvVars => {
-    const requiredEnvVars: string[] = ["port", "DATABASE_URL", "node_env", "JWT_SECRET", "JWT_EXPIRES_IN",  "JWT_REFRESH_SECRET", "JWT_EXPIRES_IN_REFRESH", "RESET_PASS_TOKEN", "RESET_PASS_TOKEN_EXPIRES_IN", "SALT_ROUND" ]
+    const requiredEnvVars: string[] = ["port", "DATABASE_URL", "node_env", "JWT_SECRET", "JWT_EXPIRES_IN", "JWT_REFRESH_SECRET", "JWT_EXPIRES_IN_REFRESH", "RESET_PASS_TOKEN", "RESET_PASS_TOKEN_EXPIRES_IN", "SALT_ROUND",
+        "STRIPE_PUBLISHABLE_KEY", "STRIPE_PUBLISHABLE_SECRET_KEY", "Stripe_Webhook_Scret"
+    ]
 
     requiredEnvVars.forEach(key => {
         if (!process.env[key]) {
@@ -31,12 +36,15 @@ const loadEnvVars = (): IEnvVars => {
         node_env: process.env.node_env as string,
         JWT_SECRET: process.env.JWT_SECRET as string,
         JWT_EXPIRES_IN: process.env.JWT_EXPIRES_IN as string,
-        JWT_REFRESH_SECRET: process.env.JWT_REFRESH_SECRET as string,   
+        JWT_REFRESH_SECRET: process.env.JWT_REFRESH_SECRET as string,
         JWT_EXPIRES_IN_REFRESH: process.env.JWT_EXPIRES_IN_REFRESH as string,
         RESET_PASS_TOKEN: process.env.RESET_PASS_TOKEN as string,
         RESET_PASS_TOKEN_EXPIRES_IN: process.env.RESET_PASS_TOKEN_EXPIRES_IN as string,
         SALT_ROUND: process.env.SALT_ROUND as string,
-       
+        STRIPE_PUBLISHABLE_KEY: process.env.STRIPE_PUBLISHABLE_KEY as string,
+        STRIPE_PUBLISHABLE_SECRET_KEY: process.env.STRIPE_PUBLISHABLE_SECRET_KEY as string,
+        Stripe_Webhook_Scret: process.env.Stripe_Webhook_Scret as string,
+
     }
 }
 export const envVars = loadEnvVars()

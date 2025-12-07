@@ -16,12 +16,15 @@ interface IEnvVars {
     STRIPE_PUBLISHABLE_KEY: string,
     STRIPE_PUBLISHABLE_SECRET_KEY: string,
     Stripe_Webhook_Scret: string,
+    cloudinary_name: string,
+    cloudinary_api_key: string,
+    cloudinary_api_secret: string,
 
 }
 
 const loadEnvVars = (): IEnvVars => {
     const requiredEnvVars: string[] = ["port", "DATABASE_URL", "node_env", "JWT_SECRET", "JWT_EXPIRES_IN", "JWT_REFRESH_SECRET", "JWT_EXPIRES_IN_REFRESH", "RESET_PASS_TOKEN", "RESET_PASS_TOKEN_EXPIRES_IN", "SALT_ROUND",
-        "STRIPE_PUBLISHABLE_KEY", "STRIPE_PUBLISHABLE_SECRET_KEY", "Stripe_Webhook_Scret"
+        "STRIPE_PUBLISHABLE_KEY", "STRIPE_PUBLISHABLE_SECRET_KEY", "Stripe_Webhook_Scret","cloudinary_name", "cloudinary_api_key", "cloudinary_api_secret"
     ]
 
     requiredEnvVars.forEach(key => {
@@ -44,6 +47,9 @@ const loadEnvVars = (): IEnvVars => {
         STRIPE_PUBLISHABLE_KEY: process.env.STRIPE_PUBLISHABLE_KEY as string,
         STRIPE_PUBLISHABLE_SECRET_KEY: process.env.STRIPE_PUBLISHABLE_SECRET_KEY as string,
         Stripe_Webhook_Scret: process.env.Stripe_Webhook_Scret as string,
+        cloudinary_name: process.env.CLOUDINARY_CLOUD_NAME as string,
+        cloudinary_api_key: process.env.CLOUDINARY_API_KEY as string,
+        cloudinary_api_secret: process.env.CLOUDINARY_API_SECRET as string,
 
     }
 }

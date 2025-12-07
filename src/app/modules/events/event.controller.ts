@@ -1,10 +1,8 @@
 import { NextFunction, Request, Response } from "express"
-import httpStatus from "http-status-codes"
 import { catchAsync } from "../../utils/catchAsync"
 import { sendResponse } from "../../utils/sendResponse"
 import { EventService } from "./event.service"
 import { JwtPayload } from "jsonwebtoken"
-import { join } from "node:path"
 
 const createEvent = catchAsync(async(req:Request & JwtPayload,res:Response, next:NextFunction)=>{
    

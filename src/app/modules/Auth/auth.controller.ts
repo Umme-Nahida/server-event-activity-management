@@ -3,12 +3,12 @@ import httpStatus from "http-status-codes"
 import { catchAsync } from "../../utils/catchAsync"
 import { sendResponse } from "../../utils/sendResponse"
 import { AuthService } from "./auth.service"
-import { access } from "fs"
 
 const createUser = catchAsync(async(req:Request,res:Response, next:NextFunction)=>{
-   
-    
-     const result = await AuthService.registerUser(req.body);
+     
+    const userData = req.body
+    const file = req.file;
+     const result = await AuthService.registerUser(userData, file);
    
         sendResponse(res,{
             success: true,

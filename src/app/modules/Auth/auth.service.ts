@@ -3,14 +3,27 @@ import { prisma } from "../../../lib/prisma";
 import { generateToken } from "../../helper/jwtToken";
 import { envVars } from "../../config/env";
 import { Prisma } from "../../../../prisma/generated/prisma/client";
+import { fileUploader } from "../../helper/fileUploader";
 
 
-export const registerUser = async (data: Prisma.UserCreateInput) => {
-  const {password,...rest } = data;
+export const registerUser = async (userData:Partial<Prisma.UserCreateInput>,file:any) => {
 
-  // check user exists
-  const exists = await prisma.user.findUnique({ where: {email: rest.email!}})
+
+// console.log("user Payload", payload)
+  const {password,...rest } = userData;
+
+  if (!password) throw new Error("Password is required");
+
+  // // check user exists
+  const exists = await prisma.user.findUnique({ where: {email: userData.email!}})
   if (exists) throw new Error("User already exists");
+
+  // upload file to cloudinary 
+  if (file) {
+    const uploads = await fileUploader.uploadToCloudinary(file)
+    userData.image = uploads!.secure_url as string;
+  }
+
 
   // hash password
   const hashedPassword = await bcrypt.hash(password, 10);
@@ -18,7 +31,14 @@ export const registerUser = async (data: Prisma.UserCreateInput) => {
   // create user
   const user = await prisma.user.create({
     data: {
-      ...rest,
+      name: userData.name!,
+      email: userData.email!,
+      role: userData.role!,
+      bio: userData.bio,
+      image: userData.image,
+      interests: userData.interests,
+      hobbies: userData.hobbies,
+      location: userData.location,
       password: hashedPassword,
     },
     select: {

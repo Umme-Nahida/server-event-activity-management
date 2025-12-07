@@ -21,9 +21,9 @@ const uploadToCloudinary = async (file: Express.Multer.File) => {
   // console.log("file", file)
   // Configuration
   cloudinary.config({
-    cloud_name: envVars.cloudinary_name,
-    api_key: envVars.cloudinary_api_key,
-    api_secret: envVars.cloudinary_api_secret // Click 'View API Keys' above to copy your API secret
+    cloud_name: envVars.CLOUDINARY_CLOUD_NAME,
+    api_key: envVars.CLOUDINARY_API_KEY,
+    api_secret: envVars.CLOUDINARY_API_SECRET // Click 'View API Keys' above to copy your API secret
   });
 
 

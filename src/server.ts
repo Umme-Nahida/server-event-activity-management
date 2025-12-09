@@ -24,8 +24,34 @@ async function startServer() {
         server.listen(process.env.port, () => {
             console.log(`Example app listening on port ${process.env.port}`)
         })
+
+         // Function to gracefully shut down the server
+        const exitHandler = () => {
+            if (server) {
+                server.close(() => {
+                    console.log('Server closed gracefully.');
+                    process.exit(1); // Exit with a failure code
+                });
+            } else {
+                process.exit(1);
+            }
+        };
+
+        // Handle unhandled promise rejections
+        process.on('unhandledRejection', (error) => {
+            console.log('Unhandled Rejection is detected, we are closing our server...');
+            if (server) {
+                server.close(() => {
+                    console.log(error);
+                    process.exit(1);
+                });
+            } else {
+                process.exit(1);
+            }
+        });
     } catch (err: any) {
-        console.log("server Err:", err)
+        console.log("server Err:", err);
+        process.exit(1);
     }
 }
 

@@ -13,4 +13,10 @@ router.post(
   ParticipantController.joinEvent
 );
 
+router.post(
+  "/review",
+  authCookies(Role.USER),
+  ParticipantController.joinEvent
+);
+
 export const ParticipantRoutes = router;

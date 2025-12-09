@@ -4,6 +4,8 @@ import router from "./app/routes"
 import cors from 'cors';
 import cookieParser from "cookie-parser";
 import { PaymentController } from "./app/modules/payment/payment.controller";
+import globalErrorHandler from "./app/middleware/globalErrorHandler";
+import notFound from "./app/middleware/notFound";
 const app = express()
 
 
@@ -26,6 +28,9 @@ app.get('/', (req, res) => {
   res.send('Hello World!')
 })
 
+app.use(globalErrorHandler);
+
+app.use(notFound);
 
 
 export default app;

@@ -68,10 +68,10 @@ export const loginUser = async (data: Partial<Prisma.UserCreateInput>) => {
     where: { email },
   });
 
-  if (!user) throw new Error("User not found");
+  if (!user) throw new Error("User not found with this email");
 
   const match = await bcrypt.compare(password, user.password);
-  if (!match) throw new Error("Invalid credentials");
+  if (!match) throw new Error("Your Password is incorrect");
 
 const payloadJwt = {
         id: user.id,

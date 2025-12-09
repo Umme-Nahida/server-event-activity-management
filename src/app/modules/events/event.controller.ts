@@ -35,10 +35,43 @@ const allEvent = catchAsync(async(req:Request & JwtPayload,res:Response, next:Ne
 })
 
 
+const myEvents = catchAsync(async(req:Request & JwtPayload,res:Response, next:NextFunction)=>{
+   
+    const userInfo = req.user; // From JWT
+    
+    // const hostId = req.user.id; // From JWT
+    const result = await EventService.getMyEvents(userInfo);
+
+    sendResponse(res, {
+      statusCode: 201,
+      success: true,
+      message: "My Events Retrieve successfully",
+      data: result,
+    });
+})
+
+const getMyReview = catchAsync(async(req:Request & JwtPayload,res:Response, next:NextFunction)=>{
+   
+    const userInfo = req.user; // From JWT
+    
+    // const hostId = req.user.id; // From JWT
+    const result = await EventService.getMyEvents(userInfo);
+
+    sendResponse(res, {
+      statusCode: 201,
+      success: true,
+      message: "My Review Retrieve successfully",
+      data: result,
+    });
+})
+
+
 
 
 
 export const EventController = {
     createEvent,
-    allEvent
+    allEvent,
+    myEvents,
+    getMyReview
 }

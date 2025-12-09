@@ -140,54 +140,50 @@ const getMyReview = async (userInfo: JwtPayload) => {
 
   const { id, role } = userInfo;
 
-  if (role === "HOST") {
+  // USER → reviews given by user
+  if (role === "USER") {
     const reviews = await prisma.review.findMany({
-      where: { hostId: id },
+      where: { reviewerId: id },
       include: {
         event: true,
-        reviewer: {
+          host: {
           select: {
+            id:true,
             name: true,
             email: true,
-            bio: true,
             image: true,
-            interests: true,
-            hobbies: true,
-            location: true
           }
         }
-      }
+      },
+      orderBy: { createdAt: "desc" },
     });
+
     return {
-      type: "HOST_REVIEWS",
+      type: "USER_REVIEWS",
       reviews,
     };
   }
 
-  // === User Logic ===
-  if (role === "USER") {
-    const events = await prisma.review.findMany({
-      where: { reviewerId: id },
-      include: {
-        event: true,
-        host: {
-          select: {
-            name: true,
-            email: true,
-            bio: true,
-            image: true,
-            interests: true,
-            hobbies: true,
-            location: true
-          }
+  // HOST → reviews for host's events
+  if (role === "HOST") {
+    const reviews = await prisma.review.findMany({
+      where: {
+        event: {
+          hostId: id,
         },
       },
-        orderBy: { rating: "asc" },
-      });
+      include: {
+        reviewer: {
+          select: { id: true, name: true, image: true },
+        },
+        event: true,
+      },
+      orderBy: { createdAt: "desc" },
+    });
 
     return {
-      type: "USER_REVIEW",
-      events: events.map((p) => p.event),
+      type: "HOST_RECEIVED_REVIEWS",
+      reviews,
     };
   }
 

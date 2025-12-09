@@ -3,6 +3,7 @@ import { userRoute } from "../modules/user/user.route";
 import { authRoute } from "../modules/Auth/auth.route";
 import { EventRoutes } from "../modules/events/event.route";
 import { ParticipantRoutes } from "../modules/participant/participant.route";
+import { AdminRoute } from "../modules/admin/admin.route";
 
 
 export const router = Router();
@@ -23,6 +24,10 @@ const moduleRoutes = [
     {
         path:"/participants",
         route: ParticipantRoutes
+    },
+    {
+        path:"/admin",
+        route: AdminRoute
     },
 
 ]

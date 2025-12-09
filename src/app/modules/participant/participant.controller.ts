@@ -21,7 +21,23 @@ const joinEvent = catchAsync(async(req:Request & JwtPayload,res:Response, next:N
     });
 })
 
+const addReview = catchAsync(async (req:Request & JwtPayload, res:Response, next:NextFunction) => {
+  const user = req.user;
+  const payload = req.body;
+
+  const data = await ParticipantService.addReview(user, payload);
+
+  sendResponse(res, {
+    statusCode: 201,
+    success: true,
+    message: "Review added successfully!",
+    data,
+  });
+});
+
+
 
 export const ParticipantController = {
-    joinEvent
+    joinEvent,
+    addReview
 }

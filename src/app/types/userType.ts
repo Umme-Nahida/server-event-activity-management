@@ -8,3 +8,9 @@ export interface LoginInput {
   email: string;
   password: string;
 }
+
+export interface IReview {
+  eventId:string;
+  rating: number;
+  comment: string
+}

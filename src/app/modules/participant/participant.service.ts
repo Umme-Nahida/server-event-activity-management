@@ -3,6 +3,10 @@ import { prisma } from "../../../lib/prisma";
 import AppError from "../../customizer/AppErrror";
 import { v4 as uuidv4 } from "uuid";
 import { stripe } from "../../helper/stripe";
+import { JwtPayload } from "jsonwebtoken";
+import { IReview } from "../../types/userType";
+
+
 
 const jointEvents = async (userId: string, eventId: string) => {
 
@@ -15,22 +19,22 @@ const jointEvents = async (userId: string, eventId: string) => {
   }
 
   // check already joined
-const alreadyJoined = await prisma.eventParticipant.findFirst({
-  where: { userId, eventId }
-});
+  const alreadyJoined = await prisma.eventParticipant.findFirst({
+    where: { userId, eventId }
+  });
 
-if (alreadyJoined) {
-  throw new AppError(httpStatus.BAD_REQUEST, "You already joined this event");
-}
+  if (alreadyJoined) {
+    throw new AppError(httpStatus.BAD_REQUEST, "You already joined this event");
+  }
 
-// check existing payment
-const existingPayment = await prisma.payment.findFirst({
-  where: { userId, eventId }
-});
+  // check existing payment
+  const existingPayment = await prisma.payment.findFirst({
+    where: { userId, eventId }
+  });
 
-if (existingPayment) {
-  throw new AppError(httpStatus.BAD_REQUEST, "Payment already exists for this event");
-}
+  if (existingPayment) {
+    throw new AppError(httpStatus.BAD_REQUEST, "Payment already exists for this event");
+  }
 
 
   const eventData = await prisma.event.findFirst({
@@ -41,13 +45,13 @@ if (existingPayment) {
     throw new AppError(httpStatus.NOT_FOUND, "Event not found");
   }
 
-// disallow joining past events
+  // disallow joining past events
   const nowDate = new Date();
   if (new Date(eventData.date) < nowDate) {
     throw new AppError(httpStatus.BAD_REQUEST, "Cannot join past events");
   }
 
-//  check max participants
+  //  check max participants
   if (eventData.participantCount > eventData.maxParticipants) {
     throw new AppError(httpStatus.BAD_REQUEST, "Event has reached maximum participants");
   }
@@ -55,15 +59,15 @@ if (existingPayment) {
   // increment participant count
   const participantCount = eventData.participantCount + 1;
 
- 
+
   const result = await prisma.$transaction(async (tnx) => {
 
     await tnx.event.update({
       where: { id: eventData.id },
-      data: { participantCount}
+      data: { participantCount }
     })
 
-   const eventParticipant = await tnx.eventParticipant.create({
+    const eventParticipant = await tnx.eventParticipant.create({
       data: {
         userId,
         eventId: eventData.id
@@ -119,6 +123,49 @@ if (existingPayment) {
 }
 
 
+const addReview = async(user: JwtPayload, payload: IReview)=> {
+  const { eventId, rating, comment } = payload;
+
+  // 1. Check user participated
+  const participated = await prisma.eventParticipant.findFirst({
+    where: {
+      eventId,
+      userId: user.id,
+    },
+  });
+
+  if (!participated) {
+    throw new AppError(400, "You cannot review an event you didn't join!");
+  }
+
+  // 2. Check event completed
+  const event = await prisma.event.findUnique({
+    where: { id: eventId },
+  });
+
+  if (!event) throw new AppError(404, "Event not found!");
+
+  if (new Date(event.date) > new Date()) {
+    throw new AppError(400, "You can review only completed events!");
+  }
+
+  // 3. Create review
+  const review = await prisma.review.create({
+    data: {
+      rating,
+      comment,
+      eventId,
+      reviewerId: user.id,
+      hostId:event.hostId
+    },
+  });
+
+  return review;
+}
+
+
+
 export const ParticipantService = {
-  jointEvents
+  jointEvents,
+  addReview
 };

@@ -1,0 +1,1 @@
+export type IEventStatus = 'OPEN' | 'CLOSED' | 'CANCELLED' | 'COMPLETED'

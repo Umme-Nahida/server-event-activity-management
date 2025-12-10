@@ -24,6 +24,13 @@ router.get(
   EventController.updateEvent
 );
 
+router.patch(
+  "/status/:id",
+  authCookies("HOST", "ADMIN"),
+  EventController.updateEventStatus
+);
+
+
 // get single event
 router.get('/event-details/:id',authCookies("HOST","USER"), EventController.singleEvent)
 

@@ -33,6 +33,20 @@ const getAllEvents = catchAsync(async(req:Request,res:Response, next:NextFunctio
         })
 })
 
+const getTopRatedEvents = catchAsync(async(req:Request,res:Response, next:NextFunction)=>{
+   
+
+     const result = await CommonService.getTopRatedEvents();
+   
+        sendResponse(res,{
+            success: true,
+            statusCode: httpStatus.CREATED,
+            message: "Top rated Events Retrieve successfully",
+            data: result
+        })
+})
+
 export const CommonController = {
-  getAllEvents
+  getAllEvents,
+  getTopRatedEvents
 }

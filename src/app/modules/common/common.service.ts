@@ -146,7 +146,38 @@ const getAllEvents = async (filters: EventFilter, options: Ioptions) => {
     };
 };
 
+const getTopRatedEvents = async () => {
+  // Get top 10 event IDs by average review rating
+  const topEvents = await prisma.review.groupBy({
+    by: ['eventId'],
+    _avg: { rating: true },
+    orderBy: {
+      _avg: {
+        rating: 'desc'
+      }
+    },
+    take: 10
+  });
+
+  const eventIds = topEvents.map(e => e.eventId);
+
+  // Fetch event details for those IDs
+  return prisma.event.findMany({
+    where: { id: { in: eventIds } },
+    include: {
+      host: true,
+      reviews: {
+        select: {
+          rating: true
+        }
+      }
+    }
+  });
+}
+
+
 
 export const CommonService = {
-    getAllEvents
+    getAllEvents,
+    getTopRatedEvents
 }

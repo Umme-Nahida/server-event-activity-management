@@ -5,6 +5,7 @@ import { Prisma } from "../../../../prisma/generated/prisma/client";
 import { JwtPayload } from "jsonwebtoken";
 import { IVerifiedUser } from "../../types/userType";
 import { id } from "zod/v4/locales";
+import { IEventStatus } from "../../types/eventType";
 
 
 const createEvent = async (hostId: string, payload: Prisma.EventCreateInput) => {
@@ -88,6 +89,32 @@ const updateEvent = async (eventId: string, userInfo: IVerifiedUser, updateInfo:
 const getAllEvents = async () => {
   const events = await prisma.event.findMany();
   return events;
+}
+
+
+const updateEventStatus = async(user:IVerifiedUser, eventId:string, status:IEventStatus)=> {
+  const validStatus = ["OPEN", "CLOSED", "CANCELLED", "COMPLETED"];
+
+  if (!validStatus.includes(status)) {
+    throw new AppError(400, "Invalid event status");
+  }
+
+  const event = await prisma.event.findUnique({ where: { id: eventId } });
+
+  if (!event) throw new AppError(404, "Event not found");
+
+  // HOST only can update their own event
+  if (user.role === "HOST" && event.hostId !== user.id) {
+    throw new AppError(403, "You cannot update this event");
+  }
+
+  // ADMIN bypass allowed
+  const updated = await prisma.event.update({
+    where: { id: eventId },
+    data: { status },
+  });
+
+  return updated;
 }
 
 
@@ -321,6 +348,7 @@ export const EventService = {
   createEvent,
   getAllEvents,
   getMyEvents,
+  updateEventStatus,
   getMyReview,
   updateEvent,
   getUpcomingEvents,

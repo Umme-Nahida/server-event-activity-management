@@ -21,6 +21,22 @@ const createEvent = catchAsync(async(req:Request & JwtPayload,res:Response, next
 })
 
 
+const updateEventStatus = catchAsync(async (req:Request & JwtPayload, res:Response, next:NextFunction) => {
+  const { id } = req.params;
+  const { status } = req.body;   // OPEN | CANCELLED | COMPLETED
+
+  const data = await EventService.updateEventStatus(req.user, id, status);
+
+  sendResponse(res, {
+    statusCode: 200,
+    success: true,
+    message: "Event status updated successfully",
+    data,
+  });
+});
+
+
+
 const allEvent = catchAsync(async(req:Request & JwtPayload,res:Response, next:NextFunction)=>{
    
     // const hostId = req.user.id; // From JWT
@@ -133,5 +149,6 @@ export const EventController = {
     updateEvent,
     getUpcomingEvents,
     getEventHistory,
-    singleEvent
+    singleEvent,
+    updateEventStatus
 }

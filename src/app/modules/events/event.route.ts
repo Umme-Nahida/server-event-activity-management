@@ -24,6 +24,9 @@ router.get(
   EventController.updateEvent
 );
 
+// get single event
+router.get('/event-details/:id',authCookies("HOST","USER"), EventController.singleEvent)
+
 //My-review(host,user)
 router.get(
   "/my-review",

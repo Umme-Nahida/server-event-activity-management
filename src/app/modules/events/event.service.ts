@@ -149,7 +149,7 @@ const getMyEvents = async (userInfo: JwtPayload) => {
       orderBy: { joinedAt: "desc" },
     });
 
-    // শুধু ইভেন্টগুলো রিটার্ন করবো
+    // return event
     return {
       type: "JOINED_EVENTS",
       events: events.map((p) => p.event),
@@ -286,7 +286,34 @@ const getEventHistory = async(user:IVerifiedUser) =>{
   }
 }
 
-
+const singleEvent = async (id: string): Promise<Partial<Event> | null> => {
+    console.log("id:", id)
+    const result = await prisma.event.findUnique({
+        where: {
+            id,
+        },
+        include: {
+            host: {
+                select: {
+                    id: true,
+                    name:true,
+                    image:true,
+                    location:true,
+                    bio:true
+                },
+            },
+            participants: {
+                include: {
+                    user:{select:{id:true,name:true,image:true,location:true,hobbies:true,interests:true}}
+                }
+            },
+            reviews:{include:{reviewer:{select:{name:true,image:true,hobbies:true,interests:true}}}},
+            payments:{select:{status:true,amount:true}}
+        },
+    });
+    
+    return result
+};
 
 
 
@@ -297,5 +324,6 @@ export const EventService = {
   getMyReview,
   updateEvent,
   getUpcomingEvents,
-  getEventHistory
+  getEventHistory,
+  singleEvent
 };

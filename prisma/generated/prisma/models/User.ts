@@ -33,6 +33,7 @@ export type UserMinAggregateOutputType = {
   image: string | null
   location: string | null
   role: $Enums.Role | null
+  userStatus: $Enums.UserStatus | null
   createdAt: Date | null
 }
 
@@ -45,6 +46,7 @@ export type UserMaxAggregateOutputType = {
   image: string | null
   location: string | null
   role: $Enums.Role | null
+  userStatus: $Enums.UserStatus | null
   createdAt: Date | null
 }
 
@@ -59,6 +61,7 @@ export type UserCountAggregateOutputType = {
   hobbies: number
   location: number
   role: number
+  userStatus: number
   createdAt: number
   _all: number
 }
@@ -73,6 +76,7 @@ export type UserMinAggregateInputType = {
   image?: true
   location?: true
   role?: true
+  userStatus?: true
   createdAt?: true
 }
 
@@ -85,6 +89,7 @@ export type UserMaxAggregateInputType = {
   image?: true
   location?: true
   role?: true
+  userStatus?: true
   createdAt?: true
 }
 
@@ -99,6 +104,7 @@ export type UserCountAggregateInputType = {
   hobbies?: true
   location?: true
   role?: true
+  userStatus?: true
   createdAt?: true
   _all?: true
 }
@@ -186,6 +192,7 @@ export type UserGroupByOutputType = {
   hobbies: string[]
   location: string | null
   role: $Enums.Role
+  userStatus: $Enums.UserStatus
   createdAt: Date
   _count: UserCountAggregateOutputType | null
   _min: UserMinAggregateOutputType | null
@@ -221,6 +228,7 @@ export type UserWhereInput = {
   hobbies?: Prisma.StringNullableListFilter<"User">
   location?: Prisma.StringNullableFilter<"User"> | string | null
   role?: Prisma.EnumRoleFilter<"User"> | $Enums.Role
+  userStatus?: Prisma.EnumUserStatusFilter<"User"> | $Enums.UserStatus
   createdAt?: Prisma.DateTimeFilter<"User"> | Date | string
   payments?: Prisma.PaymentListRelationFilter
   eventsJoined?: Prisma.EventParticipantListRelationFilter
@@ -240,6 +248,7 @@ export type UserOrderByWithRelationInput = {
   hobbies?: Prisma.SortOrder
   location?: Prisma.SortOrderInput | Prisma.SortOrder
   role?: Prisma.SortOrder
+  userStatus?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   payments?: Prisma.PaymentOrderByRelationAggregateInput
   eventsJoined?: Prisma.EventParticipantOrderByRelationAggregateInput
@@ -262,6 +271,7 @@ export type UserWhereUniqueInput = Prisma.AtLeast<{
   hobbies?: Prisma.StringNullableListFilter<"User">
   location?: Prisma.StringNullableFilter<"User"> | string | null
   role?: Prisma.EnumRoleFilter<"User"> | $Enums.Role
+  userStatus?: Prisma.EnumUserStatusFilter<"User"> | $Enums.UserStatus
   createdAt?: Prisma.DateTimeFilter<"User"> | Date | string
   payments?: Prisma.PaymentListRelationFilter
   eventsJoined?: Prisma.EventParticipantListRelationFilter
@@ -281,6 +291,7 @@ export type UserOrderByWithAggregationInput = {
   hobbies?: Prisma.SortOrder
   location?: Prisma.SortOrderInput | Prisma.SortOrder
   role?: Prisma.SortOrder
+  userStatus?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   _count?: Prisma.UserCountOrderByAggregateInput
   _max?: Prisma.UserMaxOrderByAggregateInput
@@ -301,6 +312,7 @@ export type UserScalarWhereWithAggregatesInput = {
   hobbies?: Prisma.StringNullableListFilter<"User">
   location?: Prisma.StringNullableWithAggregatesFilter<"User"> | string | null
   role?: Prisma.EnumRoleWithAggregatesFilter<"User"> | $Enums.Role
+  userStatus?: Prisma.EnumUserStatusWithAggregatesFilter<"User"> | $Enums.UserStatus
   createdAt?: Prisma.DateTimeWithAggregatesFilter<"User"> | Date | string
 }
 
@@ -315,6 +327,7 @@ export type UserCreateInput = {
   hobbies?: Prisma.UserCreatehobbiesInput | string[]
   location?: string | null
   role?: $Enums.Role
+  userStatus?: $Enums.UserStatus
   createdAt?: Date | string
   payments?: Prisma.PaymentCreateNestedManyWithoutUserInput
   eventsJoined?: Prisma.EventParticipantCreateNestedManyWithoutUserInput
@@ -334,6 +347,7 @@ export type UserUncheckedCreateInput = {
   hobbies?: Prisma.UserCreatehobbiesInput | string[]
   location?: string | null
   role?: $Enums.Role
+  userStatus?: $Enums.UserStatus
   createdAt?: Date | string
   payments?: Prisma.PaymentUncheckedCreateNestedManyWithoutUserInput
   eventsJoined?: Prisma.EventParticipantUncheckedCreateNestedManyWithoutUserInput
@@ -353,6 +367,7 @@ export type UserUpdateInput = {
   hobbies?: Prisma.UserUpdatehobbiesInput | string[]
   location?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
+  userStatus?: Prisma.EnumUserStatusFieldUpdateOperationsInput | $Enums.UserStatus
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   payments?: Prisma.PaymentUpdateManyWithoutUserNestedInput
   eventsJoined?: Prisma.EventParticipantUpdateManyWithoutUserNestedInput
@@ -372,6 +387,7 @@ export type UserUncheckedUpdateInput = {
   hobbies?: Prisma.UserUpdatehobbiesInput | string[]
   location?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
+  userStatus?: Prisma.EnumUserStatusFieldUpdateOperationsInput | $Enums.UserStatus
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   payments?: Prisma.PaymentUncheckedUpdateManyWithoutUserNestedInput
   eventsJoined?: Prisma.EventParticipantUncheckedUpdateManyWithoutUserNestedInput
@@ -391,6 +407,7 @@ export type UserCreateManyInput = {
   hobbies?: Prisma.UserCreatehobbiesInput | string[]
   location?: string | null
   role?: $Enums.Role
+  userStatus?: $Enums.UserStatus
   createdAt?: Date | string
 }
 
@@ -405,6 +422,7 @@ export type UserUpdateManyMutationInput = {
   hobbies?: Prisma.UserUpdatehobbiesInput | string[]
   location?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
+  userStatus?: Prisma.EnumUserStatusFieldUpdateOperationsInput | $Enums.UserStatus
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
@@ -419,6 +437,7 @@ export type UserUncheckedUpdateManyInput = {
   hobbies?: Prisma.UserUpdatehobbiesInput | string[]
   location?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
+  userStatus?: Prisma.EnumUserStatusFieldUpdateOperationsInput | $Enums.UserStatus
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
@@ -446,6 +465,7 @@ export type UserCountOrderByAggregateInput = {
   hobbies?: Prisma.SortOrder
   location?: Prisma.SortOrder
   role?: Prisma.SortOrder
+  userStatus?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
 }
 
@@ -458,6 +478,7 @@ export type UserMaxOrderByAggregateInput = {
   image?: Prisma.SortOrder
   location?: Prisma.SortOrder
   role?: Prisma.SortOrder
+  userStatus?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
 }
 
@@ -470,6 +491,7 @@ export type UserMinOrderByAggregateInput = {
   image?: Prisma.SortOrder
   location?: Prisma.SortOrder
   role?: Prisma.SortOrder
+  userStatus?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
 }
 
@@ -565,6 +587,10 @@ export type EnumRoleFieldUpdateOperationsInput = {
   set?: $Enums.Role
 }
 
+export type EnumUserStatusFieldUpdateOperationsInput = {
+  set?: $Enums.UserStatus
+}
+
 export type UserCreateWithoutEventsHostedInput = {
   id?: string
   name: string
@@ -576,6 +602,7 @@ export type UserCreateWithoutEventsHostedInput = {
   hobbies?: Prisma.UserCreatehobbiesInput | string[]
   location?: string | null
   role?: $Enums.Role
+  userStatus?: $Enums.UserStatus
   createdAt?: Date | string
   payments?: Prisma.PaymentCreateNestedManyWithoutUserInput
   eventsJoined?: Prisma.EventParticipantCreateNestedManyWithoutUserInput
@@ -594,6 +621,7 @@ export type UserUncheckedCreateWithoutEventsHostedInput = {
   hobbies?: Prisma.UserCreatehobbiesInput | string[]
   location?: string | null
   role?: $Enums.Role
+  userStatus?: $Enums.UserStatus
   createdAt?: Date | string
   payments?: Prisma.PaymentUncheckedCreateNestedManyWithoutUserInput
   eventsJoined?: Prisma.EventParticipantUncheckedCreateNestedManyWithoutUserInput
@@ -628,6 +656,7 @@ export type UserUpdateWithoutEventsHostedInput = {
   hobbies?: Prisma.UserUpdatehobbiesInput | string[]
   location?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
+  userStatus?: Prisma.EnumUserStatusFieldUpdateOperationsInput | $Enums.UserStatus
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   payments?: Prisma.PaymentUpdateManyWithoutUserNestedInput
   eventsJoined?: Prisma.EventParticipantUpdateManyWithoutUserNestedInput
@@ -646,6 +675,7 @@ export type UserUncheckedUpdateWithoutEventsHostedInput = {
   hobbies?: Prisma.UserUpdatehobbiesInput | string[]
   location?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
+  userStatus?: Prisma.EnumUserStatusFieldUpdateOperationsInput | $Enums.UserStatus
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   payments?: Prisma.PaymentUncheckedUpdateManyWithoutUserNestedInput
   eventsJoined?: Prisma.EventParticipantUncheckedUpdateManyWithoutUserNestedInput
@@ -664,6 +694,7 @@ export type UserCreateWithoutEventsJoinedInput = {
   hobbies?: Prisma.UserCreatehobbiesInput | string[]
   location?: string | null
   role?: $Enums.Role
+  userStatus?: $Enums.UserStatus
   createdAt?: Date | string
   payments?: Prisma.PaymentCreateNestedManyWithoutUserInput
   eventsHosted?: Prisma.EventCreateNestedManyWithoutHostInput
@@ -682,6 +713,7 @@ export type UserUncheckedCreateWithoutEventsJoinedInput = {
   hobbies?: Prisma.UserCreatehobbiesInput | string[]
   location?: string | null
   role?: $Enums.Role
+  userStatus?: $Enums.UserStatus
   createdAt?: Date | string
   payments?: Prisma.PaymentUncheckedCreateNestedManyWithoutUserInput
   eventsHosted?: Prisma.EventUncheckedCreateNestedManyWithoutHostInput
@@ -716,6 +748,7 @@ export type UserUpdateWithoutEventsJoinedInput = {
   hobbies?: Prisma.UserUpdatehobbiesInput | string[]
   location?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
+  userStatus?: Prisma.EnumUserStatusFieldUpdateOperationsInput | $Enums.UserStatus
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   payments?: Prisma.PaymentUpdateManyWithoutUserNestedInput
   eventsHosted?: Prisma.EventUpdateManyWithoutHostNestedInput
@@ -734,6 +767,7 @@ export type UserUncheckedUpdateWithoutEventsJoinedInput = {
   hobbies?: Prisma.UserUpdatehobbiesInput | string[]
   location?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
+  userStatus?: Prisma.EnumUserStatusFieldUpdateOperationsInput | $Enums.UserStatus
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   payments?: Prisma.PaymentUncheckedUpdateManyWithoutUserNestedInput
   eventsHosted?: Prisma.EventUncheckedUpdateManyWithoutHostNestedInput
@@ -752,6 +786,7 @@ export type UserCreateWithoutPaymentsInput = {
   hobbies?: Prisma.UserCreatehobbiesInput | string[]
   location?: string | null
   role?: $Enums.Role
+  userStatus?: $Enums.UserStatus
   createdAt?: Date | string
   eventsJoined?: Prisma.EventParticipantCreateNestedManyWithoutUserInput
   eventsHosted?: Prisma.EventCreateNestedManyWithoutHostInput
@@ -770,6 +805,7 @@ export type UserUncheckedCreateWithoutPaymentsInput = {
   hobbies?: Prisma.UserCreatehobbiesInput | string[]
   location?: string | null
   role?: $Enums.Role
+  userStatus?: $Enums.UserStatus
   createdAt?: Date | string
   eventsJoined?: Prisma.EventParticipantUncheckedCreateNestedManyWithoutUserInput
   eventsHosted?: Prisma.EventUncheckedCreateNestedManyWithoutHostInput
@@ -804,6 +840,7 @@ export type UserUpdateWithoutPaymentsInput = {
   hobbies?: Prisma.UserUpdatehobbiesInput | string[]
   location?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
+  userStatus?: Prisma.EnumUserStatusFieldUpdateOperationsInput | $Enums.UserStatus
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   eventsJoined?: Prisma.EventParticipantUpdateManyWithoutUserNestedInput
   eventsHosted?: Prisma.EventUpdateManyWithoutHostNestedInput
@@ -822,6 +859,7 @@ export type UserUncheckedUpdateWithoutPaymentsInput = {
   hobbies?: Prisma.UserUpdatehobbiesInput | string[]
   location?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
+  userStatus?: Prisma.EnumUserStatusFieldUpdateOperationsInput | $Enums.UserStatus
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   eventsJoined?: Prisma.EventParticipantUncheckedUpdateManyWithoutUserNestedInput
   eventsHosted?: Prisma.EventUncheckedUpdateManyWithoutHostNestedInput
@@ -840,6 +878,7 @@ export type UserCreateWithoutReviewsGivenInput = {
   hobbies?: Prisma.UserCreatehobbiesInput | string[]
   location?: string | null
   role?: $Enums.Role
+  userStatus?: $Enums.UserStatus
   createdAt?: Date | string
   payments?: Prisma.PaymentCreateNestedManyWithoutUserInput
   eventsJoined?: Prisma.EventParticipantCreateNestedManyWithoutUserInput
@@ -858,6 +897,7 @@ export type UserUncheckedCreateWithoutReviewsGivenInput = {
   hobbies?: Prisma.UserCreatehobbiesInput | string[]
   location?: string | null
   role?: $Enums.Role
+  userStatus?: $Enums.UserStatus
   createdAt?: Date | string
   payments?: Prisma.PaymentUncheckedCreateNestedManyWithoutUserInput
   eventsJoined?: Prisma.EventParticipantUncheckedCreateNestedManyWithoutUserInput
@@ -881,6 +921,7 @@ export type UserCreateWithoutReviewsReceivedInput = {
   hobbies?: Prisma.UserCreatehobbiesInput | string[]
   location?: string | null
   role?: $Enums.Role
+  userStatus?: $Enums.UserStatus
   createdAt?: Date | string
   payments?: Prisma.PaymentCreateNestedManyWithoutUserInput
   eventsJoined?: Prisma.EventParticipantCreateNestedManyWithoutUserInput
@@ -899,6 +940,7 @@ export type UserUncheckedCreateWithoutReviewsReceivedInput = {
   hobbies?: Prisma.UserCreatehobbiesInput | string[]
   location?: string | null
   role?: $Enums.Role
+  userStatus?: $Enums.UserStatus
   createdAt?: Date | string
   payments?: Prisma.PaymentUncheckedCreateNestedManyWithoutUserInput
   eventsJoined?: Prisma.EventParticipantUncheckedCreateNestedManyWithoutUserInput
@@ -933,6 +975,7 @@ export type UserUpdateWithoutReviewsGivenInput = {
   hobbies?: Prisma.UserUpdatehobbiesInput | string[]
   location?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
+  userStatus?: Prisma.EnumUserStatusFieldUpdateOperationsInput | $Enums.UserStatus
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   payments?: Prisma.PaymentUpdateManyWithoutUserNestedInput
   eventsJoined?: Prisma.EventParticipantUpdateManyWithoutUserNestedInput
@@ -951,6 +994,7 @@ export type UserUncheckedUpdateWithoutReviewsGivenInput = {
   hobbies?: Prisma.UserUpdatehobbiesInput | string[]
   location?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
+  userStatus?: Prisma.EnumUserStatusFieldUpdateOperationsInput | $Enums.UserStatus
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   payments?: Prisma.PaymentUncheckedUpdateManyWithoutUserNestedInput
   eventsJoined?: Prisma.EventParticipantUncheckedUpdateManyWithoutUserNestedInput
@@ -980,6 +1024,7 @@ export type UserUpdateWithoutReviewsReceivedInput = {
   hobbies?: Prisma.UserUpdatehobbiesInput | string[]
   location?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
+  userStatus?: Prisma.EnumUserStatusFieldUpdateOperationsInput | $Enums.UserStatus
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   payments?: Prisma.PaymentUpdateManyWithoutUserNestedInput
   eventsJoined?: Prisma.EventParticipantUpdateManyWithoutUserNestedInput
@@ -998,6 +1043,7 @@ export type UserUncheckedUpdateWithoutReviewsReceivedInput = {
   hobbies?: Prisma.UserUpdatehobbiesInput | string[]
   location?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
+  userStatus?: Prisma.EnumUserStatusFieldUpdateOperationsInput | $Enums.UserStatus
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   payments?: Prisma.PaymentUncheckedUpdateManyWithoutUserNestedInput
   eventsJoined?: Prisma.EventParticipantUncheckedUpdateManyWithoutUserNestedInput
@@ -1083,6 +1129,7 @@ export type UserSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = r
   hobbies?: boolean
   location?: boolean
   role?: boolean
+  userStatus?: boolean
   createdAt?: boolean
   payments?: boolean | Prisma.User$paymentsArgs<ExtArgs>
   eventsJoined?: boolean | Prisma.User$eventsJoinedArgs<ExtArgs>
@@ -1103,6 +1150,7 @@ export type UserSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensio
   hobbies?: boolean
   location?: boolean
   role?: boolean
+  userStatus?: boolean
   createdAt?: boolean
 }, ExtArgs["result"]["user"]>
 
@@ -1117,6 +1165,7 @@ export type UserSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensio
   hobbies?: boolean
   location?: boolean
   role?: boolean
+  userStatus?: boolean
   createdAt?: boolean
 }, ExtArgs["result"]["user"]>
 
@@ -1131,10 +1180,11 @@ export type UserSelectScalar = {
   hobbies?: boolean
   location?: boolean
   role?: boolean
+  userStatus?: boolean
   createdAt?: boolean
 }
 
-export type UserOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "name" | "email" | "password" | "bio" | "image" | "interests" | "hobbies" | "location" | "role" | "createdAt", ExtArgs["result"]["user"]>
+export type UserOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "name" | "email" | "password" | "bio" | "image" | "interests" | "hobbies" | "location" | "role" | "userStatus" | "createdAt", ExtArgs["result"]["user"]>
 export type UserInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   payments?: boolean | Prisma.User$paymentsArgs<ExtArgs>
   eventsJoined?: boolean | Prisma.User$eventsJoinedArgs<ExtArgs>
@@ -1166,6 +1216,7 @@ export type $UserPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs =
     hobbies: string[]
     location: string | null
     role: $Enums.Role
+    userStatus: $Enums.UserStatus
     createdAt: Date
   }, ExtArgs["result"]["user"]>
   composites: {}
@@ -1605,6 +1656,7 @@ export interface UserFieldRefs {
   readonly hobbies: Prisma.FieldRef<"User", 'String[]'>
   readonly location: Prisma.FieldRef<"User", 'String'>
   readonly role: Prisma.FieldRef<"User", 'Role'>
+  readonly userStatus: Prisma.FieldRef<"User", 'UserStatus'>
   readonly createdAt: Prisma.FieldRef<"User", 'DateTime'>
 }
     

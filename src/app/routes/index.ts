@@ -4,6 +4,7 @@ import { authRoute } from "../modules/Auth/auth.route";
 import { EventRoutes } from "../modules/events/event.route";
 import { ParticipantRoutes } from "../modules/participant/participant.route";
 import { AdminRoute } from "../modules/admin/admin.route";
+import { CommonRoute } from "../modules/common/common.route";
 
 
 export const router = Router();
@@ -28,6 +29,10 @@ const moduleRoutes = [
     {
         path:"/admin",
         route: AdminRoute
+    },
+    {
+        path:"/common",
+        route: CommonRoute
     },
 
 ]

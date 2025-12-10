@@ -11,7 +11,8 @@ export const catchAsync = (fn: typeAsyncHandler) => (req: Request, res: Response
           
         if (envVars.node_env === "development") {
             console.log("catch-err", err)
-            next(err)
+            
         }
+        next(err)
     })
 }

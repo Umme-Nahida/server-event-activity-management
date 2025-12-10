@@ -112,6 +112,19 @@ const getEventHistory = catchAsync(async (req:Request & JwtPayload, res:Response
 });
 
 
+const singleEvent = catchAsync(async (req: Request, res: Response,next:NextFunction) => {
+    const { id } = req.params;
+    const result = await EventService.singleEvent(id);
+    console.log("result", result)
+    sendResponse(res, {
+        statusCode: 200,
+        success: true,
+        message: 'Single Event retrieval successfully',
+        data: result,
+    });
+});
+
+
 export const EventController = {
     createEvent,
     allEvent,
@@ -119,5 +132,6 @@ export const EventController = {
     getMyReview,
     updateEvent,
     getUpcomingEvents,
-    getEventHistory
+    getEventHistory,
+    singleEvent
 }

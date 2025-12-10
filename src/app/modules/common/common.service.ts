@@ -176,7 +176,6 @@ const getTopRatedEvents = async () => {
 }
 
 
-
 export const CommonService = {
     getAllEvents,
     getTopRatedEvents

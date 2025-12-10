@@ -98,26 +98,11 @@ import AppError from "../../customizer/AppErrror";
     });
   }
 
-  // ---------- GET ALL USERS (ADMIN ONLY) ----------
- const getAllUsers = async() =>{
-    return prisma.user.findMany({
-      orderBy: { createdAt: "desc" },
-      select: {
-        id: true,
-        name: true,
-        email: true,
-        role: true,
-        image: true,
-        createdAt: true,
-      },
-    });
-  }
 
 
 
 export const UserService = {
     getMyProfile,
     updateMyProfile,
-    deleteMyAccount,
-    getAllUsers
+    deleteMyAccount
 }

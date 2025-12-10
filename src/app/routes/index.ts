@@ -33,7 +33,7 @@ const moduleRoutes = [
         route: AdminRoute
     },
     {
-        path:"/admin",
+        path:"/admin-report",
         route: AdminReportRoutes
     },
     {

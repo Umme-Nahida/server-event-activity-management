@@ -3,6 +3,7 @@ import httpStatus from "http-status"
 import { catchAsync } from "../../utils/catchAsync";
 import { sendResponse } from "../../utils/sendResponse";
 import { AdminService } from "./admin.service";
+import { JwtPayload } from "jsonwebtoken";
 
 const analytics = catchAsync(async(req:Request,res:Response, next:NextFunction)=>{
  
@@ -16,6 +17,19 @@ const analytics = catchAsync(async(req:Request,res:Response, next:NextFunction)=
         })
 })
 
+
+const paymentOverview = catchAsync(async(req:Request,res:Response, next:NextFunction)=>{
+ 
+     const result = await AdminService.paymentOverview();
+   
+        sendResponse(res,{
+            success: true,
+            statusCode: httpStatus.CREATED,
+            message: "Payment overview retrieve successfully",
+            data: result
+        })
+})
+
 const getAllEvents = catchAsync(async(req:Request,res:Response, next:NextFunction)=>{
      
     const filter = req.query;
@@ -24,7 +38,7 @@ const getAllEvents = catchAsync(async(req:Request,res:Response, next:NextFunctio
         sendResponse(res,{
             success: true,
             statusCode: httpStatus.CREATED,
-            message: "user created successfully",
+            message: "All events retrieve successfully",
             data: result
         })
 })
@@ -131,9 +145,32 @@ const  getAllHosts = catchAsync(async (req, res) => {
         });
   })
 
+ const approveHost = catchAsync(async (req:Request & JwtPayload, res:Response,next:NextFunction) => {
+    
+  const result = await AdminService.approveHost(req.params.id);
+      sendResponse(res,{
+            success: true,
+            statusCode: httpStatus.CREATED,
+            message: "host hase been approved successfully",
+            data: result
+        });
+  })
+
+ const rejectHost = catchAsync(async (req:Request & JwtPayload, res:Response,next:NextFunction) => {
+    
+  const result = await AdminService.rejectHost(req.params.id);
+      sendResponse(res,{
+            success: true,
+            statusCode: httpStatus.CREATED,
+            message: "host hase been approved successfully",
+            data: result
+        });
+  })
+
 
 export const AdminController = {
   analytics,
+  paymentOverview,
   getAllEvents,
   getAllHosts,
   getAllUsers,
@@ -144,7 +181,9 @@ export const AdminController = {
   deleteHost,
   deleteUser,
   promoteToHost,
-  demoteToUser
+  demoteToUser,
+  approveHost,
+  rejectHost
 }
 
 

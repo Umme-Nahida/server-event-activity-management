@@ -58,24 +58,9 @@ const deleteMyAccount =  catchAsync(async (req: Request & IPayloadUser, res: Res
   })
 
 
-const getAllUsers =  catchAsync(async (req: Request & IPayloadUser, res: Response, next:NextFunction) => {
-    
-    // const userId = req.user!.id;
-
-    const data = await UserService.getAllUsers();
-
-    sendResponse(res, {
-      statusCode: 200,
-      success: true,
-      message: "All users retrieved successfully",
-      data: data
-    });
-  })
-
 
 export const UserController = {
    getMyProfile,
    updateMyProfile,
-   deleteMyAccount,
-   getAllUsers
+   deleteMyAccount
 }

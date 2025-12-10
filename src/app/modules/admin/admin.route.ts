@@ -9,6 +9,7 @@ const router = Router()
 router.use(authCookies(Role.ADMIN));
 
 router.get("/analytics",authCookies(Role.ADMIN), AdminController.analytics)
+router.get("/payment-overview",authCookies(Role.ADMIN), AdminController.paymentOverview)
 
 // EVENT MANAGEMENT
 router.get("/all-events",authCookies(Role.ADMIN), AdminController.getAllEvents)
@@ -26,5 +27,7 @@ router.get("/hosts",authCookies(Role.ADMIN), AdminController.getAllHosts);
 router.get("/hosts/:id",authCookies(Role.ADMIN), AdminController.getHostById);
 router.patch("/hosts/status/:id",authCookies(Role.ADMIN), AdminController.updateHostStatus);
 router.delete("/hosts/:id",authCookies(Role.ADMIN), AdminController.deleteHost);
+router.patch("/approve-host/:id",authCookies(Role.ADMIN), AdminController.approveHost);
+router.patch("/reject-host/:id",authCookies(Role.ADMIN), AdminController.rejectHost);
 
 export const AdminRoute = router;

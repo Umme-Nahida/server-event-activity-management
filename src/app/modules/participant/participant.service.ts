@@ -29,7 +29,7 @@ const jointEvents = async (userId: string, eventId: string) => {
 
   // check existing payment
   const existingPayment = await prisma.payment.findFirst({
-    where: { userId, eventId }
+    where: { userId, eventId, status:"PAID"}
   });
 
   if (existingPayment) {
@@ -82,6 +82,7 @@ const jointEvents = async (userId: string, eventId: string) => {
         userId: user.id,
         eventId: eventData.id,
         amount: eventData.fee,
+        status:"PENDING",
         transactionId
       }
     })

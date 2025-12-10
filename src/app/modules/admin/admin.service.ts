@@ -74,7 +74,7 @@ analytics: async () => {
 
         include: {
             host: {
-                select: { id: true, name: true, image: true },
+                select: { id: true, name: true, image: true, role:true, userStatus:true },
             },
         },
 
@@ -83,6 +83,29 @@ analytics: async () => {
 
     return events
 },
+
+ paymentOverview: async () => {
+    const totalRevenue = await prisma.payment.aggregate({
+      where: { status: "PAID" },
+      _sum: { amount: true },
+    });
+
+    const pending = await prisma.payment.aggregate({
+      where: { status: "PENDING" },
+      _sum: { amount: true },
+    });
+
+    const totalTransactions = await prisma.payment.count();
+    const successful = await prisma.payment.count({ where: { status: "PAID" } });
+
+    const successRate = (successful / totalTransactions) * 100;
+
+    return {
+      totalRevenue: totalRevenue._sum.amount || 0,
+      pendingAmount: pending._sum.amount || 0,
+      successRate,
+    };
+  },
 
   // ======================
   // USER MANAGEMENT
@@ -137,7 +160,7 @@ analytics: async () => {
   promoteToHost: async (id: string) => {
     return prisma.user.update({
       where: { id },
-      data: { role: "HOST" },
+      data: { userStatus: UserStatus.REQUESTED},
     });
   },
 
@@ -203,6 +226,7 @@ analytics: async () => {
       },
     });
   },
+
   rejectHost: async (id: string) => {
     return prisma.user.update({
       where: { id },

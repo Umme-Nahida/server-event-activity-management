@@ -8,83 +8,6 @@ import { id } from "zod/v4/locales";
 import { IEventStatus } from "../../types/eventType";
 
 
-const createEvent = async (hostId: string, payload: Prisma.EventCreateInput) => {
-  console.log("payload_host:", payload);
-
-  // Host validation
-  const host = await prisma.user.findFirst({
-    where: { id: hostId, role: "HOST" },
-  });
-
-  if (!host) {
-    throw new AppError(httpStatus.FORBIDDEN, "Only hosts can create events");
-  }
-
-  const {
-    name,
-    type,
-    date,
-    time,
-    location,
-    minParticipants,
-    maxParticipants,
-    description,
-    image,
-    fee,
-  } = payload;
-
-  if (minParticipants > maxParticipants) {
-    throw new AppError(
-      httpStatus.BAD_REQUEST,
-      "minParticipants cannot be greater than maxParticipants"
-    );
-  }
-
-  const eventDateTime = time
-    ? new Date(`${date}T${time}`)
-    : new Date(`${date}T00:00`);
-
-
-  const event = await prisma.event.create({
-    data: {
-      name,
-      type,
-      date: eventDateTime,
-      time,
-      location,
-      minParticipants,
-      maxParticipants,
-      description,
-      image,
-      fee,
-      host: { connect: { id: hostId } },
-    },
-  });
-
-  return event;
-};
-
-
-const updateEvent = async (eventId: string, userInfo: IVerifiedUser, updateInfo: Prisma.EventUpdateInput) => {
-  
-  // check if exist host
-  const isExistHost = await prisma.event.findUniqueOrThrow({
-    where: {id: eventId, hostId: userInfo.id}
-   })
-
-   // check permission
-  if (isExistHost.hostId !== userInfo.id) {
-    throw new AppError(403, "You are not allowed to edit this event");
-  }
-
-   const updateEvents = await prisma.event.update({
-     where: {id: eventId, hostId:userInfo.id},
-     data: updateInfo
-   })
-
-   return updateEvents;
-   
-};
 
 const getAllEvents = async () => {
   const events = await prisma.event.findMany();
@@ -96,7 +19,7 @@ const updateEventStatus = async(user:IVerifiedUser, eventId:string, status:IEven
   const validStatus = ["OPEN", "CLOSED", "CANCELLED", "COMPLETED"];
 
   if (!validStatus.includes(status)) {
-    throw new AppError(400, "Invalid event status");
+    throw new AppError(httpStatus.BAD_REQUEST, "Invalid event status");
   }
 
   const event = await prisma.event.findUnique({ where: { id: eventId } });
@@ -278,7 +201,6 @@ const getUpcomingEvents =(user:IVerifiedUser) =>{
   }
 }
 
-
 const getEventHistory = async(user:IVerifiedUser) =>{
   const now = new Date();
   console.log("user>>>:", user)
@@ -343,15 +265,12 @@ const singleEvent = async (id: string): Promise<Partial<Event> | null> => {
 };
 
 
-
-export const EventService = {
-  createEvent,
+export const EventService = { 
   getAllEvents,
   getMyEvents,
   updateEventStatus,
   getMyReview,
-  updateEvent,
   getUpcomingEvents,
   getEventHistory,
-  singleEvent
+  singleEvent,
 };

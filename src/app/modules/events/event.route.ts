@@ -9,21 +9,7 @@ import { validationSchema } from "../../middleware/validationMiddleware";
 
 const router = Router();
 
-// create_event(host)
-router.post(
-  "/",
-  authCookies(Role.HOST),
-  validationSchema(EventCreateSchema),
-  EventController.createEvent
-);
-
-// update_event(host)
-router.get(
-  "/edit/:id",
-  authCookies(Role.HOST),
-  EventController.updateEvent
-);
-
+// updated evenst status (host, admin)
 router.patch(
   "/status/:id",
   authCookies("HOST", "ADMIN"),

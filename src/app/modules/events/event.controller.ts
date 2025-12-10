@@ -4,22 +4,6 @@ import { sendResponse } from "../../utils/sendResponse"
 import { EventService } from "./event.service"
 import { JwtPayload } from "jsonwebtoken"
 
-const createEvent = catchAsync(async(req:Request & JwtPayload,res:Response, next:NextFunction)=>{
-   
-   const hostId = req.user.id; // From JWT
-    const payload = req.body;
-    console.log("req user", req.user)
-
-    const result = await EventService.createEvent(hostId, payload);
-
-    sendResponse(res, {
-      statusCode: 201,
-      success: true,
-      message: "Event created successfully",
-      data: result,
-    });
-})
-
 
 const updateEventStatus = catchAsync(async (req:Request & JwtPayload, res:Response, next:NextFunction) => {
   const { id } = req.params;
@@ -82,23 +66,6 @@ const getMyReview = catchAsync(async(req:Request & JwtPayload,res:Response, next
 })
 
 
-const updateEvent = catchAsync(async(req:Request & JwtPayload,res:Response, next:NextFunction)=>{
-   
-    const userInfo = req.user; // From JWT
-    const userPayload = req.body;
-    const eventId = req.params.id
-    
-    // const hostId = req.user.id; // From JWT
-    const result = await EventService.updateEvent(eventId,userInfo,userPayload);
-
-    sendResponse(res, {
-      statusCode: 201,
-      success: true,
-      message: "Event has been updated successfully",
-      data: result,
-    });
-})
-
 
 const getUpcomingEvents = catchAsync(async (req:Request & JwtPayload, res:Response, next:NextFunction) => {
   const user = req.user;
@@ -142,11 +109,10 @@ const singleEvent = catchAsync(async (req: Request, res: Response,next:NextFunct
 
 
 export const EventController = {
-    createEvent,
+    
     allEvent,
     myEvents,
     getMyReview,
-    updateEvent,
     getUpcomingEvents,
     getEventHistory,
     singleEvent,

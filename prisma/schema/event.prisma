@@ -22,6 +22,7 @@ model Event {
   participants  EventParticipant[]
   reviews       Review[]
   report        Report[]
+  savedEvents      SavedEvent[]
 }
 
 

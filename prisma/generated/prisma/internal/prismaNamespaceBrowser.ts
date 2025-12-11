@@ -56,7 +56,8 @@ export const ModelName = {
   Payment: 'Payment',
   Review: 'Review',
   User: 'User',
-  Report: 'Report'
+  Report: 'Report',
+  SavedEvent: 'SavedEvent'
 } as const
 
 export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -146,6 +147,7 @@ export const UserScalarFieldEnum = {
   hobbies: 'hobbies',
   location: 'location',
   isDeleted: 'isDeleted',
+  isRequestedHost: 'isRequestedHost',
   role: 'role',
   userStatus: 'userStatus',
   createdAt: 'createdAt'
@@ -165,6 +167,16 @@ export const ReportScalarFieldEnum = {
 } as const
 
 export type ReportScalarFieldEnum = (typeof ReportScalarFieldEnum)[keyof typeof ReportScalarFieldEnum]
+
+
+export const SavedEventScalarFieldEnum = {
+  id: 'id',
+  userId: 'userId',
+  eventId: 'eventId',
+  createdAt: 'createdAt'
+} as const
+
+export type SavedEventScalarFieldEnum = (typeof SavedEventScalarFieldEnum)[keyof typeof SavedEventScalarFieldEnum]
 
 
 export const SortOrder = {

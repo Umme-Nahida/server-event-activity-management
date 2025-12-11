@@ -47,3 +47,8 @@ export type User = Prisma.UserModel
  * 
  */
 export type Report = Prisma.ReportModel
+/**
+ * Model SavedEvent
+ * 
+ */
+export type SavedEvent = Prisma.SavedEventModel

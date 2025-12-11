@@ -32,5 +32,11 @@ enum ReviewStatus {
     REJECTED  
 }
 
+enum ReportStatus {
+  PENDING
+  REVIEWED
+  ACTION_TAKEN
+}
+
 
 

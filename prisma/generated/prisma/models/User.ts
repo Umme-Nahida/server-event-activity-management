@@ -33,6 +33,7 @@ export type UserMinAggregateOutputType = {
   image: string | null
   location: string | null
   isDeleted: boolean | null
+  isRequestedHost: boolean | null
   role: $Enums.Role | null
   userStatus: $Enums.UserStatus | null
   createdAt: Date | null
@@ -47,6 +48,7 @@ export type UserMaxAggregateOutputType = {
   image: string | null
   location: string | null
   isDeleted: boolean | null
+  isRequestedHost: boolean | null
   role: $Enums.Role | null
   userStatus: $Enums.UserStatus | null
   createdAt: Date | null
@@ -63,6 +65,7 @@ export type UserCountAggregateOutputType = {
   hobbies: number
   location: number
   isDeleted: number
+  isRequestedHost: number
   role: number
   userStatus: number
   createdAt: number
@@ -79,6 +82,7 @@ export type UserMinAggregateInputType = {
   image?: true
   location?: true
   isDeleted?: true
+  isRequestedHost?: true
   role?: true
   userStatus?: true
   createdAt?: true
@@ -93,6 +97,7 @@ export type UserMaxAggregateInputType = {
   image?: true
   location?: true
   isDeleted?: true
+  isRequestedHost?: true
   role?: true
   userStatus?: true
   createdAt?: true
@@ -109,6 +114,7 @@ export type UserCountAggregateInputType = {
   hobbies?: true
   location?: true
   isDeleted?: true
+  isRequestedHost?: true
   role?: true
   userStatus?: true
   createdAt?: true
@@ -198,6 +204,7 @@ export type UserGroupByOutputType = {
   hobbies: string[]
   location: string | null
   isDeleted: boolean
+  isRequestedHost: boolean
   role: $Enums.Role
   userStatus: $Enums.UserStatus
   createdAt: Date
@@ -235,6 +242,7 @@ export type UserWhereInput = {
   hobbies?: Prisma.StringNullableListFilter<"User">
   location?: Prisma.StringNullableFilter<"User"> | string | null
   isDeleted?: Prisma.BoolFilter<"User"> | boolean
+  isRequestedHost?: Prisma.BoolFilter<"User"> | boolean
   role?: Prisma.EnumRoleFilter<"User"> | $Enums.Role
   userStatus?: Prisma.EnumUserStatusFilter<"User"> | $Enums.UserStatus
   createdAt?: Prisma.DateTimeFilter<"User"> | Date | string
@@ -245,6 +253,7 @@ export type UserWhereInput = {
   reviewsReceived?: Prisma.ReviewListRelationFilter
   reportsSubmitted?: Prisma.ReportListRelationFilter
   reportsReceived?: Prisma.ReportListRelationFilter
+  savedEvents?: Prisma.SavedEventListRelationFilter
 }
 
 export type UserOrderByWithRelationInput = {
@@ -258,6 +267,7 @@ export type UserOrderByWithRelationInput = {
   hobbies?: Prisma.SortOrder
   location?: Prisma.SortOrderInput | Prisma.SortOrder
   isDeleted?: Prisma.SortOrder
+  isRequestedHost?: Prisma.SortOrder
   role?: Prisma.SortOrder
   userStatus?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
@@ -268,6 +278,7 @@ export type UserOrderByWithRelationInput = {
   reviewsReceived?: Prisma.ReviewOrderByRelationAggregateInput
   reportsSubmitted?: Prisma.ReportOrderByRelationAggregateInput
   reportsReceived?: Prisma.ReportOrderByRelationAggregateInput
+  savedEvents?: Prisma.SavedEventOrderByRelationAggregateInput
 }
 
 export type UserWhereUniqueInput = Prisma.AtLeast<{
@@ -284,6 +295,7 @@ export type UserWhereUniqueInput = Prisma.AtLeast<{
   hobbies?: Prisma.StringNullableListFilter<"User">
   location?: Prisma.StringNullableFilter<"User"> | string | null
   isDeleted?: Prisma.BoolFilter<"User"> | boolean
+  isRequestedHost?: Prisma.BoolFilter<"User"> | boolean
   role?: Prisma.EnumRoleFilter<"User"> | $Enums.Role
   userStatus?: Prisma.EnumUserStatusFilter<"User"> | $Enums.UserStatus
   createdAt?: Prisma.DateTimeFilter<"User"> | Date | string
@@ -294,6 +306,7 @@ export type UserWhereUniqueInput = Prisma.AtLeast<{
   reviewsReceived?: Prisma.ReviewListRelationFilter
   reportsSubmitted?: Prisma.ReportListRelationFilter
   reportsReceived?: Prisma.ReportListRelationFilter
+  savedEvents?: Prisma.SavedEventListRelationFilter
 }, "id" | "email">
 
 export type UserOrderByWithAggregationInput = {
@@ -307,6 +320,7 @@ export type UserOrderByWithAggregationInput = {
   hobbies?: Prisma.SortOrder
   location?: Prisma.SortOrderInput | Prisma.SortOrder
   isDeleted?: Prisma.SortOrder
+  isRequestedHost?: Prisma.SortOrder
   role?: Prisma.SortOrder
   userStatus?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
@@ -329,6 +343,7 @@ export type UserScalarWhereWithAggregatesInput = {
   hobbies?: Prisma.StringNullableListFilter<"User">
   location?: Prisma.StringNullableWithAggregatesFilter<"User"> | string | null
   isDeleted?: Prisma.BoolWithAggregatesFilter<"User"> | boolean
+  isRequestedHost?: Prisma.BoolWithAggregatesFilter<"User"> | boolean
   role?: Prisma.EnumRoleWithAggregatesFilter<"User"> | $Enums.Role
   userStatus?: Prisma.EnumUserStatusWithAggregatesFilter<"User"> | $Enums.UserStatus
   createdAt?: Prisma.DateTimeWithAggregatesFilter<"User"> | Date | string
@@ -345,6 +360,7 @@ export type UserCreateInput = {
   hobbies?: Prisma.UserCreatehobbiesInput | string[]
   location?: string | null
   isDeleted?: boolean
+  isRequestedHost?: boolean
   role?: $Enums.Role
   userStatus?: $Enums.UserStatus
   createdAt?: Date | string
@@ -355,6 +371,7 @@ export type UserCreateInput = {
   reviewsReceived?: Prisma.ReviewCreateNestedManyWithoutHostInput
   reportsSubmitted?: Prisma.ReportCreateNestedManyWithoutReporterInput
   reportsReceived?: Prisma.ReportCreateNestedManyWithoutTargetUserInput
+  savedEvents?: Prisma.SavedEventCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateInput = {
@@ -368,6 +385,7 @@ export type UserUncheckedCreateInput = {
   hobbies?: Prisma.UserCreatehobbiesInput | string[]
   location?: string | null
   isDeleted?: boolean
+  isRequestedHost?: boolean
   role?: $Enums.Role
   userStatus?: $Enums.UserStatus
   createdAt?: Date | string
@@ -378,6 +396,7 @@ export type UserUncheckedCreateInput = {
   reviewsReceived?: Prisma.ReviewUncheckedCreateNestedManyWithoutHostInput
   reportsSubmitted?: Prisma.ReportUncheckedCreateNestedManyWithoutReporterInput
   reportsReceived?: Prisma.ReportUncheckedCreateNestedManyWithoutTargetUserInput
+  savedEvents?: Prisma.SavedEventUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserUpdateInput = {
@@ -391,6 +410,7 @@ export type UserUpdateInput = {
   hobbies?: Prisma.UserUpdatehobbiesInput | string[]
   location?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isDeleted?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isRequestedHost?: Prisma.BoolFieldUpdateOperationsInput | boolean
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
   userStatus?: Prisma.EnumUserStatusFieldUpdateOperationsInput | $Enums.UserStatus
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -401,6 +421,7 @@ export type UserUpdateInput = {
   reviewsReceived?: Prisma.ReviewUpdateManyWithoutHostNestedInput
   reportsSubmitted?: Prisma.ReportUpdateManyWithoutReporterNestedInput
   reportsReceived?: Prisma.ReportUpdateManyWithoutTargetUserNestedInput
+  savedEvents?: Prisma.SavedEventUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateInput = {
@@ -414,6 +435,7 @@ export type UserUncheckedUpdateInput = {
   hobbies?: Prisma.UserUpdatehobbiesInput | string[]
   location?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isDeleted?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isRequestedHost?: Prisma.BoolFieldUpdateOperationsInput | boolean
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
   userStatus?: Prisma.EnumUserStatusFieldUpdateOperationsInput | $Enums.UserStatus
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -424,6 +446,7 @@ export type UserUncheckedUpdateInput = {
   reviewsReceived?: Prisma.ReviewUncheckedUpdateManyWithoutHostNestedInput
   reportsSubmitted?: Prisma.ReportUncheckedUpdateManyWithoutReporterNestedInput
   reportsReceived?: Prisma.ReportUncheckedUpdateManyWithoutTargetUserNestedInput
+  savedEvents?: Prisma.SavedEventUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateManyInput = {
@@ -437,6 +460,7 @@ export type UserCreateManyInput = {
   hobbies?: Prisma.UserCreatehobbiesInput | string[]
   location?: string | null
   isDeleted?: boolean
+  isRequestedHost?: boolean
   role?: $Enums.Role
   userStatus?: $Enums.UserStatus
   createdAt?: Date | string
@@ -453,6 +477,7 @@ export type UserUpdateManyMutationInput = {
   hobbies?: Prisma.UserUpdatehobbiesInput | string[]
   location?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isDeleted?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isRequestedHost?: Prisma.BoolFieldUpdateOperationsInput | boolean
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
   userStatus?: Prisma.EnumUserStatusFieldUpdateOperationsInput | $Enums.UserStatus
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -469,6 +494,7 @@ export type UserUncheckedUpdateManyInput = {
   hobbies?: Prisma.UserUpdatehobbiesInput | string[]
   location?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isDeleted?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isRequestedHost?: Prisma.BoolFieldUpdateOperationsInput | boolean
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
   userStatus?: Prisma.EnumUserStatusFieldUpdateOperationsInput | $Enums.UserStatus
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -498,6 +524,7 @@ export type UserCountOrderByAggregateInput = {
   hobbies?: Prisma.SortOrder
   location?: Prisma.SortOrder
   isDeleted?: Prisma.SortOrder
+  isRequestedHost?: Prisma.SortOrder
   role?: Prisma.SortOrder
   userStatus?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
@@ -512,6 +539,7 @@ export type UserMaxOrderByAggregateInput = {
   image?: Prisma.SortOrder
   location?: Prisma.SortOrder
   isDeleted?: Prisma.SortOrder
+  isRequestedHost?: Prisma.SortOrder
   role?: Prisma.SortOrder
   userStatus?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
@@ -526,6 +554,7 @@ export type UserMinOrderByAggregateInput = {
   image?: Prisma.SortOrder
   location?: Prisma.SortOrder
   isDeleted?: Prisma.SortOrder
+  isRequestedHost?: Prisma.SortOrder
   role?: Prisma.SortOrder
   userStatus?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
@@ -662,6 +691,20 @@ export type UserUpdateOneWithoutReportsReceivedNestedInput = {
   update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutReportsReceivedInput, Prisma.UserUpdateWithoutReportsReceivedInput>, Prisma.UserUncheckedUpdateWithoutReportsReceivedInput>
 }
 
+export type UserCreateNestedOneWithoutSavedEventsInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutSavedEventsInput, Prisma.UserUncheckedCreateWithoutSavedEventsInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutSavedEventsInput
+  connect?: Prisma.UserWhereUniqueInput
+}
+
+export type UserUpdateOneRequiredWithoutSavedEventsNestedInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutSavedEventsInput, Prisma.UserUncheckedCreateWithoutSavedEventsInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutSavedEventsInput
+  upsert?: Prisma.UserUpsertWithoutSavedEventsInput
+  connect?: Prisma.UserWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutSavedEventsInput, Prisma.UserUpdateWithoutSavedEventsInput>, Prisma.UserUncheckedUpdateWithoutSavedEventsInput>
+}
+
 export type UserCreateWithoutEventsHostedInput = {
   id?: string
   name: string
@@ -673,6 +716,7 @@ export type UserCreateWithoutEventsHostedInput = {
   hobbies?: Prisma.UserCreatehobbiesInput | string[]
   location?: string | null
   isDeleted?: boolean
+  isRequestedHost?: boolean
   role?: $Enums.Role
   userStatus?: $Enums.UserStatus
   createdAt?: Date | string
@@ -682,6 +726,7 @@ export type UserCreateWithoutEventsHostedInput = {
   reviewsReceived?: Prisma.ReviewCreateNestedManyWithoutHostInput
   reportsSubmitted?: Prisma.ReportCreateNestedManyWithoutReporterInput
   reportsReceived?: Prisma.ReportCreateNestedManyWithoutTargetUserInput
+  savedEvents?: Prisma.SavedEventCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutEventsHostedInput = {
@@ -695,6 +740,7 @@ export type UserUncheckedCreateWithoutEventsHostedInput = {
   hobbies?: Prisma.UserCreatehobbiesInput | string[]
   location?: string | null
   isDeleted?: boolean
+  isRequestedHost?: boolean
   role?: $Enums.Role
   userStatus?: $Enums.UserStatus
   createdAt?: Date | string
@@ -704,6 +750,7 @@ export type UserUncheckedCreateWithoutEventsHostedInput = {
   reviewsReceived?: Prisma.ReviewUncheckedCreateNestedManyWithoutHostInput
   reportsSubmitted?: Prisma.ReportUncheckedCreateNestedManyWithoutReporterInput
   reportsReceived?: Prisma.ReportUncheckedCreateNestedManyWithoutTargetUserInput
+  savedEvents?: Prisma.SavedEventUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutEventsHostedInput = {
@@ -733,6 +780,7 @@ export type UserUpdateWithoutEventsHostedInput = {
   hobbies?: Prisma.UserUpdatehobbiesInput | string[]
   location?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isDeleted?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isRequestedHost?: Prisma.BoolFieldUpdateOperationsInput | boolean
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
   userStatus?: Prisma.EnumUserStatusFieldUpdateOperationsInput | $Enums.UserStatus
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -742,6 +790,7 @@ export type UserUpdateWithoutEventsHostedInput = {
   reviewsReceived?: Prisma.ReviewUpdateManyWithoutHostNestedInput
   reportsSubmitted?: Prisma.ReportUpdateManyWithoutReporterNestedInput
   reportsReceived?: Prisma.ReportUpdateManyWithoutTargetUserNestedInput
+  savedEvents?: Prisma.SavedEventUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutEventsHostedInput = {
@@ -755,6 +804,7 @@ export type UserUncheckedUpdateWithoutEventsHostedInput = {
   hobbies?: Prisma.UserUpdatehobbiesInput | string[]
   location?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isDeleted?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isRequestedHost?: Prisma.BoolFieldUpdateOperationsInput | boolean
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
   userStatus?: Prisma.EnumUserStatusFieldUpdateOperationsInput | $Enums.UserStatus
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -764,6 +814,7 @@ export type UserUncheckedUpdateWithoutEventsHostedInput = {
   reviewsReceived?: Prisma.ReviewUncheckedUpdateManyWithoutHostNestedInput
   reportsSubmitted?: Prisma.ReportUncheckedUpdateManyWithoutReporterNestedInput
   reportsReceived?: Prisma.ReportUncheckedUpdateManyWithoutTargetUserNestedInput
+  savedEvents?: Prisma.SavedEventUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutEventsJoinedInput = {
@@ -777,6 +828,7 @@ export type UserCreateWithoutEventsJoinedInput = {
   hobbies?: Prisma.UserCreatehobbiesInput | string[]
   location?: string | null
   isDeleted?: boolean
+  isRequestedHost?: boolean
   role?: $Enums.Role
   userStatus?: $Enums.UserStatus
   createdAt?: Date | string
@@ -786,6 +838,7 @@ export type UserCreateWithoutEventsJoinedInput = {
   reviewsReceived?: Prisma.ReviewCreateNestedManyWithoutHostInput
   reportsSubmitted?: Prisma.ReportCreateNestedManyWithoutReporterInput
   reportsReceived?: Prisma.ReportCreateNestedManyWithoutTargetUserInput
+  savedEvents?: Prisma.SavedEventCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutEventsJoinedInput = {
@@ -799,6 +852,7 @@ export type UserUncheckedCreateWithoutEventsJoinedInput = {
   hobbies?: Prisma.UserCreatehobbiesInput | string[]
   location?: string | null
   isDeleted?: boolean
+  isRequestedHost?: boolean
   role?: $Enums.Role
   userStatus?: $Enums.UserStatus
   createdAt?: Date | string
@@ -808,6 +862,7 @@ export type UserUncheckedCreateWithoutEventsJoinedInput = {
   reviewsReceived?: Prisma.ReviewUncheckedCreateNestedManyWithoutHostInput
   reportsSubmitted?: Prisma.ReportUncheckedCreateNestedManyWithoutReporterInput
   reportsReceived?: Prisma.ReportUncheckedCreateNestedManyWithoutTargetUserInput
+  savedEvents?: Prisma.SavedEventUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutEventsJoinedInput = {
@@ -837,6 +892,7 @@ export type UserUpdateWithoutEventsJoinedInput = {
   hobbies?: Prisma.UserUpdatehobbiesInput | string[]
   location?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isDeleted?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isRequestedHost?: Prisma.BoolFieldUpdateOperationsInput | boolean
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
   userStatus?: Prisma.EnumUserStatusFieldUpdateOperationsInput | $Enums.UserStatus
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -846,6 +902,7 @@ export type UserUpdateWithoutEventsJoinedInput = {
   reviewsReceived?: Prisma.ReviewUpdateManyWithoutHostNestedInput
   reportsSubmitted?: Prisma.ReportUpdateManyWithoutReporterNestedInput
   reportsReceived?: Prisma.ReportUpdateManyWithoutTargetUserNestedInput
+  savedEvents?: Prisma.SavedEventUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutEventsJoinedInput = {
@@ -859,6 +916,7 @@ export type UserUncheckedUpdateWithoutEventsJoinedInput = {
   hobbies?: Prisma.UserUpdatehobbiesInput | string[]
   location?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isDeleted?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isRequestedHost?: Prisma.BoolFieldUpdateOperationsInput | boolean
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
   userStatus?: Prisma.EnumUserStatusFieldUpdateOperationsInput | $Enums.UserStatus
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -868,6 +926,7 @@ export type UserUncheckedUpdateWithoutEventsJoinedInput = {
   reviewsReceived?: Prisma.ReviewUncheckedUpdateManyWithoutHostNestedInput
   reportsSubmitted?: Prisma.ReportUncheckedUpdateManyWithoutReporterNestedInput
   reportsReceived?: Prisma.ReportUncheckedUpdateManyWithoutTargetUserNestedInput
+  savedEvents?: Prisma.SavedEventUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutPaymentsInput = {
@@ -881,6 +940,7 @@ export type UserCreateWithoutPaymentsInput = {
   hobbies?: Prisma.UserCreatehobbiesInput | string[]
   location?: string | null
   isDeleted?: boolean
+  isRequestedHost?: boolean
   role?: $Enums.Role
   userStatus?: $Enums.UserStatus
   createdAt?: Date | string
@@ -890,6 +950,7 @@ export type UserCreateWithoutPaymentsInput = {
   reviewsReceived?: Prisma.ReviewCreateNestedManyWithoutHostInput
   reportsSubmitted?: Prisma.ReportCreateNestedManyWithoutReporterInput
   reportsReceived?: Prisma.ReportCreateNestedManyWithoutTargetUserInput
+  savedEvents?: Prisma.SavedEventCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutPaymentsInput = {
@@ -903,6 +964,7 @@ export type UserUncheckedCreateWithoutPaymentsInput = {
   hobbies?: Prisma.UserCreatehobbiesInput | string[]
   location?: string | null
   isDeleted?: boolean
+  isRequestedHost?: boolean
   role?: $Enums.Role
   userStatus?: $Enums.UserStatus
   createdAt?: Date | string
@@ -912,6 +974,7 @@ export type UserUncheckedCreateWithoutPaymentsInput = {
   reviewsReceived?: Prisma.ReviewUncheckedCreateNestedManyWithoutHostInput
   reportsSubmitted?: Prisma.ReportUncheckedCreateNestedManyWithoutReporterInput
   reportsReceived?: Prisma.ReportUncheckedCreateNestedManyWithoutTargetUserInput
+  savedEvents?: Prisma.SavedEventUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutPaymentsInput = {
@@ -941,6 +1004,7 @@ export type UserUpdateWithoutPaymentsInput = {
   hobbies?: Prisma.UserUpdatehobbiesInput | string[]
   location?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isDeleted?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isRequestedHost?: Prisma.BoolFieldUpdateOperationsInput | boolean
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
   userStatus?: Prisma.EnumUserStatusFieldUpdateOperationsInput | $Enums.UserStatus
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -950,6 +1014,7 @@ export type UserUpdateWithoutPaymentsInput = {
   reviewsReceived?: Prisma.ReviewUpdateManyWithoutHostNestedInput
   reportsSubmitted?: Prisma.ReportUpdateManyWithoutReporterNestedInput
   reportsReceived?: Prisma.ReportUpdateManyWithoutTargetUserNestedInput
+  savedEvents?: Prisma.SavedEventUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutPaymentsInput = {
@@ -963,6 +1028,7 @@ export type UserUncheckedUpdateWithoutPaymentsInput = {
   hobbies?: Prisma.UserUpdatehobbiesInput | string[]
   location?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isDeleted?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isRequestedHost?: Prisma.BoolFieldUpdateOperationsInput | boolean
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
   userStatus?: Prisma.EnumUserStatusFieldUpdateOperationsInput | $Enums.UserStatus
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -972,6 +1038,7 @@ export type UserUncheckedUpdateWithoutPaymentsInput = {
   reviewsReceived?: Prisma.ReviewUncheckedUpdateManyWithoutHostNestedInput
   reportsSubmitted?: Prisma.ReportUncheckedUpdateManyWithoutReporterNestedInput
   reportsReceived?: Prisma.ReportUncheckedUpdateManyWithoutTargetUserNestedInput
+  savedEvents?: Prisma.SavedEventUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutReviewsGivenInput = {
@@ -985,6 +1052,7 @@ export type UserCreateWithoutReviewsGivenInput = {
   hobbies?: Prisma.UserCreatehobbiesInput | string[]
   location?: string | null
   isDeleted?: boolean
+  isRequestedHost?: boolean
   role?: $Enums.Role
   userStatus?: $Enums.UserStatus
   createdAt?: Date | string
@@ -994,6 +1062,7 @@ export type UserCreateWithoutReviewsGivenInput = {
   reviewsReceived?: Prisma.ReviewCreateNestedManyWithoutHostInput
   reportsSubmitted?: Prisma.ReportCreateNestedManyWithoutReporterInput
   reportsReceived?: Prisma.ReportCreateNestedManyWithoutTargetUserInput
+  savedEvents?: Prisma.SavedEventCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutReviewsGivenInput = {
@@ -1007,6 +1076,7 @@ export type UserUncheckedCreateWithoutReviewsGivenInput = {
   hobbies?: Prisma.UserCreatehobbiesInput | string[]
   location?: string | null
   isDeleted?: boolean
+  isRequestedHost?: boolean
   role?: $Enums.Role
   userStatus?: $Enums.UserStatus
   createdAt?: Date | string
@@ -1016,6 +1086,7 @@ export type UserUncheckedCreateWithoutReviewsGivenInput = {
   reviewsReceived?: Prisma.ReviewUncheckedCreateNestedManyWithoutHostInput
   reportsSubmitted?: Prisma.ReportUncheckedCreateNestedManyWithoutReporterInput
   reportsReceived?: Prisma.ReportUncheckedCreateNestedManyWithoutTargetUserInput
+  savedEvents?: Prisma.SavedEventUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutReviewsGivenInput = {
@@ -1034,6 +1105,7 @@ export type UserCreateWithoutReviewsReceivedInput = {
   hobbies?: Prisma.UserCreatehobbiesInput | string[]
   location?: string | null
   isDeleted?: boolean
+  isRequestedHost?: boolean
   role?: $Enums.Role
   userStatus?: $Enums.UserStatus
   createdAt?: Date | string
@@ -1043,6 +1115,7 @@ export type UserCreateWithoutReviewsReceivedInput = {
   reviewsGiven?: Prisma.ReviewCreateNestedManyWithoutReviewerInput
   reportsSubmitted?: Prisma.ReportCreateNestedManyWithoutReporterInput
   reportsReceived?: Prisma.ReportCreateNestedManyWithoutTargetUserInput
+  savedEvents?: Prisma.SavedEventCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutReviewsReceivedInput = {
@@ -1056,6 +1129,7 @@ export type UserUncheckedCreateWithoutReviewsReceivedInput = {
   hobbies?: Prisma.UserCreatehobbiesInput | string[]
   location?: string | null
   isDeleted?: boolean
+  isRequestedHost?: boolean
   role?: $Enums.Role
   userStatus?: $Enums.UserStatus
   createdAt?: Date | string
@@ -1065,6 +1139,7 @@ export type UserUncheckedCreateWithoutReviewsReceivedInput = {
   reviewsGiven?: Prisma.ReviewUncheckedCreateNestedManyWithoutReviewerInput
   reportsSubmitted?: Prisma.ReportUncheckedCreateNestedManyWithoutReporterInput
   reportsReceived?: Prisma.ReportUncheckedCreateNestedManyWithoutTargetUserInput
+  savedEvents?: Prisma.SavedEventUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutReviewsReceivedInput = {
@@ -1094,6 +1169,7 @@ export type UserUpdateWithoutReviewsGivenInput = {
   hobbies?: Prisma.UserUpdatehobbiesInput | string[]
   location?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isDeleted?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isRequestedHost?: Prisma.BoolFieldUpdateOperationsInput | boolean
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
   userStatus?: Prisma.EnumUserStatusFieldUpdateOperationsInput | $Enums.UserStatus
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -1103,6 +1179,7 @@ export type UserUpdateWithoutReviewsGivenInput = {
   reviewsReceived?: Prisma.ReviewUpdateManyWithoutHostNestedInput
   reportsSubmitted?: Prisma.ReportUpdateManyWithoutReporterNestedInput
   reportsReceived?: Prisma.ReportUpdateManyWithoutTargetUserNestedInput
+  savedEvents?: Prisma.SavedEventUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutReviewsGivenInput = {
@@ -1116,6 +1193,7 @@ export type UserUncheckedUpdateWithoutReviewsGivenInput = {
   hobbies?: Prisma.UserUpdatehobbiesInput | string[]
   location?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isDeleted?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isRequestedHost?: Prisma.BoolFieldUpdateOperationsInput | boolean
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
   userStatus?: Prisma.EnumUserStatusFieldUpdateOperationsInput | $Enums.UserStatus
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -1125,6 +1203,7 @@ export type UserUncheckedUpdateWithoutReviewsGivenInput = {
   reviewsReceived?: Prisma.ReviewUncheckedUpdateManyWithoutHostNestedInput
   reportsSubmitted?: Prisma.ReportUncheckedUpdateManyWithoutReporterNestedInput
   reportsReceived?: Prisma.ReportUncheckedUpdateManyWithoutTargetUserNestedInput
+  savedEvents?: Prisma.SavedEventUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserUpsertWithoutReviewsReceivedInput = {
@@ -1149,6 +1228,7 @@ export type UserUpdateWithoutReviewsReceivedInput = {
   hobbies?: Prisma.UserUpdatehobbiesInput | string[]
   location?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isDeleted?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isRequestedHost?: Prisma.BoolFieldUpdateOperationsInput | boolean
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
   userStatus?: Prisma.EnumUserStatusFieldUpdateOperationsInput | $Enums.UserStatus
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -1158,6 +1238,7 @@ export type UserUpdateWithoutReviewsReceivedInput = {
   reviewsGiven?: Prisma.ReviewUpdateManyWithoutReviewerNestedInput
   reportsSubmitted?: Prisma.ReportUpdateManyWithoutReporterNestedInput
   reportsReceived?: Prisma.ReportUpdateManyWithoutTargetUserNestedInput
+  savedEvents?: Prisma.SavedEventUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutReviewsReceivedInput = {
@@ -1171,6 +1252,7 @@ export type UserUncheckedUpdateWithoutReviewsReceivedInput = {
   hobbies?: Prisma.UserUpdatehobbiesInput | string[]
   location?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isDeleted?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isRequestedHost?: Prisma.BoolFieldUpdateOperationsInput | boolean
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
   userStatus?: Prisma.EnumUserStatusFieldUpdateOperationsInput | $Enums.UserStatus
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -1180,6 +1262,7 @@ export type UserUncheckedUpdateWithoutReviewsReceivedInput = {
   reviewsGiven?: Prisma.ReviewUncheckedUpdateManyWithoutReviewerNestedInput
   reportsSubmitted?: Prisma.ReportUncheckedUpdateManyWithoutReporterNestedInput
   reportsReceived?: Prisma.ReportUncheckedUpdateManyWithoutTargetUserNestedInput
+  savedEvents?: Prisma.SavedEventUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutReportsSubmittedInput = {
@@ -1193,6 +1276,7 @@ export type UserCreateWithoutReportsSubmittedInput = {
   hobbies?: Prisma.UserCreatehobbiesInput | string[]
   location?: string | null
   isDeleted?: boolean
+  isRequestedHost?: boolean
   role?: $Enums.Role
   userStatus?: $Enums.UserStatus
   createdAt?: Date | string
@@ -1202,6 +1286,7 @@ export type UserCreateWithoutReportsSubmittedInput = {
   reviewsGiven?: Prisma.ReviewCreateNestedManyWithoutReviewerInput
   reviewsReceived?: Prisma.ReviewCreateNestedManyWithoutHostInput
   reportsReceived?: Prisma.ReportCreateNestedManyWithoutTargetUserInput
+  savedEvents?: Prisma.SavedEventCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutReportsSubmittedInput = {
@@ -1215,6 +1300,7 @@ export type UserUncheckedCreateWithoutReportsSubmittedInput = {
   hobbies?: Prisma.UserCreatehobbiesInput | string[]
   location?: string | null
   isDeleted?: boolean
+  isRequestedHost?: boolean
   role?: $Enums.Role
   userStatus?: $Enums.UserStatus
   createdAt?: Date | string
@@ -1224,6 +1310,7 @@ export type UserUncheckedCreateWithoutReportsSubmittedInput = {
   reviewsGiven?: Prisma.ReviewUncheckedCreateNestedManyWithoutReviewerInput
   reviewsReceived?: Prisma.ReviewUncheckedCreateNestedManyWithoutHostInput
   reportsReceived?: Prisma.ReportUncheckedCreateNestedManyWithoutTargetUserInput
+  savedEvents?: Prisma.SavedEventUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutReportsSubmittedInput = {
@@ -1242,6 +1329,7 @@ export type UserCreateWithoutReportsReceivedInput = {
   hobbies?: Prisma.UserCreatehobbiesInput | string[]
   location?: string | null
   isDeleted?: boolean
+  isRequestedHost?: boolean
   role?: $Enums.Role
   userStatus?: $Enums.UserStatus
   createdAt?: Date | string
@@ -1251,6 +1339,7 @@ export type UserCreateWithoutReportsReceivedInput = {
   reviewsGiven?: Prisma.ReviewCreateNestedManyWithoutReviewerInput
   reviewsReceived?: Prisma.ReviewCreateNestedManyWithoutHostInput
   reportsSubmitted?: Prisma.ReportCreateNestedManyWithoutReporterInput
+  savedEvents?: Prisma.SavedEventCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutReportsReceivedInput = {
@@ -1264,6 +1353,7 @@ export type UserUncheckedCreateWithoutReportsReceivedInput = {
   hobbies?: Prisma.UserCreatehobbiesInput | string[]
   location?: string | null
   isDeleted?: boolean
+  isRequestedHost?: boolean
   role?: $Enums.Role
   userStatus?: $Enums.UserStatus
   createdAt?: Date | string
@@ -1273,6 +1363,7 @@ export type UserUncheckedCreateWithoutReportsReceivedInput = {
   reviewsGiven?: Prisma.ReviewUncheckedCreateNestedManyWithoutReviewerInput
   reviewsReceived?: Prisma.ReviewUncheckedCreateNestedManyWithoutHostInput
   reportsSubmitted?: Prisma.ReportUncheckedCreateNestedManyWithoutReporterInput
+  savedEvents?: Prisma.SavedEventUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutReportsReceivedInput = {
@@ -1302,6 +1393,7 @@ export type UserUpdateWithoutReportsSubmittedInput = {
   hobbies?: Prisma.UserUpdatehobbiesInput | string[]
   location?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isDeleted?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isRequestedHost?: Prisma.BoolFieldUpdateOperationsInput | boolean
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
   userStatus?: Prisma.EnumUserStatusFieldUpdateOperationsInput | $Enums.UserStatus
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -1311,6 +1403,7 @@ export type UserUpdateWithoutReportsSubmittedInput = {
   reviewsGiven?: Prisma.ReviewUpdateManyWithoutReviewerNestedInput
   reviewsReceived?: Prisma.ReviewUpdateManyWithoutHostNestedInput
   reportsReceived?: Prisma.ReportUpdateManyWithoutTargetUserNestedInput
+  savedEvents?: Prisma.SavedEventUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutReportsSubmittedInput = {
@@ -1324,6 +1417,7 @@ export type UserUncheckedUpdateWithoutReportsSubmittedInput = {
   hobbies?: Prisma.UserUpdatehobbiesInput | string[]
   location?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isDeleted?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isRequestedHost?: Prisma.BoolFieldUpdateOperationsInput | boolean
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
   userStatus?: Prisma.EnumUserStatusFieldUpdateOperationsInput | $Enums.UserStatus
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -1333,6 +1427,7 @@ export type UserUncheckedUpdateWithoutReportsSubmittedInput = {
   reviewsGiven?: Prisma.ReviewUncheckedUpdateManyWithoutReviewerNestedInput
   reviewsReceived?: Prisma.ReviewUncheckedUpdateManyWithoutHostNestedInput
   reportsReceived?: Prisma.ReportUncheckedUpdateManyWithoutTargetUserNestedInput
+  savedEvents?: Prisma.SavedEventUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserUpsertWithoutReportsReceivedInput = {
@@ -1357,6 +1452,7 @@ export type UserUpdateWithoutReportsReceivedInput = {
   hobbies?: Prisma.UserUpdatehobbiesInput | string[]
   location?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isDeleted?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isRequestedHost?: Prisma.BoolFieldUpdateOperationsInput | boolean
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
   userStatus?: Prisma.EnumUserStatusFieldUpdateOperationsInput | $Enums.UserStatus
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -1366,6 +1462,7 @@ export type UserUpdateWithoutReportsReceivedInput = {
   reviewsGiven?: Prisma.ReviewUpdateManyWithoutReviewerNestedInput
   reviewsReceived?: Prisma.ReviewUpdateManyWithoutHostNestedInput
   reportsSubmitted?: Prisma.ReportUpdateManyWithoutReporterNestedInput
+  savedEvents?: Prisma.SavedEventUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutReportsReceivedInput = {
@@ -1379,6 +1476,7 @@ export type UserUncheckedUpdateWithoutReportsReceivedInput = {
   hobbies?: Prisma.UserUpdatehobbiesInput | string[]
   location?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isDeleted?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isRequestedHost?: Prisma.BoolFieldUpdateOperationsInput | boolean
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
   userStatus?: Prisma.EnumUserStatusFieldUpdateOperationsInput | $Enums.UserStatus
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -1388,6 +1486,119 @@ export type UserUncheckedUpdateWithoutReportsReceivedInput = {
   reviewsGiven?: Prisma.ReviewUncheckedUpdateManyWithoutReviewerNestedInput
   reviewsReceived?: Prisma.ReviewUncheckedUpdateManyWithoutHostNestedInput
   reportsSubmitted?: Prisma.ReportUncheckedUpdateManyWithoutReporterNestedInput
+  savedEvents?: Prisma.SavedEventUncheckedUpdateManyWithoutUserNestedInput
+}
+
+export type UserCreateWithoutSavedEventsInput = {
+  id?: string
+  name: string
+  email: string
+  password: string
+  bio?: string | null
+  image?: string | null
+  interests?: Prisma.UserCreateinterestsInput | string[]
+  hobbies?: Prisma.UserCreatehobbiesInput | string[]
+  location?: string | null
+  isDeleted?: boolean
+  isRequestedHost?: boolean
+  role?: $Enums.Role
+  userStatus?: $Enums.UserStatus
+  createdAt?: Date | string
+  payments?: Prisma.PaymentCreateNestedManyWithoutUserInput
+  eventsJoined?: Prisma.EventParticipantCreateNestedManyWithoutUserInput
+  eventsHosted?: Prisma.EventCreateNestedManyWithoutHostInput
+  reviewsGiven?: Prisma.ReviewCreateNestedManyWithoutReviewerInput
+  reviewsReceived?: Prisma.ReviewCreateNestedManyWithoutHostInput
+  reportsSubmitted?: Prisma.ReportCreateNestedManyWithoutReporterInput
+  reportsReceived?: Prisma.ReportCreateNestedManyWithoutTargetUserInput
+}
+
+export type UserUncheckedCreateWithoutSavedEventsInput = {
+  id?: string
+  name: string
+  email: string
+  password: string
+  bio?: string | null
+  image?: string | null
+  interests?: Prisma.UserCreateinterestsInput | string[]
+  hobbies?: Prisma.UserCreatehobbiesInput | string[]
+  location?: string | null
+  isDeleted?: boolean
+  isRequestedHost?: boolean
+  role?: $Enums.Role
+  userStatus?: $Enums.UserStatus
+  createdAt?: Date | string
+  payments?: Prisma.PaymentUncheckedCreateNestedManyWithoutUserInput
+  eventsJoined?: Prisma.EventParticipantUncheckedCreateNestedManyWithoutUserInput
+  eventsHosted?: Prisma.EventUncheckedCreateNestedManyWithoutHostInput
+  reviewsGiven?: Prisma.ReviewUncheckedCreateNestedManyWithoutReviewerInput
+  reviewsReceived?: Prisma.ReviewUncheckedCreateNestedManyWithoutHostInput
+  reportsSubmitted?: Prisma.ReportUncheckedCreateNestedManyWithoutReporterInput
+  reportsReceived?: Prisma.ReportUncheckedCreateNestedManyWithoutTargetUserInput
+}
+
+export type UserCreateOrConnectWithoutSavedEventsInput = {
+  where: Prisma.UserWhereUniqueInput
+  create: Prisma.XOR<Prisma.UserCreateWithoutSavedEventsInput, Prisma.UserUncheckedCreateWithoutSavedEventsInput>
+}
+
+export type UserUpsertWithoutSavedEventsInput = {
+  update: Prisma.XOR<Prisma.UserUpdateWithoutSavedEventsInput, Prisma.UserUncheckedUpdateWithoutSavedEventsInput>
+  create: Prisma.XOR<Prisma.UserCreateWithoutSavedEventsInput, Prisma.UserUncheckedCreateWithoutSavedEventsInput>
+  where?: Prisma.UserWhereInput
+}
+
+export type UserUpdateToOneWithWhereWithoutSavedEventsInput = {
+  where?: Prisma.UserWhereInput
+  data: Prisma.XOR<Prisma.UserUpdateWithoutSavedEventsInput, Prisma.UserUncheckedUpdateWithoutSavedEventsInput>
+}
+
+export type UserUpdateWithoutSavedEventsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  password?: Prisma.StringFieldUpdateOperationsInput | string
+  bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  interests?: Prisma.UserUpdateinterestsInput | string[]
+  hobbies?: Prisma.UserUpdatehobbiesInput | string[]
+  location?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  isDeleted?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isRequestedHost?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
+  userStatus?: Prisma.EnumUserStatusFieldUpdateOperationsInput | $Enums.UserStatus
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  payments?: Prisma.PaymentUpdateManyWithoutUserNestedInput
+  eventsJoined?: Prisma.EventParticipantUpdateManyWithoutUserNestedInput
+  eventsHosted?: Prisma.EventUpdateManyWithoutHostNestedInput
+  reviewsGiven?: Prisma.ReviewUpdateManyWithoutReviewerNestedInput
+  reviewsReceived?: Prisma.ReviewUpdateManyWithoutHostNestedInput
+  reportsSubmitted?: Prisma.ReportUpdateManyWithoutReporterNestedInput
+  reportsReceived?: Prisma.ReportUpdateManyWithoutTargetUserNestedInput
+}
+
+export type UserUncheckedUpdateWithoutSavedEventsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  password?: Prisma.StringFieldUpdateOperationsInput | string
+  bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  interests?: Prisma.UserUpdateinterestsInput | string[]
+  hobbies?: Prisma.UserUpdatehobbiesInput | string[]
+  location?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  isDeleted?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isRequestedHost?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
+  userStatus?: Prisma.EnumUserStatusFieldUpdateOperationsInput | $Enums.UserStatus
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  payments?: Prisma.PaymentUncheckedUpdateManyWithoutUserNestedInput
+  eventsJoined?: Prisma.EventParticipantUncheckedUpdateManyWithoutUserNestedInput
+  eventsHosted?: Prisma.EventUncheckedUpdateManyWithoutHostNestedInput
+  reviewsGiven?: Prisma.ReviewUncheckedUpdateManyWithoutReviewerNestedInput
+  reviewsReceived?: Prisma.ReviewUncheckedUpdateManyWithoutHostNestedInput
+  reportsSubmitted?: Prisma.ReportUncheckedUpdateManyWithoutReporterNestedInput
+  reportsReceived?: Prisma.ReportUncheckedUpdateManyWithoutTargetUserNestedInput
 }
 
 
@@ -1403,6 +1614,7 @@ export type UserCountOutputType = {
   reviewsReceived: number
   reportsSubmitted: number
   reportsReceived: number
+  savedEvents: number
 }
 
 export type UserCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
@@ -1413,6 +1625,7 @@ export type UserCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.I
   reviewsReceived?: boolean | UserCountOutputTypeCountReviewsReceivedArgs
   reportsSubmitted?: boolean | UserCountOutputTypeCountReportsSubmittedArgs
   reportsReceived?: boolean | UserCountOutputTypeCountReportsReceivedArgs
+  savedEvents?: boolean | UserCountOutputTypeCountSavedEventsArgs
 }
 
 /**
@@ -1474,6 +1687,13 @@ export type UserCountOutputTypeCountReportsReceivedArgs<ExtArgs extends runtime.
   where?: Prisma.ReportWhereInput
 }
 
+/**
+ * UserCountOutputType without action
+ */
+export type UserCountOutputTypeCountSavedEventsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.SavedEventWhereInput
+}
+
 
 export type UserSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
@@ -1486,6 +1706,7 @@ export type UserSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = r
   hobbies?: boolean
   location?: boolean
   isDeleted?: boolean
+  isRequestedHost?: boolean
   role?: boolean
   userStatus?: boolean
   createdAt?: boolean
@@ -1496,6 +1717,7 @@ export type UserSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = r
   reviewsReceived?: boolean | Prisma.User$reviewsReceivedArgs<ExtArgs>
   reportsSubmitted?: boolean | Prisma.User$reportsSubmittedArgs<ExtArgs>
   reportsReceived?: boolean | Prisma.User$reportsReceivedArgs<ExtArgs>
+  savedEvents?: boolean | Prisma.User$savedEventsArgs<ExtArgs>
   _count?: boolean | Prisma.UserCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["user"]>
 
@@ -1510,6 +1732,7 @@ export type UserSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensio
   hobbies?: boolean
   location?: boolean
   isDeleted?: boolean
+  isRequestedHost?: boolean
   role?: boolean
   userStatus?: boolean
   createdAt?: boolean
@@ -1526,6 +1749,7 @@ export type UserSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensio
   hobbies?: boolean
   location?: boolean
   isDeleted?: boolean
+  isRequestedHost?: boolean
   role?: boolean
   userStatus?: boolean
   createdAt?: boolean
@@ -1542,12 +1766,13 @@ export type UserSelectScalar = {
   hobbies?: boolean
   location?: boolean
   isDeleted?: boolean
+  isRequestedHost?: boolean
   role?: boolean
   userStatus?: boolean
   createdAt?: boolean
 }
 
-export type UserOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "name" | "email" | "password" | "bio" | "image" | "interests" | "hobbies" | "location" | "isDeleted" | "role" | "userStatus" | "createdAt", ExtArgs["result"]["user"]>
+export type UserOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "name" | "email" | "password" | "bio" | "image" | "interests" | "hobbies" | "location" | "isDeleted" | "isRequestedHost" | "role" | "userStatus" | "createdAt", ExtArgs["result"]["user"]>
 export type UserInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   payments?: boolean | Prisma.User$paymentsArgs<ExtArgs>
   eventsJoined?: boolean | Prisma.User$eventsJoinedArgs<ExtArgs>
@@ -1556,6 +1781,7 @@ export type UserInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = 
   reviewsReceived?: boolean | Prisma.User$reviewsReceivedArgs<ExtArgs>
   reportsSubmitted?: boolean | Prisma.User$reportsSubmittedArgs<ExtArgs>
   reportsReceived?: boolean | Prisma.User$reportsReceivedArgs<ExtArgs>
+  savedEvents?: boolean | Prisma.User$savedEventsArgs<ExtArgs>
   _count?: boolean | Prisma.UserCountOutputTypeDefaultArgs<ExtArgs>
 }
 export type UserIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {}
@@ -1571,6 +1797,7 @@ export type $UserPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs =
     reviewsReceived: Prisma.$ReviewPayload<ExtArgs>[]
     reportsSubmitted: Prisma.$ReportPayload<ExtArgs>[]
     reportsReceived: Prisma.$ReportPayload<ExtArgs>[]
+    savedEvents: Prisma.$SavedEventPayload<ExtArgs>[]
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: string
@@ -1583,6 +1810,7 @@ export type $UserPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs =
     hobbies: string[]
     location: string | null
     isDeleted: boolean
+    isRequestedHost: boolean
     role: $Enums.Role
     userStatus: $Enums.UserStatus
     createdAt: Date
@@ -1987,6 +2215,7 @@ export interface Prisma__UserClient<T, Null = never, ExtArgs extends runtime.Typ
   reviewsReceived<T extends Prisma.User$reviewsReceivedArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$reviewsReceivedArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$ReviewPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   reportsSubmitted<T extends Prisma.User$reportsSubmittedArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$reportsSubmittedArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$ReportPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   reportsReceived<T extends Prisma.User$reportsReceivedArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$reportsReceivedArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$ReportPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  savedEvents<T extends Prisma.User$savedEventsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$savedEventsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$SavedEventPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -2026,6 +2255,7 @@ export interface UserFieldRefs {
   readonly hobbies: Prisma.FieldRef<"User", 'String[]'>
   readonly location: Prisma.FieldRef<"User", 'String'>
   readonly isDeleted: Prisma.FieldRef<"User", 'Boolean'>
+  readonly isRequestedHost: Prisma.FieldRef<"User", 'Boolean'>
   readonly role: Prisma.FieldRef<"User", 'Role'>
   readonly userStatus: Prisma.FieldRef<"User", 'UserStatus'>
   readonly createdAt: Prisma.FieldRef<"User", 'DateTime'>
@@ -2582,6 +2812,30 @@ export type User$reportsReceivedArgs<ExtArgs extends runtime.Types.Extensions.In
   take?: number
   skip?: number
   distinct?: Prisma.ReportScalarFieldEnum | Prisma.ReportScalarFieldEnum[]
+}
+
+/**
+ * User.savedEvents
+ */
+export type User$savedEventsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the SavedEvent
+   */
+  select?: Prisma.SavedEventSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the SavedEvent
+   */
+  omit?: Prisma.SavedEventOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.SavedEventInclude<ExtArgs> | null
+  where?: Prisma.SavedEventWhereInput
+  orderBy?: Prisma.SavedEventOrderByWithRelationInput | Prisma.SavedEventOrderByWithRelationInput[]
+  cursor?: Prisma.SavedEventWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.SavedEventScalarFieldEnum | Prisma.SavedEventScalarFieldEnum[]
 }
 
 /**

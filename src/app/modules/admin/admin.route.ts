@@ -12,7 +12,7 @@ router.get("/analytics",authCookies(Role.ADMIN), AdminController.analytics)
 router.get("/payment-overview",authCookies(Role.ADMIN), AdminController.paymentOverview)
 
 // EVENT MANAGEMENT
-router.get("/all-events",authCookies(Role.ADMIN), AdminController.getAllEvents)
+router.get("/all-events", AdminController.getAllEvents)
 
 // USER MANAGEMENT
 router.get("/users",authCookies(Role.ADMIN), AdminController.getAllUsers);

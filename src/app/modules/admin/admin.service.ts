@@ -223,6 +223,7 @@ analytics: async () => {
       data: {
         role: "HOST",
         userStatus: "ACTIVE",
+        isRequestedHost:true
       },
     });
   },
@@ -233,6 +234,7 @@ analytics: async () => {
       data: {
         role: "USER",
         userStatus: "INACTIVE",
+        isRequestedHost:false
       },
     });
   },

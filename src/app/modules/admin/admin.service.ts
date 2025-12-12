@@ -1,11 +1,12 @@
-import { UserStatus } from "../../../../prisma/generated/prisma/enums";
+import { Role, UserStatus } from "../../../../prisma/generated/prisma/enums";
 import { prisma } from "../../../lib/prisma";
+import { calcultatepagination, Ioptions } from "../../helper/paginationHelper";
 
 
 interface EventFilter {
-    type?: string;
-    date?: string;
-    location?: string;
+  type?: string;
+  date?: string;
+  location?: string;
 }
 
 // interface HostInfo {
@@ -27,8 +28,8 @@ interface EventFilter {
 
 export const AdminService = {
 
-// ADMIN ANALYTICS 
-analytics: async () => {
+  // ADMIN ANALYTICS 
+  analytics: async () => {
     const totalUsers = await prisma.user.count();
     const totalHosts = await prisma.user.count({ where: { role: "HOST" } });
     const totalEvents = await prisma.event.count();
@@ -51,40 +52,62 @@ analytics: async () => {
       monthlyRegistrations,
     };
   },
-  
-// ====================
-// EVENT MANAGEMENT
-// ===================
 
-  getAllEvents: async (filters: EventFilter) => {
+  // ====================
+  // EVENT MANAGEMENT
+  // ===================
+
+  getAllEvents: async (filters: EventFilter, options: Ioptions) => {
     const { type, date, location } = filters;
+    const { page, limit, skip, sortBy, sortOrder } = calcultatepagination(options);
+
 
     const events = await prisma.event.findMany({
-        where: {
-            ...(type && { type: { contains: type, mode: "insensitive" } }),
-            ...(location && { location: { contains: location, mode: "insensitive" } }),
-            ...(date && {
-                date: {
-                    gte: new Date(date + "T00:00:00"),
-                    lte: new Date(date + "T23:59:59"),
-                },
-            }),
-            status: "OPEN",
-        },
+      where: {
+        ...(type && { type: { contains: type, mode: "insensitive" } }),
+        ...(location && { location: { contains: location, mode: "insensitive" } }),
+        ...(date && {
+          date: {
+            gte: new Date(date + "T00:00:00"),
+            lte: new Date(date + "T23:59:59"),
+          },
+        }),
+        status: "OPEN",
+      },
+      skip: skip,
+      take: limit,
 
-        include: {
-            host: {
-                select: { id: true, name: true, image: true, role:true, userStatus:true },
-            },
+      include: {
+        host: {
+          select: { id: true, name: true, image: true, role: true, userStatus: true },
         },
+      },
 
-        orderBy: { date: "asc" },
+      orderBy: { [sortBy]: sortOrder },
     });
 
-    return events
-},
+    const total = await prisma.event.count({
+      where: {
+        ...(type && { type: { contains: type, mode: "insensitive" } }),
+        ...(location && { location: { contains: location, mode: "insensitive" } }),
+        ...(date && {
+          date: {
+            gte: new Date(date + "T00:00:00"),
+            lte: new Date(date + "T23:59:59"),
+          },
+        }),
+        status: "OPEN",
+      }
 
- paymentOverview: async () => {
+    })
+
+    return {
+      meta: { page, limit, total },
+      data: events
+    }
+  },
+
+  paymentOverview: async () => {
     const totalRevenue = await prisma.payment.aggregate({
       where: { status: "PAID" },
       _sum: { amount: true },
@@ -110,12 +133,18 @@ analytics: async () => {
   // ======================
   // USER MANAGEMENT
   // ======================
-  getAllUsers: async (query: any) => {
-    const { search, location, page = 1, limit = 10 } = query;
+  getAllUsers: async (query: any, options: Ioptions) => {
+    const { search, location, userStatus } = query;
+    const { page, limit, skip, sortBy, sortOrder } = calcultatepagination(options);
 
-    const where: any = {
-      role: "USER",
-    };
+    const where: any = {role: Role.USER}
+
+    if (userStatus) {
+      where.userStatus = {
+        in: ["ACTIVE", "INACTIVE", "BLOCKED", "REQUESTED", "SUSPENDED"],
+      }
+    }
+
 
     if (location) where.location = { contains: location, mode: "insensitive" };
 
@@ -127,16 +156,22 @@ analytics: async () => {
       ];
     }
 
-    const skip = (Number(page) - 1) * Number(limit);
 
     const users = await prisma.user.findMany({
       where,
       skip,
       take: Number(limit),
-      orderBy: { createdAt: "desc" },
+      orderBy: { [sortBy]: sortOrder },
     });
 
-    return users;
+    const total = await prisma.user.count({
+      where
+    })
+
+    return {
+      meta: { page, limit, total },
+      users
+    };
   },
 
   getUserById: async (id: string) => {
@@ -146,7 +181,7 @@ analytics: async () => {
   updateUserStatus: async (id: string, status: UserStatus) => {
     return prisma.user.update({
       where: { id },
-      data: { userStatus:status },
+      data: { userStatus: status },
     });
   },
 
@@ -160,7 +195,7 @@ analytics: async () => {
   promoteToHost: async (id: string) => {
     return prisma.user.update({
       where: { id },
-      data: { userStatus: UserStatus.REQUESTED},
+      data: { userStatus: UserStatus.REQUESTED },
     });
   },
 
@@ -174,10 +209,17 @@ analytics: async () => {
   // ======================
   // HOST MANAGEMENT
   // ======================
-  getAllHosts: async (query: any) => {
-    const { search, userStatus, location, page = 1, limit = 10 } = query;
+  getAllHosts: async (query: any, options: Ioptions) => {
+    const { search, userStatus, location } = query;
+    const { page, limit, skip, sortBy, sortOrder } = calcultatepagination(options);
 
     const where: any = { role: "HOST" };
+
+    if (userStatus) {
+      where.userStatus = {
+        in: ["ACTIVE", "INACTIVE", "BLOCKED", "REQUESTED", "SUSPENDED"],
+      }
+    }
 
     if (userStatus) where.status = userStatus;
     if (location) where.location = { contains: location, mode: "insensitive" };
@@ -186,17 +228,25 @@ analytics: async () => {
       where.OR = [
         { name: { contains: search, mode: "insensitive" } },
         { email: { contains: search, mode: "insensitive" } },
+        { location: { contains: search, mode: "insensitive" } },
       ];
     }
 
-    const skip = (Number(page) - 1) * Number(limit);
-
-    return prisma.user.findMany({
+    const users = await prisma.user.findMany({
       where,
       skip,
       take: Number(limit),
-      orderBy: { createdAt: "desc" },
+      orderBy: { [sortBy]: sortOrder },
     });
+
+    const total = await prisma.user.count({
+      where
+    })
+
+    return {
+      meta: { page, limit, total },
+      users
+    };
   },
 
   getHostById: async (id: string) => {
@@ -206,7 +256,7 @@ analytics: async () => {
   updateHostStatus: async (id: string, status: UserStatus) => {
     return prisma.user.update({
       where: { id },
-      data: { userStatus:status },
+      data: { userStatus: status },
     });
   },
 
@@ -223,7 +273,7 @@ analytics: async () => {
       data: {
         role: "HOST",
         userStatus: "ACTIVE",
-        isRequestedHost:true
+        isRequestedHost: true
       },
     });
   },
@@ -234,7 +284,7 @@ analytics: async () => {
       data: {
         role: "USER",
         userStatus: "INACTIVE",
-        isRequestedHost:false
+        isRequestedHost: false
       },
     });
   },

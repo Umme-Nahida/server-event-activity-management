@@ -4,7 +4,7 @@ import { catchAsync } from "../../utils/catchAsync";
 import { sendResponse } from "../../utils/sendResponse";
 import { JwtPayload } from "jsonwebtoken";
 import { SavedEventService } from "./savedEvents.service";
-
+import { pick } from "../../helper/pick";
 export const SavedEventController = {
   
   saveEvent: catchAsync(async (req:Request & JwtPayload, res:Response, next:NextFunction) => {
@@ -37,8 +37,9 @@ export const SavedEventController = {
 
   getMySavedEvents: catchAsync(async (req:Request & JwtPayload, res:Response, next:NextFunction) => {
     const userId = req.user.id;
+    const options = pick(req.query, ["page", "limit", "sortBy", "sortOrder"]);
 
-    const data = await SavedEventService.getMySavedEvents(userId);
+    const data = await SavedEventService.getMySavedEvents(userId,options);
 
     sendResponse(res, {
       success: true,

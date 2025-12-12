@@ -4,6 +4,7 @@ import { catchAsync } from "../../utils/catchAsync";
 import { sendResponse } from "../../utils/sendResponse";
 import { AdminService } from "./admin.service";
 import { JwtPayload } from "jsonwebtoken";
+import { pick } from "../../helper/pick";
 
 const analytics = catchAsync(async(req:Request,res:Response, next:NextFunction)=>{
  
@@ -33,7 +34,8 @@ const paymentOverview = catchAsync(async(req:Request,res:Response, next:NextFunc
 const getAllEvents = catchAsync(async(req:Request,res:Response, next:NextFunction)=>{
      
     const filter = req.query;
-     const result = await AdminService.getAllEvents(filter);
+    const options = pick(req.query, ["page", "limit", "sortBy", "sortOrder"]);
+     const result = await AdminService.getAllEvents(filter,options);
    
         sendResponse(res,{
             success: true,
@@ -45,11 +47,12 @@ const getAllEvents = catchAsync(async(req:Request,res:Response, next:NextFunctio
 
   // USERS
  const getAllUsers = catchAsync(async (req, res) => {
-    const result = await AdminService.getAllUsers(req.query);
+    const options = pick(req.query, ["page", "limit", "sortBy", "sortOrder"]);
+    const result = await AdminService.getAllUsers(req.query,options);
        sendResponse(res,{
             success: true,
             statusCode: httpStatus.OK,
-            message: "aLL user retrieve successfully",
+            message: "all user retrieve successfully",
             data: result
         })
   })
@@ -106,7 +109,8 @@ const demoteToUser = catchAsync(async (req, res) => {
 
   // HOSTS
 const  getAllHosts = catchAsync(async (req, res) => {
-    const result = await AdminService.getAllHosts(req.query);
+    const options = pick(req.query, ["page", "limit", "sortBy", "sortOrder"]);
+    const result = await AdminService.getAllHosts(req.query,options);
        sendResponse(res,{
             success: true,
             statusCode: httpStatus.OK,

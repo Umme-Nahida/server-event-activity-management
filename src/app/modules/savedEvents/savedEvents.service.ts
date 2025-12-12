@@ -1,4 +1,5 @@
 import { prisma } from "../../../lib/prisma";
+import { calcultatepagination, Ioptions } from "../../helper/paginationHelper";
 
 
 export const SavedEventService = {
@@ -23,9 +24,13 @@ export const SavedEventService = {
     });
   },
 
-  getMySavedEvents: async (userId: string) => {
-    return prisma.savedEvent.findMany({
+  getMySavedEvents: async (userId: string,options:Ioptions) => {
+    const { page, limit, skip, sortBy, sortOrder } = calcultatepagination(options);
+    const savedEvent = await prisma.savedEvent.findMany({
       where: { userId },
+      skip:skip,
+      take:limit,
+      orderBy:{[sortBy]:sortOrder},
       include: {
         event: {
           include: {
@@ -47,9 +52,17 @@ export const SavedEventService = {
             },
           },
         },
-      },
-      orderBy: { createdAt: "desc" },
+      }
     });
+
+    const total = await prisma.savedEvent.count({
+      where:{userId}
+    })
+
+    return {
+      meta:{total,page,limit},
+      data: savedEvent
+    }
   },
 
 };

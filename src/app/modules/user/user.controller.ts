@@ -3,6 +3,7 @@ import httpStatus from "http-status"
 import { catchAsync } from "../../utils/catchAsync"
 import { sendResponse } from "../../utils/sendResponse"
 import { UserService } from "./user.service";
+import { JwtPayload } from "jsonwebtoken";
 
 
     interface IPayloadUser {
@@ -58,9 +59,25 @@ const deleteMyAccount =  catchAsync(async (req: Request & IPayloadUser, res: Res
   })
 
 
+const createReport =  catchAsync(async (req: Request & JwtPayload, res: Response, next:NextFunction) => {
+    
+    const userId = req.user.id;
+
+    const data = await UserService.createReport(userId,req.body);
+
+    sendResponse(res, {
+      statusCode: 200,
+      success: true,
+      message: "Report has been creted successfully",
+      data: data
+    });
+  })
+
+
 
 export const UserController = {
    getMyProfile,
    updateMyProfile,
-   deleteMyAccount
+   deleteMyAccount,
+   createReport
 }

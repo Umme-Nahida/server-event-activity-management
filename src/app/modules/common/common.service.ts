@@ -1,7 +1,7 @@
 import { Prisma } from "../../../../prisma/generated/prisma/client";
 import { prisma } from "../../../lib/prisma";
 import { calcultatepagination, Ioptions } from "../../helper/paginationHelper";
-import { eventNumberableField, eventSearchableField } from "./event.constant";
+import { eventSearchableField } from "./event.constant";
 
 
 interface EventFilter {
@@ -44,12 +44,12 @@ interface EventFilter {
 // }
 const getAllEvents = async (filters: EventFilter, options: Ioptions) => {
     const { page, limit, skip, sortBy, sortOrder } = calcultatepagination(options);
-    const { searchTerm, date, minFee, maxFee, fee, location, ...rest } = filters;
+    const { searchTerm,type, date, minFee, maxFee, fee, location, ...rest } = filters;
 
     const andConditions: Prisma.EventWhereInput[] = [];
 
     // -------------------------------
-    // 1) SEARCH TERM (STRING FIELDS)
+    // 1) SEARCH TERM (STRING FIELDS: time, location, type)
     // -------------------------------
     if (searchTerm && typeof searchTerm === "string") {
         andConditions.push({
@@ -101,8 +101,17 @@ const getAllEvents = async (filters: EventFilter, options: Ioptions) => {
     }
 
     // -------------------------------
-    // 5) LOCATION FILTER
+    // 5) type or category FILTER
     // -------------------------------
+    if (type) {
+        andConditions.push({
+            type: {
+                contains: type,
+                mode: "insensitive",
+            },
+        });
+    }
+
     if (location) {
         andConditions.push({
             location: {

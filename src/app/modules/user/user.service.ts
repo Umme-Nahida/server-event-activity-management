@@ -100,9 +100,24 @@ import AppError from "../../customizer/AppErrror";
 
 
 
+  const createReport = async (reporterId: string, payload: any) => {
+    const { targetUserId, targetEventId, reason } = payload;
+
+    return prisma.report.create({
+      data: {
+        reporterId,
+        targetUserId,
+        targetEventId,
+        reason,
+      },
+    });
+  }
+
+
 
 export const UserService = {
     getMyProfile,
     updateMyProfile,
-    deleteMyAccount
+    deleteMyAccount,
+    createReport
 }

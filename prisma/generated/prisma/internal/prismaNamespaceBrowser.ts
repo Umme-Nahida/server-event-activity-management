@@ -149,6 +149,7 @@ export const UserScalarFieldEnum = {
   location: 'location',
   isDeleted: 'isDeleted',
   isRequestedHost: 'isRequestedHost',
+  needPasswordChange: 'needPasswordChange',
   role: 'role',
   userStatus: 'userStatus',
   createdAt: 'createdAt'

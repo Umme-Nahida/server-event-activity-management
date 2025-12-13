@@ -22,6 +22,7 @@ import { fileUploader } from "../../helper/fileUploader";
 
       // Own data — all roles can see
       reviewsGiven: true,
+      reviewsReceived:true,
       eventsJoined: {
         include: {
           event: true,

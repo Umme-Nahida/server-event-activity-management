@@ -3,7 +3,7 @@ import { prisma } from "../../../lib/prisma";
 import { generateToken } from "../../helper/jwtToken";
 import { envVars } from "../../config/env";
 import { fileUploader } from "../../helper/fileUploader";
-import { Prisma } from "../../../../prisma/generated/prisma/client";
+import { Prisma, UserStatus } from "../../../../prisma/generated/prisma/client";
 
 
 export const registerUser = async (userData:Partial<Prisma.UserCreateInput>,file:any) => {
@@ -89,7 +89,40 @@ const payloadJwt = {
   };
 };
 
+const changePassword = async (user: any, payload: any) => {
+   console.log("payload:",payload)
+    const userData = await prisma.user.findUniqueOrThrow({
+        where: {
+            email: user.email,
+            userStatus: UserStatus.ACTIVE
+        }
+    });
+
+    const isCorrectPassword: boolean = await bcrypt.compare(payload.oldPassword, userData.password);
+
+    if (!isCorrectPassword) {
+        throw new Error("Password incorrect!")
+    }
+
+    const hashedPassword: string = await bcrypt.hash(payload.newPassword, 10);
+
+    await prisma.user.update({
+        where: {
+            email: userData.email
+        },
+        data: {
+            password: hashedPassword,
+            needPasswordChange: false
+        }
+    })
+
+    return {
+        message: "Password changed successfully!"
+    }
+};
+
 export const AuthService = {
   registerUser,
   loginUser,
+  changePassword
 };

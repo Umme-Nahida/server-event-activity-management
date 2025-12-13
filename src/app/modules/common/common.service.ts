@@ -106,7 +106,7 @@ const getAllEvents = async (filters: EventFilter, options: Ioptions) => {
     // -------------------------------
     if (type) {
         andConditions.push({
-            type: {
+            category: {
                 contains: type,
                 mode: "insensitive",
             },
@@ -144,7 +144,7 @@ const getAllEvents = async (filters: EventFilter, options: Ioptions) => {
         take: limit,
         orderBy: { [sortBy]: sortOrder },
         include: {
-            host: { select: { id: true, name: true, image: true } },
+            host: { select: { id: true, name: true, image: true,bio:true, location:true} },
         },
     });
 

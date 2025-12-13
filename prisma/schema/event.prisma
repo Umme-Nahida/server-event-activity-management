@@ -2,7 +2,7 @@
 model Event {
   id              String   @id @default(uuid())
   name            String
-  type            String
+  category            String
   description     String?
   location        String
   image           String?
@@ -13,7 +13,9 @@ model Event {
   participantCount  Int      @default(0)
   fee             Float    @default(0)
   status          EventStatus  @default(OPEN) 
+  isPaid          Boolean   @default(false)
   createdAt       DateTime @default(now())
+  
 
   host     User   @relation("hostedEvents", fields: [hostId], references: [id])
   hostId   String

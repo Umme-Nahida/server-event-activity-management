@@ -43,7 +43,7 @@ export type EventSumAggregateOutputType = {
 export type EventMinAggregateOutputType = {
   id: string | null
   name: string | null
-  type: string | null
+  category: string | null
   description: string | null
   location: string | null
   image: string | null
@@ -54,6 +54,7 @@ export type EventMinAggregateOutputType = {
   participantCount: number | null
   fee: number | null
   status: $Enums.EventStatus | null
+  isPaid: boolean | null
   createdAt: Date | null
   hostId: string | null
 }
@@ -61,7 +62,7 @@ export type EventMinAggregateOutputType = {
 export type EventMaxAggregateOutputType = {
   id: string | null
   name: string | null
-  type: string | null
+  category: string | null
   description: string | null
   location: string | null
   image: string | null
@@ -72,6 +73,7 @@ export type EventMaxAggregateOutputType = {
   participantCount: number | null
   fee: number | null
   status: $Enums.EventStatus | null
+  isPaid: boolean | null
   createdAt: Date | null
   hostId: string | null
 }
@@ -79,7 +81,7 @@ export type EventMaxAggregateOutputType = {
 export type EventCountAggregateOutputType = {
   id: number
   name: number
-  type: number
+  category: number
   description: number
   location: number
   image: number
@@ -90,6 +92,7 @@ export type EventCountAggregateOutputType = {
   participantCount: number
   fee: number
   status: number
+  isPaid: number
   createdAt: number
   hostId: number
   _all: number
@@ -113,7 +116,7 @@ export type EventSumAggregateInputType = {
 export type EventMinAggregateInputType = {
   id?: true
   name?: true
-  type?: true
+  category?: true
   description?: true
   location?: true
   image?: true
@@ -124,6 +127,7 @@ export type EventMinAggregateInputType = {
   participantCount?: true
   fee?: true
   status?: true
+  isPaid?: true
   createdAt?: true
   hostId?: true
 }
@@ -131,7 +135,7 @@ export type EventMinAggregateInputType = {
 export type EventMaxAggregateInputType = {
   id?: true
   name?: true
-  type?: true
+  category?: true
   description?: true
   location?: true
   image?: true
@@ -142,6 +146,7 @@ export type EventMaxAggregateInputType = {
   participantCount?: true
   fee?: true
   status?: true
+  isPaid?: true
   createdAt?: true
   hostId?: true
 }
@@ -149,7 +154,7 @@ export type EventMaxAggregateInputType = {
 export type EventCountAggregateInputType = {
   id?: true
   name?: true
-  type?: true
+  category?: true
   description?: true
   location?: true
   image?: true
@@ -160,6 +165,7 @@ export type EventCountAggregateInputType = {
   participantCount?: true
   fee?: true
   status?: true
+  isPaid?: true
   createdAt?: true
   hostId?: true
   _all?: true
@@ -254,7 +260,7 @@ export type EventGroupByArgs<ExtArgs extends runtime.Types.Extensions.InternalAr
 export type EventGroupByOutputType = {
   id: string
   name: string
-  type: string
+  category: string
   description: string | null
   location: string
   image: string | null
@@ -265,6 +271,7 @@ export type EventGroupByOutputType = {
   participantCount: number
   fee: number
   status: $Enums.EventStatus
+  isPaid: boolean
   createdAt: Date
   hostId: string
   _count: EventCountAggregateOutputType | null
@@ -295,7 +302,7 @@ export type EventWhereInput = {
   NOT?: Prisma.EventWhereInput | Prisma.EventWhereInput[]
   id?: Prisma.StringFilter<"Event"> | string
   name?: Prisma.StringFilter<"Event"> | string
-  type?: Prisma.StringFilter<"Event"> | string
+  category?: Prisma.StringFilter<"Event"> | string
   description?: Prisma.StringNullableFilter<"Event"> | string | null
   location?: Prisma.StringFilter<"Event"> | string
   image?: Prisma.StringNullableFilter<"Event"> | string | null
@@ -306,6 +313,7 @@ export type EventWhereInput = {
   participantCount?: Prisma.IntFilter<"Event"> | number
   fee?: Prisma.FloatFilter<"Event"> | number
   status?: Prisma.EnumEventStatusFilter<"Event"> | $Enums.EventStatus
+  isPaid?: Prisma.BoolFilter<"Event"> | boolean
   createdAt?: Prisma.DateTimeFilter<"Event"> | Date | string
   hostId?: Prisma.StringFilter<"Event"> | string
   host?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
@@ -319,7 +327,7 @@ export type EventWhereInput = {
 export type EventOrderByWithRelationInput = {
   id?: Prisma.SortOrder
   name?: Prisma.SortOrder
-  type?: Prisma.SortOrder
+  category?: Prisma.SortOrder
   description?: Prisma.SortOrderInput | Prisma.SortOrder
   location?: Prisma.SortOrder
   image?: Prisma.SortOrderInput | Prisma.SortOrder
@@ -330,6 +338,7 @@ export type EventOrderByWithRelationInput = {
   participantCount?: Prisma.SortOrder
   fee?: Prisma.SortOrder
   status?: Prisma.SortOrder
+  isPaid?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   hostId?: Prisma.SortOrder
   host?: Prisma.UserOrderByWithRelationInput
@@ -346,7 +355,7 @@ export type EventWhereUniqueInput = Prisma.AtLeast<{
   OR?: Prisma.EventWhereInput[]
   NOT?: Prisma.EventWhereInput | Prisma.EventWhereInput[]
   name?: Prisma.StringFilter<"Event"> | string
-  type?: Prisma.StringFilter<"Event"> | string
+  category?: Prisma.StringFilter<"Event"> | string
   description?: Prisma.StringNullableFilter<"Event"> | string | null
   location?: Prisma.StringFilter<"Event"> | string
   image?: Prisma.StringNullableFilter<"Event"> | string | null
@@ -357,6 +366,7 @@ export type EventWhereUniqueInput = Prisma.AtLeast<{
   participantCount?: Prisma.IntFilter<"Event"> | number
   fee?: Prisma.FloatFilter<"Event"> | number
   status?: Prisma.EnumEventStatusFilter<"Event"> | $Enums.EventStatus
+  isPaid?: Prisma.BoolFilter<"Event"> | boolean
   createdAt?: Prisma.DateTimeFilter<"Event"> | Date | string
   hostId?: Prisma.StringFilter<"Event"> | string
   host?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
@@ -370,7 +380,7 @@ export type EventWhereUniqueInput = Prisma.AtLeast<{
 export type EventOrderByWithAggregationInput = {
   id?: Prisma.SortOrder
   name?: Prisma.SortOrder
-  type?: Prisma.SortOrder
+  category?: Prisma.SortOrder
   description?: Prisma.SortOrderInput | Prisma.SortOrder
   location?: Prisma.SortOrder
   image?: Prisma.SortOrderInput | Prisma.SortOrder
@@ -381,6 +391,7 @@ export type EventOrderByWithAggregationInput = {
   participantCount?: Prisma.SortOrder
   fee?: Prisma.SortOrder
   status?: Prisma.SortOrder
+  isPaid?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   hostId?: Prisma.SortOrder
   _count?: Prisma.EventCountOrderByAggregateInput
@@ -396,7 +407,7 @@ export type EventScalarWhereWithAggregatesInput = {
   NOT?: Prisma.EventScalarWhereWithAggregatesInput | Prisma.EventScalarWhereWithAggregatesInput[]
   id?: Prisma.StringWithAggregatesFilter<"Event"> | string
   name?: Prisma.StringWithAggregatesFilter<"Event"> | string
-  type?: Prisma.StringWithAggregatesFilter<"Event"> | string
+  category?: Prisma.StringWithAggregatesFilter<"Event"> | string
   description?: Prisma.StringNullableWithAggregatesFilter<"Event"> | string | null
   location?: Prisma.StringWithAggregatesFilter<"Event"> | string
   image?: Prisma.StringNullableWithAggregatesFilter<"Event"> | string | null
@@ -407,6 +418,7 @@ export type EventScalarWhereWithAggregatesInput = {
   participantCount?: Prisma.IntWithAggregatesFilter<"Event"> | number
   fee?: Prisma.FloatWithAggregatesFilter<"Event"> | number
   status?: Prisma.EnumEventStatusWithAggregatesFilter<"Event"> | $Enums.EventStatus
+  isPaid?: Prisma.BoolWithAggregatesFilter<"Event"> | boolean
   createdAt?: Prisma.DateTimeWithAggregatesFilter<"Event"> | Date | string
   hostId?: Prisma.StringWithAggregatesFilter<"Event"> | string
 }
@@ -414,7 +426,7 @@ export type EventScalarWhereWithAggregatesInput = {
 export type EventCreateInput = {
   id?: string
   name: string
-  type: string
+  category: string
   description?: string | null
   location: string
   image?: string | null
@@ -425,6 +437,7 @@ export type EventCreateInput = {
   participantCount?: number
   fee?: number
   status?: $Enums.EventStatus
+  isPaid?: boolean
   createdAt?: Date | string
   host: Prisma.UserCreateNestedOneWithoutEventsHostedInput
   payments?: Prisma.PaymentCreateNestedManyWithoutEventInput
@@ -437,7 +450,7 @@ export type EventCreateInput = {
 export type EventUncheckedCreateInput = {
   id?: string
   name: string
-  type: string
+  category: string
   description?: string | null
   location: string
   image?: string | null
@@ -448,6 +461,7 @@ export type EventUncheckedCreateInput = {
   participantCount?: number
   fee?: number
   status?: $Enums.EventStatus
+  isPaid?: boolean
   createdAt?: Date | string
   hostId: string
   payments?: Prisma.PaymentUncheckedCreateNestedManyWithoutEventInput
@@ -460,7 +474,7 @@ export type EventUncheckedCreateInput = {
 export type EventUpdateInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
-  type?: Prisma.StringFieldUpdateOperationsInput | string
+  category?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   location?: Prisma.StringFieldUpdateOperationsInput | string
   image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -471,6 +485,7 @@ export type EventUpdateInput = {
   participantCount?: Prisma.IntFieldUpdateOperationsInput | number
   fee?: Prisma.FloatFieldUpdateOperationsInput | number
   status?: Prisma.EnumEventStatusFieldUpdateOperationsInput | $Enums.EventStatus
+  isPaid?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   host?: Prisma.UserUpdateOneRequiredWithoutEventsHostedNestedInput
   payments?: Prisma.PaymentUpdateManyWithoutEventNestedInput
@@ -483,7 +498,7 @@ export type EventUpdateInput = {
 export type EventUncheckedUpdateInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
-  type?: Prisma.StringFieldUpdateOperationsInput | string
+  category?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   location?: Prisma.StringFieldUpdateOperationsInput | string
   image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -494,6 +509,7 @@ export type EventUncheckedUpdateInput = {
   participantCount?: Prisma.IntFieldUpdateOperationsInput | number
   fee?: Prisma.FloatFieldUpdateOperationsInput | number
   status?: Prisma.EnumEventStatusFieldUpdateOperationsInput | $Enums.EventStatus
+  isPaid?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   hostId?: Prisma.StringFieldUpdateOperationsInput | string
   payments?: Prisma.PaymentUncheckedUpdateManyWithoutEventNestedInput
@@ -506,7 +522,7 @@ export type EventUncheckedUpdateInput = {
 export type EventCreateManyInput = {
   id?: string
   name: string
-  type: string
+  category: string
   description?: string | null
   location: string
   image?: string | null
@@ -517,6 +533,7 @@ export type EventCreateManyInput = {
   participantCount?: number
   fee?: number
   status?: $Enums.EventStatus
+  isPaid?: boolean
   createdAt?: Date | string
   hostId: string
 }
@@ -524,7 +541,7 @@ export type EventCreateManyInput = {
 export type EventUpdateManyMutationInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
-  type?: Prisma.StringFieldUpdateOperationsInput | string
+  category?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   location?: Prisma.StringFieldUpdateOperationsInput | string
   image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -535,13 +552,14 @@ export type EventUpdateManyMutationInput = {
   participantCount?: Prisma.IntFieldUpdateOperationsInput | number
   fee?: Prisma.FloatFieldUpdateOperationsInput | number
   status?: Prisma.EnumEventStatusFieldUpdateOperationsInput | $Enums.EventStatus
+  isPaid?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
 export type EventUncheckedUpdateManyInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
-  type?: Prisma.StringFieldUpdateOperationsInput | string
+  category?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   location?: Prisma.StringFieldUpdateOperationsInput | string
   image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -552,6 +570,7 @@ export type EventUncheckedUpdateManyInput = {
   participantCount?: Prisma.IntFieldUpdateOperationsInput | number
   fee?: Prisma.FloatFieldUpdateOperationsInput | number
   status?: Prisma.EnumEventStatusFieldUpdateOperationsInput | $Enums.EventStatus
+  isPaid?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   hostId?: Prisma.StringFieldUpdateOperationsInput | string
 }
@@ -559,7 +578,7 @@ export type EventUncheckedUpdateManyInput = {
 export type EventCountOrderByAggregateInput = {
   id?: Prisma.SortOrder
   name?: Prisma.SortOrder
-  type?: Prisma.SortOrder
+  category?: Prisma.SortOrder
   description?: Prisma.SortOrder
   location?: Prisma.SortOrder
   image?: Prisma.SortOrder
@@ -570,6 +589,7 @@ export type EventCountOrderByAggregateInput = {
   participantCount?: Prisma.SortOrder
   fee?: Prisma.SortOrder
   status?: Prisma.SortOrder
+  isPaid?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   hostId?: Prisma.SortOrder
 }
@@ -584,7 +604,7 @@ export type EventAvgOrderByAggregateInput = {
 export type EventMaxOrderByAggregateInput = {
   id?: Prisma.SortOrder
   name?: Prisma.SortOrder
-  type?: Prisma.SortOrder
+  category?: Prisma.SortOrder
   description?: Prisma.SortOrder
   location?: Prisma.SortOrder
   image?: Prisma.SortOrder
@@ -595,6 +615,7 @@ export type EventMaxOrderByAggregateInput = {
   participantCount?: Prisma.SortOrder
   fee?: Prisma.SortOrder
   status?: Prisma.SortOrder
+  isPaid?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   hostId?: Prisma.SortOrder
 }
@@ -602,7 +623,7 @@ export type EventMaxOrderByAggregateInput = {
 export type EventMinOrderByAggregateInput = {
   id?: Prisma.SortOrder
   name?: Prisma.SortOrder
-  type?: Prisma.SortOrder
+  category?: Prisma.SortOrder
   description?: Prisma.SortOrder
   location?: Prisma.SortOrder
   image?: Prisma.SortOrder
@@ -613,6 +634,7 @@ export type EventMinOrderByAggregateInput = {
   participantCount?: Prisma.SortOrder
   fee?: Prisma.SortOrder
   status?: Prisma.SortOrder
+  isPaid?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   hostId?: Prisma.SortOrder
 }
@@ -674,6 +696,10 @@ export type FloatFieldUpdateOperationsInput = {
 
 export type EnumEventStatusFieldUpdateOperationsInput = {
   set?: $Enums.EventStatus
+}
+
+export type BoolFieldUpdateOperationsInput = {
+  set?: boolean
 }
 
 export type EventCreateNestedOneWithoutParticipantsInput = {
@@ -793,7 +819,7 @@ export type EventUpdateOneRequiredWithoutSavedEventsNestedInput = {
 export type EventCreateWithoutParticipantsInput = {
   id?: string
   name: string
-  type: string
+  category: string
   description?: string | null
   location: string
   image?: string | null
@@ -804,6 +830,7 @@ export type EventCreateWithoutParticipantsInput = {
   participantCount?: number
   fee?: number
   status?: $Enums.EventStatus
+  isPaid?: boolean
   createdAt?: Date | string
   host: Prisma.UserCreateNestedOneWithoutEventsHostedInput
   payments?: Prisma.PaymentCreateNestedManyWithoutEventInput
@@ -815,7 +842,7 @@ export type EventCreateWithoutParticipantsInput = {
 export type EventUncheckedCreateWithoutParticipantsInput = {
   id?: string
   name: string
-  type: string
+  category: string
   description?: string | null
   location: string
   image?: string | null
@@ -826,6 +853,7 @@ export type EventUncheckedCreateWithoutParticipantsInput = {
   participantCount?: number
   fee?: number
   status?: $Enums.EventStatus
+  isPaid?: boolean
   createdAt?: Date | string
   hostId: string
   payments?: Prisma.PaymentUncheckedCreateNestedManyWithoutEventInput
@@ -853,7 +881,7 @@ export type EventUpdateToOneWithWhereWithoutParticipantsInput = {
 export type EventUpdateWithoutParticipantsInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
-  type?: Prisma.StringFieldUpdateOperationsInput | string
+  category?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   location?: Prisma.StringFieldUpdateOperationsInput | string
   image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -864,6 +892,7 @@ export type EventUpdateWithoutParticipantsInput = {
   participantCount?: Prisma.IntFieldUpdateOperationsInput | number
   fee?: Prisma.FloatFieldUpdateOperationsInput | number
   status?: Prisma.EnumEventStatusFieldUpdateOperationsInput | $Enums.EventStatus
+  isPaid?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   host?: Prisma.UserUpdateOneRequiredWithoutEventsHostedNestedInput
   payments?: Prisma.PaymentUpdateManyWithoutEventNestedInput
@@ -875,7 +904,7 @@ export type EventUpdateWithoutParticipantsInput = {
 export type EventUncheckedUpdateWithoutParticipantsInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
-  type?: Prisma.StringFieldUpdateOperationsInput | string
+  category?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   location?: Prisma.StringFieldUpdateOperationsInput | string
   image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -886,6 +915,7 @@ export type EventUncheckedUpdateWithoutParticipantsInput = {
   participantCount?: Prisma.IntFieldUpdateOperationsInput | number
   fee?: Prisma.FloatFieldUpdateOperationsInput | number
   status?: Prisma.EnumEventStatusFieldUpdateOperationsInput | $Enums.EventStatus
+  isPaid?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   hostId?: Prisma.StringFieldUpdateOperationsInput | string
   payments?: Prisma.PaymentUncheckedUpdateManyWithoutEventNestedInput
@@ -897,7 +927,7 @@ export type EventUncheckedUpdateWithoutParticipantsInput = {
 export type EventCreateWithoutPaymentsInput = {
   id?: string
   name: string
-  type: string
+  category: string
   description?: string | null
   location: string
   image?: string | null
@@ -908,6 +938,7 @@ export type EventCreateWithoutPaymentsInput = {
   participantCount?: number
   fee?: number
   status?: $Enums.EventStatus
+  isPaid?: boolean
   createdAt?: Date | string
   host: Prisma.UserCreateNestedOneWithoutEventsHostedInput
   participants?: Prisma.EventParticipantCreateNestedManyWithoutEventInput
@@ -919,7 +950,7 @@ export type EventCreateWithoutPaymentsInput = {
 export type EventUncheckedCreateWithoutPaymentsInput = {
   id?: string
   name: string
-  type: string
+  category: string
   description?: string | null
   location: string
   image?: string | null
@@ -930,6 +961,7 @@ export type EventUncheckedCreateWithoutPaymentsInput = {
   participantCount?: number
   fee?: number
   status?: $Enums.EventStatus
+  isPaid?: boolean
   createdAt?: Date | string
   hostId: string
   participants?: Prisma.EventParticipantUncheckedCreateNestedManyWithoutEventInput
@@ -957,7 +989,7 @@ export type EventUpdateToOneWithWhereWithoutPaymentsInput = {
 export type EventUpdateWithoutPaymentsInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
-  type?: Prisma.StringFieldUpdateOperationsInput | string
+  category?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   location?: Prisma.StringFieldUpdateOperationsInput | string
   image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -968,6 +1000,7 @@ export type EventUpdateWithoutPaymentsInput = {
   participantCount?: Prisma.IntFieldUpdateOperationsInput | number
   fee?: Prisma.FloatFieldUpdateOperationsInput | number
   status?: Prisma.EnumEventStatusFieldUpdateOperationsInput | $Enums.EventStatus
+  isPaid?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   host?: Prisma.UserUpdateOneRequiredWithoutEventsHostedNestedInput
   participants?: Prisma.EventParticipantUpdateManyWithoutEventNestedInput
@@ -979,7 +1012,7 @@ export type EventUpdateWithoutPaymentsInput = {
 export type EventUncheckedUpdateWithoutPaymentsInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
-  type?: Prisma.StringFieldUpdateOperationsInput | string
+  category?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   location?: Prisma.StringFieldUpdateOperationsInput | string
   image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -990,6 +1023,7 @@ export type EventUncheckedUpdateWithoutPaymentsInput = {
   participantCount?: Prisma.IntFieldUpdateOperationsInput | number
   fee?: Prisma.FloatFieldUpdateOperationsInput | number
   status?: Prisma.EnumEventStatusFieldUpdateOperationsInput | $Enums.EventStatus
+  isPaid?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   hostId?: Prisma.StringFieldUpdateOperationsInput | string
   participants?: Prisma.EventParticipantUncheckedUpdateManyWithoutEventNestedInput
@@ -1001,7 +1035,7 @@ export type EventUncheckedUpdateWithoutPaymentsInput = {
 export type EventCreateWithoutReviewsInput = {
   id?: string
   name: string
-  type: string
+  category: string
   description?: string | null
   location: string
   image?: string | null
@@ -1012,6 +1046,7 @@ export type EventCreateWithoutReviewsInput = {
   participantCount?: number
   fee?: number
   status?: $Enums.EventStatus
+  isPaid?: boolean
   createdAt?: Date | string
   host: Prisma.UserCreateNestedOneWithoutEventsHostedInput
   payments?: Prisma.PaymentCreateNestedManyWithoutEventInput
@@ -1023,7 +1058,7 @@ export type EventCreateWithoutReviewsInput = {
 export type EventUncheckedCreateWithoutReviewsInput = {
   id?: string
   name: string
-  type: string
+  category: string
   description?: string | null
   location: string
   image?: string | null
@@ -1034,6 +1069,7 @@ export type EventUncheckedCreateWithoutReviewsInput = {
   participantCount?: number
   fee?: number
   status?: $Enums.EventStatus
+  isPaid?: boolean
   createdAt?: Date | string
   hostId: string
   payments?: Prisma.PaymentUncheckedCreateNestedManyWithoutEventInput
@@ -1061,7 +1097,7 @@ export type EventUpdateToOneWithWhereWithoutReviewsInput = {
 export type EventUpdateWithoutReviewsInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
-  type?: Prisma.StringFieldUpdateOperationsInput | string
+  category?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   location?: Prisma.StringFieldUpdateOperationsInput | string
   image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -1072,6 +1108,7 @@ export type EventUpdateWithoutReviewsInput = {
   participantCount?: Prisma.IntFieldUpdateOperationsInput | number
   fee?: Prisma.FloatFieldUpdateOperationsInput | number
   status?: Prisma.EnumEventStatusFieldUpdateOperationsInput | $Enums.EventStatus
+  isPaid?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   host?: Prisma.UserUpdateOneRequiredWithoutEventsHostedNestedInput
   payments?: Prisma.PaymentUpdateManyWithoutEventNestedInput
@@ -1083,7 +1120,7 @@ export type EventUpdateWithoutReviewsInput = {
 export type EventUncheckedUpdateWithoutReviewsInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
-  type?: Prisma.StringFieldUpdateOperationsInput | string
+  category?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   location?: Prisma.StringFieldUpdateOperationsInput | string
   image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -1094,6 +1131,7 @@ export type EventUncheckedUpdateWithoutReviewsInput = {
   participantCount?: Prisma.IntFieldUpdateOperationsInput | number
   fee?: Prisma.FloatFieldUpdateOperationsInput | number
   status?: Prisma.EnumEventStatusFieldUpdateOperationsInput | $Enums.EventStatus
+  isPaid?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   hostId?: Prisma.StringFieldUpdateOperationsInput | string
   payments?: Prisma.PaymentUncheckedUpdateManyWithoutEventNestedInput
@@ -1105,7 +1143,7 @@ export type EventUncheckedUpdateWithoutReviewsInput = {
 export type EventCreateWithoutHostInput = {
   id?: string
   name: string
-  type: string
+  category: string
   description?: string | null
   location: string
   image?: string | null
@@ -1116,6 +1154,7 @@ export type EventCreateWithoutHostInput = {
   participantCount?: number
   fee?: number
   status?: $Enums.EventStatus
+  isPaid?: boolean
   createdAt?: Date | string
   payments?: Prisma.PaymentCreateNestedManyWithoutEventInput
   participants?: Prisma.EventParticipantCreateNestedManyWithoutEventInput
@@ -1127,7 +1166,7 @@ export type EventCreateWithoutHostInput = {
 export type EventUncheckedCreateWithoutHostInput = {
   id?: string
   name: string
-  type: string
+  category: string
   description?: string | null
   location: string
   image?: string | null
@@ -1138,6 +1177,7 @@ export type EventUncheckedCreateWithoutHostInput = {
   participantCount?: number
   fee?: number
   status?: $Enums.EventStatus
+  isPaid?: boolean
   createdAt?: Date | string
   payments?: Prisma.PaymentUncheckedCreateNestedManyWithoutEventInput
   participants?: Prisma.EventParticipantUncheckedCreateNestedManyWithoutEventInput
@@ -1178,7 +1218,7 @@ export type EventScalarWhereInput = {
   NOT?: Prisma.EventScalarWhereInput | Prisma.EventScalarWhereInput[]
   id?: Prisma.StringFilter<"Event"> | string
   name?: Prisma.StringFilter<"Event"> | string
-  type?: Prisma.StringFilter<"Event"> | string
+  category?: Prisma.StringFilter<"Event"> | string
   description?: Prisma.StringNullableFilter<"Event"> | string | null
   location?: Prisma.StringFilter<"Event"> | string
   image?: Prisma.StringNullableFilter<"Event"> | string | null
@@ -1189,6 +1229,7 @@ export type EventScalarWhereInput = {
   participantCount?: Prisma.IntFilter<"Event"> | number
   fee?: Prisma.FloatFilter<"Event"> | number
   status?: Prisma.EnumEventStatusFilter<"Event"> | $Enums.EventStatus
+  isPaid?: Prisma.BoolFilter<"Event"> | boolean
   createdAt?: Prisma.DateTimeFilter<"Event"> | Date | string
   hostId?: Prisma.StringFilter<"Event"> | string
 }
@@ -1196,7 +1237,7 @@ export type EventScalarWhereInput = {
 export type EventCreateWithoutReportInput = {
   id?: string
   name: string
-  type: string
+  category: string
   description?: string | null
   location: string
   image?: string | null
@@ -1207,6 +1248,7 @@ export type EventCreateWithoutReportInput = {
   participantCount?: number
   fee?: number
   status?: $Enums.EventStatus
+  isPaid?: boolean
   createdAt?: Date | string
   host: Prisma.UserCreateNestedOneWithoutEventsHostedInput
   payments?: Prisma.PaymentCreateNestedManyWithoutEventInput
@@ -1218,7 +1260,7 @@ export type EventCreateWithoutReportInput = {
 export type EventUncheckedCreateWithoutReportInput = {
   id?: string
   name: string
-  type: string
+  category: string
   description?: string | null
   location: string
   image?: string | null
@@ -1229,6 +1271,7 @@ export type EventUncheckedCreateWithoutReportInput = {
   participantCount?: number
   fee?: number
   status?: $Enums.EventStatus
+  isPaid?: boolean
   createdAt?: Date | string
   hostId: string
   payments?: Prisma.PaymentUncheckedCreateNestedManyWithoutEventInput
@@ -1256,7 +1299,7 @@ export type EventUpdateToOneWithWhereWithoutReportInput = {
 export type EventUpdateWithoutReportInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
-  type?: Prisma.StringFieldUpdateOperationsInput | string
+  category?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   location?: Prisma.StringFieldUpdateOperationsInput | string
   image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -1267,6 +1310,7 @@ export type EventUpdateWithoutReportInput = {
   participantCount?: Prisma.IntFieldUpdateOperationsInput | number
   fee?: Prisma.FloatFieldUpdateOperationsInput | number
   status?: Prisma.EnumEventStatusFieldUpdateOperationsInput | $Enums.EventStatus
+  isPaid?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   host?: Prisma.UserUpdateOneRequiredWithoutEventsHostedNestedInput
   payments?: Prisma.PaymentUpdateManyWithoutEventNestedInput
@@ -1278,7 +1322,7 @@ export type EventUpdateWithoutReportInput = {
 export type EventUncheckedUpdateWithoutReportInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
-  type?: Prisma.StringFieldUpdateOperationsInput | string
+  category?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   location?: Prisma.StringFieldUpdateOperationsInput | string
   image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -1289,6 +1333,7 @@ export type EventUncheckedUpdateWithoutReportInput = {
   participantCount?: Prisma.IntFieldUpdateOperationsInput | number
   fee?: Prisma.FloatFieldUpdateOperationsInput | number
   status?: Prisma.EnumEventStatusFieldUpdateOperationsInput | $Enums.EventStatus
+  isPaid?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   hostId?: Prisma.StringFieldUpdateOperationsInput | string
   payments?: Prisma.PaymentUncheckedUpdateManyWithoutEventNestedInput
@@ -1300,7 +1345,7 @@ export type EventUncheckedUpdateWithoutReportInput = {
 export type EventCreateWithoutSavedEventsInput = {
   id?: string
   name: string
-  type: string
+  category: string
   description?: string | null
   location: string
   image?: string | null
@@ -1311,6 +1356,7 @@ export type EventCreateWithoutSavedEventsInput = {
   participantCount?: number
   fee?: number
   status?: $Enums.EventStatus
+  isPaid?: boolean
   createdAt?: Date | string
   host: Prisma.UserCreateNestedOneWithoutEventsHostedInput
   payments?: Prisma.PaymentCreateNestedManyWithoutEventInput
@@ -1322,7 +1368,7 @@ export type EventCreateWithoutSavedEventsInput = {
 export type EventUncheckedCreateWithoutSavedEventsInput = {
   id?: string
   name: string
-  type: string
+  category: string
   description?: string | null
   location: string
   image?: string | null
@@ -1333,6 +1379,7 @@ export type EventUncheckedCreateWithoutSavedEventsInput = {
   participantCount?: number
   fee?: number
   status?: $Enums.EventStatus
+  isPaid?: boolean
   createdAt?: Date | string
   hostId: string
   payments?: Prisma.PaymentUncheckedCreateNestedManyWithoutEventInput
@@ -1360,7 +1407,7 @@ export type EventUpdateToOneWithWhereWithoutSavedEventsInput = {
 export type EventUpdateWithoutSavedEventsInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
-  type?: Prisma.StringFieldUpdateOperationsInput | string
+  category?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   location?: Prisma.StringFieldUpdateOperationsInput | string
   image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -1371,6 +1418,7 @@ export type EventUpdateWithoutSavedEventsInput = {
   participantCount?: Prisma.IntFieldUpdateOperationsInput | number
   fee?: Prisma.FloatFieldUpdateOperationsInput | number
   status?: Prisma.EnumEventStatusFieldUpdateOperationsInput | $Enums.EventStatus
+  isPaid?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   host?: Prisma.UserUpdateOneRequiredWithoutEventsHostedNestedInput
   payments?: Prisma.PaymentUpdateManyWithoutEventNestedInput
@@ -1382,7 +1430,7 @@ export type EventUpdateWithoutSavedEventsInput = {
 export type EventUncheckedUpdateWithoutSavedEventsInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
-  type?: Prisma.StringFieldUpdateOperationsInput | string
+  category?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   location?: Prisma.StringFieldUpdateOperationsInput | string
   image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -1393,6 +1441,7 @@ export type EventUncheckedUpdateWithoutSavedEventsInput = {
   participantCount?: Prisma.IntFieldUpdateOperationsInput | number
   fee?: Prisma.FloatFieldUpdateOperationsInput | number
   status?: Prisma.EnumEventStatusFieldUpdateOperationsInput | $Enums.EventStatus
+  isPaid?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   hostId?: Prisma.StringFieldUpdateOperationsInput | string
   payments?: Prisma.PaymentUncheckedUpdateManyWithoutEventNestedInput
@@ -1404,7 +1453,7 @@ export type EventUncheckedUpdateWithoutSavedEventsInput = {
 export type EventCreateManyHostInput = {
   id?: string
   name: string
-  type: string
+  category: string
   description?: string | null
   location: string
   image?: string | null
@@ -1415,13 +1464,14 @@ export type EventCreateManyHostInput = {
   participantCount?: number
   fee?: number
   status?: $Enums.EventStatus
+  isPaid?: boolean
   createdAt?: Date | string
 }
 
 export type EventUpdateWithoutHostInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
-  type?: Prisma.StringFieldUpdateOperationsInput | string
+  category?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   location?: Prisma.StringFieldUpdateOperationsInput | string
   image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -1432,6 +1482,7 @@ export type EventUpdateWithoutHostInput = {
   participantCount?: Prisma.IntFieldUpdateOperationsInput | number
   fee?: Prisma.FloatFieldUpdateOperationsInput | number
   status?: Prisma.EnumEventStatusFieldUpdateOperationsInput | $Enums.EventStatus
+  isPaid?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   payments?: Prisma.PaymentUpdateManyWithoutEventNestedInput
   participants?: Prisma.EventParticipantUpdateManyWithoutEventNestedInput
@@ -1443,7 +1494,7 @@ export type EventUpdateWithoutHostInput = {
 export type EventUncheckedUpdateWithoutHostInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
-  type?: Prisma.StringFieldUpdateOperationsInput | string
+  category?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   location?: Prisma.StringFieldUpdateOperationsInput | string
   image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -1454,6 +1505,7 @@ export type EventUncheckedUpdateWithoutHostInput = {
   participantCount?: Prisma.IntFieldUpdateOperationsInput | number
   fee?: Prisma.FloatFieldUpdateOperationsInput | number
   status?: Prisma.EnumEventStatusFieldUpdateOperationsInput | $Enums.EventStatus
+  isPaid?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   payments?: Prisma.PaymentUncheckedUpdateManyWithoutEventNestedInput
   participants?: Prisma.EventParticipantUncheckedUpdateManyWithoutEventNestedInput
@@ -1465,7 +1517,7 @@ export type EventUncheckedUpdateWithoutHostInput = {
 export type EventUncheckedUpdateManyWithoutHostInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
-  type?: Prisma.StringFieldUpdateOperationsInput | string
+  category?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   location?: Prisma.StringFieldUpdateOperationsInput | string
   image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -1476,6 +1528,7 @@ export type EventUncheckedUpdateManyWithoutHostInput = {
   participantCount?: Prisma.IntFieldUpdateOperationsInput | number
   fee?: Prisma.FloatFieldUpdateOperationsInput | number
   status?: Prisma.EnumEventStatusFieldUpdateOperationsInput | $Enums.EventStatus
+  isPaid?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
@@ -1549,7 +1602,7 @@ export type EventCountOutputTypeCountSavedEventsArgs<ExtArgs extends runtime.Typ
 export type EventSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
   name?: boolean
-  type?: boolean
+  category?: boolean
   description?: boolean
   location?: boolean
   image?: boolean
@@ -1560,6 +1613,7 @@ export type EventSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = 
   participantCount?: boolean
   fee?: boolean
   status?: boolean
+  isPaid?: boolean
   createdAt?: boolean
   hostId?: boolean
   host?: boolean | Prisma.UserDefaultArgs<ExtArgs>
@@ -1574,7 +1628,7 @@ export type EventSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = 
 export type EventSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
   name?: boolean
-  type?: boolean
+  category?: boolean
   description?: boolean
   location?: boolean
   image?: boolean
@@ -1585,6 +1639,7 @@ export type EventSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensi
   participantCount?: boolean
   fee?: boolean
   status?: boolean
+  isPaid?: boolean
   createdAt?: boolean
   hostId?: boolean
   host?: boolean | Prisma.UserDefaultArgs<ExtArgs>
@@ -1593,7 +1648,7 @@ export type EventSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensi
 export type EventSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
   name?: boolean
-  type?: boolean
+  category?: boolean
   description?: boolean
   location?: boolean
   image?: boolean
@@ -1604,6 +1659,7 @@ export type EventSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensi
   participantCount?: boolean
   fee?: boolean
   status?: boolean
+  isPaid?: boolean
   createdAt?: boolean
   hostId?: boolean
   host?: boolean | Prisma.UserDefaultArgs<ExtArgs>
@@ -1612,7 +1668,7 @@ export type EventSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensi
 export type EventSelectScalar = {
   id?: boolean
   name?: boolean
-  type?: boolean
+  category?: boolean
   description?: boolean
   location?: boolean
   image?: boolean
@@ -1623,11 +1679,12 @@ export type EventSelectScalar = {
   participantCount?: boolean
   fee?: boolean
   status?: boolean
+  isPaid?: boolean
   createdAt?: boolean
   hostId?: boolean
 }
 
-export type EventOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "name" | "type" | "description" | "location" | "image" | "date" | "time" | "minParticipants" | "maxParticipants" | "participantCount" | "fee" | "status" | "createdAt" | "hostId", ExtArgs["result"]["event"]>
+export type EventOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "name" | "category" | "description" | "location" | "image" | "date" | "time" | "minParticipants" | "maxParticipants" | "participantCount" | "fee" | "status" | "isPaid" | "createdAt" | "hostId", ExtArgs["result"]["event"]>
 export type EventInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   host?: boolean | Prisma.UserDefaultArgs<ExtArgs>
   payments?: boolean | Prisma.Event$paymentsArgs<ExtArgs>
@@ -1657,7 +1714,7 @@ export type $EventPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs 
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: string
     name: string
-    type: string
+    category: string
     description: string | null
     location: string
     image: string | null
@@ -1668,6 +1725,7 @@ export type $EventPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs 
     participantCount: number
     fee: number
     status: $Enums.EventStatus
+    isPaid: boolean
     createdAt: Date
     hostId: string
   }, ExtArgs["result"]["event"]>
@@ -2101,7 +2159,7 @@ export interface Prisma__EventClient<T, Null = never, ExtArgs extends runtime.Ty
 export interface EventFieldRefs {
   readonly id: Prisma.FieldRef<"Event", 'String'>
   readonly name: Prisma.FieldRef<"Event", 'String'>
-  readonly type: Prisma.FieldRef<"Event", 'String'>
+  readonly category: Prisma.FieldRef<"Event", 'String'>
   readonly description: Prisma.FieldRef<"Event", 'String'>
   readonly location: Prisma.FieldRef<"Event", 'String'>
   readonly image: Prisma.FieldRef<"Event", 'String'>
@@ -2112,6 +2170,7 @@ export interface EventFieldRefs {
   readonly participantCount: Prisma.FieldRef<"Event", 'Int'>
   readonly fee: Prisma.FieldRef<"Event", 'Float'>
   readonly status: Prisma.FieldRef<"Event", 'EventStatus'>
+  readonly isPaid: Prisma.FieldRef<"Event", 'Boolean'>
   readonly createdAt: Prisma.FieldRef<"Event", 'DateTime'>
   readonly hostId: Prisma.FieldRef<"Event", 'String'>
 }

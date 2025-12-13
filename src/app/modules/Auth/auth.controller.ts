@@ -8,7 +8,7 @@ const createUser = catchAsync(async(req:Request,res:Response, next:NextFunction)
      
     const userData = req.body
     const file = req.file;
-     const result = await AuthService.registerUser(userData, file);
+     const result = await AuthService.registerUser(userData,file);
    
         sendResponse(res,{
             success: true,

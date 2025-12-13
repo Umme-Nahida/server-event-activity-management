@@ -1,6 +1,7 @@
 
 import { prisma } from "../../../lib/prisma";
 import AppError from "../../customizer/AppErrror";
+import { fileUploader } from "../../helper/fileUploader";
 
 
 // get my profile
@@ -55,7 +56,12 @@ import AppError from "../../customizer/AppErrror";
 
 
   // update my profile
-  const updateMyProfile = async(userId: string, data: any)=> {
+  const updateMyProfile = async(userId: string, data: any,file:any)=> {
+    // upload file to cloudinary 
+      if (file) {
+        const uploads = await fileUploader.uploadToCloudinary(file)
+        data.image = uploads!.secure_url as string;
+      }
     
     const existingUser = await prisma.user.findUnique({
       where: {id: userId}

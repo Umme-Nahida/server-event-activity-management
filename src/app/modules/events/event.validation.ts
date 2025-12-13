@@ -27,7 +27,7 @@ const dateFromString = z.preprocess((arg) => {
 export const EventCreateSchema = z
   .object({
     name: z.string().min(1, "Event name is required"),
-    type: z.string().min(1, "Event type is required"),
+    category: z.string().min(1, "Event category is required"),
     description: z.string().max(2000).optional().nullable(),
     location: z.string().min(1, "Location is required"),
     image: z.string().url().optional().nullable(),

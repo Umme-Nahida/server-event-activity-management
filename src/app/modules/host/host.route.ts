@@ -5,13 +5,15 @@ import { Role } from "../../../../prisma/generated/prisma/enums";
 import { validationSchema } from "../../middleware/validationMiddleware";
 import { EventCreateSchema } from "../events/event.validation";
 import { HostController } from "./host.controller";
+import { fileUploader } from "../../helper/fileUploader";
 
 const router = Router()
 
 // create_event(host)
 router.post(
-  "/",
+  "/create-event",
   authCookies(Role.HOST),
+  fileUploader.upload.single('file'),
   validationSchema(EventCreateSchema),
   HostController.createEvent
 );

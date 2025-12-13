@@ -79,7 +79,7 @@ export type TransactionIsolationLevel = (typeof TransactionIsolationLevel)[keyof
 export const EventScalarFieldEnum = {
   id: 'id',
   name: 'name',
-  type: 'type',
+  category: 'category',
   description: 'description',
   location: 'location',
   image: 'image',
@@ -90,6 +90,7 @@ export const EventScalarFieldEnum = {
   participantCount: 'participantCount',
   fee: 'fee',
   status: 'status',
+  isPaid: 'isPaid',
   createdAt: 'createdAt',
   hostId: 'hostId'
 } as const

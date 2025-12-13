@@ -4,8 +4,15 @@ import AppError from "../../customizer/AppErrror";
 import httpStatus from "http-status-codes";
 import { IVerifiedUser } from "../../types/userType";
 import { Prisma } from "../../../../prisma/generated/prisma/client";
+import { fileUploader } from "../../helper/fileUploader";
 
-const createEvent = async (hostId: string, payload: Prisma.EventCreateInput) => {
+const createEvent = async (hostId: string, payload: Prisma.EventCreateInput,file:any) => {
+
+   if (file) {
+        const uploadToCloudinary = await fileUploader.uploadToCloudinary(file);
+        payload.image = uploadToCloudinary?.secure_url;
+    }
+
   console.log("payload_host:", payload);
 
   // Host validation
@@ -19,7 +26,7 @@ const createEvent = async (hostId: string, payload: Prisma.EventCreateInput) => 
 
   const {
     name,
-    type,
+    category,
     date,
     time,
     location,
@@ -45,7 +52,7 @@ const createEvent = async (hostId: string, payload: Prisma.EventCreateInput) => 
   const event = await prisma.event.create({
     data: {
       name,
-      type,
+      category,
       date: eventDateTime,
       time,
       location,

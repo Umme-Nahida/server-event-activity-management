@@ -97,7 +97,13 @@ const getUserJoinedPastEvents = catchAsync(
     next: NextFunction
   ) => {
     const userId = req.user.id;
-    const filter = req.query;
+    const filter = pick(req.query, [
+      "searchTerm",
+      "date",
+      "location",
+      "type",
+      "fee",
+    ]);
     const options = pick(req.query, [
       "page",
       "limit",

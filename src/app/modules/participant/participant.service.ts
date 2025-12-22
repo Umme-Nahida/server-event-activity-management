@@ -10,7 +10,6 @@ import {
   Ioptions,
 } from "@/app/helper/paginationHelper";
 import AppError from "@/app/config/customizer/AppError";
-import { JoinedEventFilters } from "@/app/types/participants";
 import { endOfDay, isValid, parseISO, startOfDay } from "date-fns";
 
 const jointEvents = async (userId: string, eventId: string) => {
@@ -164,9 +163,9 @@ const addReview = async (user: JwtPayload, payload: IReview) => {
 
   if (!event) throw new AppError(404, "Event not found!");
 
-  if (new Date(event.date) > new Date()) {
-    throw new AppError(400, "You can review only completed events!");
-  }
+  // if (new Date(event.date) > new Date()) {
+  //   throw new AppError(400, "You can review only completed events!");
+  // }
 
   // rating
   if (rating > 5) {
@@ -195,19 +194,17 @@ const getJoinedEvents = async (
   filters: any,
   options: any
 ) => {
-  const { search, date, location, type, fee } = filters;
+  const { searchTerm, date, location, type, fee } = filters;
   const { page, limit, skip } = calcultatepagination(options);
-
-  console.log(location);
 
   const eventAndConditions: any[] = [];
 
-  if (search) {
+  if (searchTerm) {
     eventAndConditions.push({
       OR: [
-        { name: { contains: search, mode: "insensitive" } },
-        { description: { contains: search, mode: "insensitive" } },
-        { location: { contains: search, mode: "insensitive" } },
+        { name: { contains: searchTerm, mode: "insensitive" } },
+        { description: { contains: searchTerm, mode: "insensitive" } },
+        { location: { contains: searchTerm, mode: "insensitive" } },
       ],
     });
   }
@@ -288,52 +285,97 @@ const getJoinedEvents = async (
   });
 
   return {
-    success: true,
-    message: "All Joined events retrieve successfully",
-    data: {
       meta: {
         page,
         limit,
         total,
         totalPage: Math.ceil(total / limit),
       },
-      data: joinedEvents,
-    },
+      data: joinedEvents
   };
 };
 
+
+
 const getUserJoinedPastEvents = async (
   userId: string,
-  filters: JoinedEventFilters,
+  filters: any,
   options: Ioptions
 ) => {
-  const { search, date } = filters;
+  const { search, date, location, type, fee } = filters;
   const { page, limit, skip } = calcultatepagination(options);
 
   const now = new Date();
 
+  const eventAndConditions: any[] = [];
+
+  // 🔍 search
+  if (search) {
+    eventAndConditions.push({
+      OR: [
+        { name: { contains: search, mode: "insensitive" } },
+        { description: { contains: search, mode: "insensitive" } },
+        { location: { contains: search, mode: "insensitive" } },
+      ],
+    });
+  }
+
+  // 📍 location filter
+  if (location) {
+    eventAndConditions.push({
+      location: {
+        contains: location,
+        mode: "insensitive",
+      },
+    });
+  }
+
+  // 🏷️ type filter
+  if (type) {
+    eventAndConditions.push({
+      type: {
+        equals: type,
+        mode: "insensitive",
+      },
+    });
+  }
+
+  // 📅 specific date filter
+  if (date) {
+    const parsedDate = parseISO(date);
+    if (isValid(parsedDate)) {
+      eventAndConditions.push({
+        date: {
+          gte: startOfDay(parsedDate),
+          lte: endOfDay(parsedDate),
+        },
+      });
+    }
+  }
+
+  // 💰 fee range filter (min,max)
+  if (fee) {
+    const [minFee, maxFee] = fee.split(",").map(Number);
+    if (!isNaN(minFee) && !isNaN(maxFee)) {
+      eventAndConditions.push({
+        fee: {
+          gte: minFee,
+          lte: maxFee,
+        },
+      });
+    }
+  }
+
   const whereCondition: any = {
     userId,
-
     event: {
-      // only past events
+      // ⏳ only past events
       date: {
         lt: now,
       },
 
-      ...(search && {
-        OR: [
-          { name: { contains: search, mode: "insensitive" } },
-          { description: { contains: search, mode: "insensitive" } },
-          { location: { contains: search, mode: "insensitive" } },
-        ],
-      }),
-
-      ...(date && {
-        date: {
-          gte: new Date(date + "T00:00:00"),
-          lte: new Date(date + "T23:59:59"),
-        },
+      ...(eventAndConditions.length > 0 && {
+        AND: eventAndConditions,
       }),
     },
   };
@@ -374,6 +416,7 @@ const getUserJoinedPastEvents = async (
     data: joinedEvents,
   };
 };
+
 
 export const ParticipantService = {
   jointEvents,

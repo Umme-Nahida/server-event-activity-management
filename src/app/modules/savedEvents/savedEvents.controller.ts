@@ -37,9 +37,16 @@ export const SavedEventController = {
 
   getMySavedEvents: catchAsync(async (req:Request & JwtPayload, res:Response, next:NextFunction) => {
     const userId = req.user.id;
+    const filters = pick(req.query, [
+      "search",
+      "date",
+      "location",
+      "type",
+      "fee",
+    ]);
     const options = pick(req.query, ["page", "limit", "sortBy", "sortOrder"]);
 
-    const data = await SavedEventService.getMySavedEvents(userId,options);
+    const data = await SavedEventService.getMySavedEvents(userId,options,filters);
 
     sendResponse(res, {
       success: true,

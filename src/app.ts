@@ -25,7 +25,7 @@ app.use(cors({
 app.use('/api/v1', router)
 
 app.get('/', (req, res) => {
-  res.send('Hello World!')
+  res.send('My event managment server!')
 })
 
 app.use(globalErrorHandler);

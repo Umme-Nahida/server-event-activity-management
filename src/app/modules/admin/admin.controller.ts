@@ -109,6 +109,7 @@ const demoteToUser = catchAsync(async (req, res) => {
 
   // HOSTS
 const  getAllHosts = catchAsync(async (req, res) => {
+    
     const options = pick(req.query, ["page", "limit", "sortBy", "sortOrder"]);
     const result = await AdminService.getAllHosts(req.query,options);
        sendResponse(res,{

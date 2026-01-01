@@ -3,6 +3,7 @@ import { catchAsync } from "../../utils/catchAsync";
 import { sendResponse } from "../../utils/sendResponse";
 import { EventService } from "./event.service";
 import { JwtPayload } from "jsonwebtoken";
+import { pick } from "@/app/helper/pick";
 
 const updateEventStatus = catchAsync(
   async (
@@ -12,7 +13,7 @@ const updateEventStatus = catchAsync(
   ) => {
     const { id } = req.params;
     const { status } = req.body; // OPEN | CANCELLED | COMPLETED
-    console.log("update events:", req.body)
+    console.log("update events:", req.body);
 
     const data = await EventService.updateEventStatus(
       req.user,
@@ -53,10 +54,16 @@ const myEvents = catchAsync(
     res: Response,
     next: NextFunction
   ) => {
-    const userInfo = req.user; // From JWT
+    const userInfo = req.user;
+    const filter = req.query;
+    const options = pick(req.query, [
+      "page",
+      "limit",
+      "sortBy",
+      "sortOrder",
+    ]);
 
-    // const hostId = req.user.id; // From JWT
-    const result = await EventService.getMyEvents(userInfo);
+    const result = await EventService.getMyEvents(userInfo,filter,options);
 
     sendResponse(res, {
       statusCode: 201,
@@ -76,7 +83,7 @@ const getMyReview = catchAsync(
     const userInfo = req.user; // From JWT
 
     // const hostId = req.user.id; // From JWT
-    const result = await EventService.getMyEvents(userInfo);
+    const result = await EventService.getMyReview(userInfo);
 
     sendResponse(res, {
       statusCode: 201,

@@ -3,6 +3,7 @@ import httpStatus from "http-status-codes"
 import { catchAsync } from "../../utils/catchAsync"
 import { sendResponse } from "../../utils/sendResponse"
 import { AuthService } from "./auth.service"
+import { envVars } from "@/app/config/env"
 
 const createUser = catchAsync(async(req:Request,res:Response, next:NextFunction)=>{
      
@@ -19,20 +20,20 @@ const createUser = catchAsync(async(req:Request,res:Response, next:NextFunction)
 })
 
 
-export const login = catchAsync(async (req: Request, res: Response, next: NextFunction) => {
+ const login = catchAsync(async (req: Request, res: Response, next: NextFunction) => {
      const result = await AuthService.loginUser(req.body);
      const { accessToken, refreshToken} = result;
 
     res.cookie("accessToken", accessToken, {
-        secure: true,
+        secure: envVars.NODE_ENV === "production",
         httpOnly: true,
-        sameSite: "none",
+        sameSite: envVars.NODE_ENV === "production" ? "none" : "lax",
         maxAge: 1000 * 60 * 60
     })
     res.cookie("refreshToken", refreshToken, {
-        secure: true,
+        secure: envVars.NODE_ENV === "production",
         httpOnly: true,
-        sameSite: "none",
+        sameSite: envVars.NODE_ENV === "production" ? "none" : "lax",
         maxAge: 1000 * 60 * 60 * 24 * 90
     })
 

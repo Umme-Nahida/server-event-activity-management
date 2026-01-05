@@ -4,6 +4,7 @@ import { generateToken } from "../../helper/jwtToken";
 import { envVars } from "../../config/env";
 import { fileUploader } from "../../helper/fileUploader";
 import { Prisma, UserStatus } from "@prisma/client";
+import httpStatus from "http-status";
 import AppError from "@/app/config/customizer/AppError";
 
 export const registerUser = async (
@@ -65,17 +66,31 @@ export const loginUser = async (
 ) => {
   const { email, password } = data;
 
-  if (!email || !password)
-    throw new Error("Email and password are required");
+  if (!email || !password) {
+    throw new AppError(
+      httpStatus.BAD_REQUEST,
+      "Email and password are required"
+    );
+  }
 
   const user = await prisma.user.findUnique({
     where: { email },
   });
 
-  if (!user) throw new Error("User not found with this email");
+  if (!user) {
+    throw new AppError(
+      httpStatus.NOT_FOUND,
+      "User not found with this email"
+    );
+  }
 
   const match = await bcrypt.compare(password, user.password);
-  if (!match) throw new Error("Your Password is incorrect");
+  if (!match) {
+    throw new AppError(
+      httpStatus.UNAUTHORIZED,
+      "Your password is incorrect"
+    );
+  }
 
   const payloadJwt = {
     id: user.id,
